@@ -25,9 +25,9 @@ We use the string "anti-censorship-team" on IRC to reach all team members, e.g. 
 
 For asynchronous communication, we use our ​anti-censorship-team mailing list. The list is ​publicly archived and available for anyone to sign up, so feel free to participate! Among other things, we use this mailing list to coordinate meetings, send announcements, and discuss all matters related to the anti-censorship team. Note that for development-related topics, we use the ​tor-dev mailing list. 
 
-Roadmapping goals
+# Roadmapping goals
 
-Every three months, we roadmap the challenges we intend to work on for the next three months. The following are our goal for the current roadmapping period (Feb 2020 to Apr 2020):
+Every three months, we roadmap the challenges we intend to work on for the next three months. The following are our goal for the current road mapping period (Feb 2020 to Apr 2020):
 
 * GetTor must be reliable and must work for people in all censored regions.
 * We want to have accurate and safely-collected statistics of GetTor use.
@@ -38,6 +38,24 @@ Every three months, we roadmap the challenges we intend to work on for the next 
 * We want to have more comprehensive BridgeDB metrics.
 * We will improve BridgeDB's broken CAPTCHA system.
 * We will monitor all critical components of the team's infrastructure. 
+
+> You can follow up our roadmap in the [kanban board](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards). 
+
+Active Sponsors and Contracts ¶
+
+* RACE (Resilient Anonymous Communication for Everyone)
+* Empowering Communities in the Global South to Bypass Censorship 
+
+# Becoming a volunteer
+
+Thanks for volunteering with us! There are many things that we need your help with:
+
+* Do you think that Tor (or one of its pluggable transports) is blocked in your country or network? Let us know!
+* Do you know how to code? Come help us improve one of our software projects! See below for more details.
+* We maintain lots of documentation which regularly needs updates and new content.
+* Do you have a background in UX? We maintain user-facing software whose user experience matters to us. 
+
+The best way to get involved is to visit our weekly IRC meeting (see above). Tell us your background and interests and we will find a project for your to get started. 
 
 
 # Archive
