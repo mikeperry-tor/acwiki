@@ -39,12 +39,12 @@ Every three months, we roadmap the challenges we intend to work on for the next 
 * We will improve BridgeDB's broken CAPTCHA system.
 * We will monitor all critical components of the team's infrastructure. 
 
-> You can follow up our roadmap in the [kanban board](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards). 
+> You can follow up our roadmap in this [kanban board](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards). 
 
 Active Sponsors and Contracts ¶
 
-* RACE (Resilient Anonymous Communication for Everyone)
-* Empowering Communities in the Global South to Bypass Censorship 
+* [RACE (Resilient Anonymous Communication for Everyone)](https://gitlab.torproject.org/groups/tpo/-/milestones/10)
+* [Empowering Communities in the Global South to Bypass Censorship ](https://gitlab.torproject.org/tpo/anti-censorship/trac/-/issues/31265)
 
 # Becoming a volunteer
 
