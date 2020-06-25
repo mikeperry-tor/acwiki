@@ -41,7 +41,7 @@ Every three months, we roadmap the challenges we intend to work on for the next 
 
 > You can follow up our roadmap in this [kanban board](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards). 
 
-Active Sponsors and Contracts ¶
+Active Sponsors and Contracts
 
 * [RACE (Resilient Anonymous Communication for Everyone)](https://gitlab.torproject.org/groups/tpo/-/milestones/10)
 * [Empowering Communities in the Global South to Bypass Censorship ](https://gitlab.torproject.org/tpo/anti-censorship/trac/-/issues/31265)
