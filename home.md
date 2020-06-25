@@ -1,4 +1,4 @@
-**About us**
+#About us
 
 Welcome to the anti-censorship team page. The anti-censorship team is a group of Tor people who make Tor reachable anywhere in the world. We analyze censorship attempts and develop technology to work around these censorship attempts.
 
@@ -8,7 +8,6 @@ Excited about joining the team? Here is more information on how to get started. 
 
 
 
-**Archive**
-
+#Archive
 
 https://trac.torproject.org/projects/tor/wiki/org/teams/AntiCensorshipTeam
