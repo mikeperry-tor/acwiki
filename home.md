@@ -21,6 +21,23 @@ People on the anti-censorship team use the pad to keep track of what they did th
 
 We use the string "anti-censorship-team" on IRC to reach all team members, e.g. "anti-censorship-team: take a look at bug #1234". Be sure to configure a highlight in your IRC client for this string. 
 
+# Mailing list
+
+For asynchronous communication, we use our ​anti-censorship-team mailing list. The list is ​publicly archived and available for anyone to sign up, so feel free to participate! Among other things, we use this mailing list to coordinate meetings, send announcements, and discuss all matters related to the anti-censorship team. Note that for development-related topics, we use the ​tor-dev mailing list. 
+
+Roadmapping goals
+
+Every three months, we roadmap the challenges we intend to work on for the next three months. The following are our goal for the current roadmapping period (Feb 2020 to Apr 2020):
+
+* GetTor must be reliable and must work for people in all censored regions.
+* We want to have accurate and safely-collected statistics of GetTor use.
+* Snowflake must be reliable (will allow a user to bootstrap and start browsing without needing to be restarted).
+* Snowflake throughput should not be painful.
+* Snowflake should work on all platforms (including Android).
+* We have happy Snowflake proxy volunteers that remain active.
+* We want to have more comprehensive BridgeDB metrics.
+* We will improve BridgeDB's broken CAPTCHA system.
+* We will monitor all critical components of the team's infrastructure. 
 
 
 # Archive
