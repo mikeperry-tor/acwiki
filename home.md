@@ -25,7 +25,7 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 # Roadmapping goals
 
-The following are our goal for 2020:
+The following are our goals for 2020:
 
 - [ ] We want to have more comprehensive BridgeDB metrics.
 - [ ] We will improve BridgeDB's broken CAPTCHA system.
