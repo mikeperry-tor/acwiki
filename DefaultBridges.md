@@ -1,0 +1,46 @@
+# Tor Browser's default bridges
+
+Tor Browser ships with a number of default bridges. These bridges are hard-coded in the file ​[bridge_prefs.js](https://gitweb.torproject.org/builders/tor-browser-build.git/tree/projects/tor-browser/Bundle-Data/PTConfigs/bridge_prefs.js). The following table is meant to be an authoritative list of our default bridges plus the people who operate these bridges. Whenever we add, remove, or change any of our default bridges, make sure to commit this change to the following repositories:
+* [​tor-browser-build](https://gitweb.torproject.org/builders/tor-browser-build.git/tree/projects/tor-browser/Bundle-Data/PTConfigs/bridge_prefs.js)
+* [​tor-android-service](https://gitweb.torproject.org/tor-android-service.git/tree/service/src/main/assets/common/bridges.txt)
+* ​[OONI](https://github.com/ooni/sysadmin/blob/master/ansible/roles/probe-services/templates/tor_targets.json) (Default bridges are indexed by a value that's determined as follows: `echo -n BRIDGE_FINGERPRINT | xxd -r -p | sha256sum`) 
+
+The following repositories (used to) use default bridges but don't require updates:
+* ​[Onion Browser](https://github.com/OnionBrowser/OnionBrowser/blob/2.X/OnionBrowser/OnionManager.swift) (Onion Browser now fetches and parses bridge_prefs.js automatically.)
+* [​Orbot](https://github.com/guardianproject/orbot/blob/master/orbotservice/src/main/res/raw/bridges.txt)/[​Orbot fa](https://github.com/guardianproject/orbot/blob/master/orbotservice/src/main/res/raw-fa/bridges.txt) (The Guardian Project ​[is considering using different bridges](https://github.com/guardianproject/orbot/issues/258))
+
+| Type       | IP:port                      | Fingerprint                               | Parameters                                                                              | Contact                                     | URL            | Status      |
+|------------|------------------------------|-------------------------------------------|-----------------------------------------------------------------------------------------|---------------------------------------------|----------------|-------------|
+| obfs4      | 38.229.1.78:80               | C8CBDB2464FC9804A69531437BCF2BE31FDD2EE4  | cert=Hmyfd2ev46gGY7NoVxA9ngrPF2zCZtzskRTzoWXbxNkzeVnGFPWmrTtILRyqCTjHR+s9dg iat-mode=1  | Sina Rabbani <srabbani@…>                   | [​Mailing list](https://lists.torproject.org/pipermail/tor-project/2017-March/001007.html)  | Unpublished |
+| obfs4      | 38.229.33.83:80              | 0BAC39417268B96B9F514E7F63FA6FBA1A788955  | cert=VwEFpk9F/UN9JED7XpG1XOjm/O8ZCXK80oPecgWnNDZDv5pdkhq1OpbAH0wNqOT6H6BmRQ iat-mode=1  | Sina Rabbani <srabbani@…>                   | ​[Mailing list](https://lists.torproject.org/pipermail/tor-project/2017-March/001007.html)  | Unpublished |
+| obfs4      | 192.95.36.142:443            | CDF2E852BF539B82BD10E27E9115A31734E378C2  | cert=qUVQ0srL1JI/vO6V6m/24anYXiJD3QP2HgzUKQtQ7GRqqUvs7P+tG43RtAqdhLOALP7DJQ iat-mode=1  | David Goulet <dgoulet@…>                    | tpo/applications/tor-browser#22429         | ​Metrics    |
+| obfs4      | 37.218.240.34:40035          | 88CD36D45A35271963EF82E511C8827A24730913  | cert=eGXYfWODcgqIdPJ+rRupg4GGvVGfh25FWaIXZkit206OSngsp7GAIiGIXOJJROMxEqFKJg iat-mode=1  | Mart van Santen <mart@…>                    | tpo/applications/tor-browser#22468         | ​Metrics    |
+| obfs4      | 37.218.245.14:38224          | D9A82D2F9C2F65A18407B1D2B764F130847F8B5D  | cert=bjRaMrr1BRiAW8IE9U5z27fQaYgOhX1UCmOpg2pFpoMvo6ZgQMzLsaTzzQNTlm7hNcb+Sg iat-mode=0  | Mart van Santen <mart@…>                    | tpo/applications/tor-browser#22468         | ​Metrics    |
+| obfs4      | 85.31.186.98:443             | 011F2599C0E9B27EE74B353155E244813763C3E5  | cert=ayq0XzCwhpdysn5o0EyDUbmSOx3X/oTEbzDMvczHOdBJKlvIdHHLJGkZARtT4dcBFArPPg iat-mode=0  | Felix <zwiebel@…>                           | tpo/applications/tor-browser#23166         | ​Metrics    |
+| obfs4      | 85.31.186.26:443             | 91A6354697E6B02A386312F68D82CF86824D3606  | cert=PBwr+S8JTVZo6MPdHnkTwXJPILWADLqfMGoVvhZClMq/Urndyd42BwX9YFJHZnBB3H0XCw iat-mode=0  | Felix <zwiebel@…>                           | tpo/applications/tor-browser#23166         | ​Metrics    |
+| obfs4      | 144.217.20.138:80            | FB70B257C162BF1038CA669D568D76F5B7F0BABB  | cert=vYIV5MgrghGQvZPIi1tJwnzorMgqgmlKaB77Y3Z9Q/v94wZBOAXkW+fdx4aSxLVnKO+xNw iat-mode=0  | Louis-Philippe Véronneau <tor@…>            | tpo/applications/tor-browser#28185         | ​Metrics    |
+| obfs4      | 193.11.166.194:27015         | 2D82C2E354D531A68469ADF7F878FA6060C6BACA  | cert=4TLQPJrTSaDffMK7Nbao6LC7G9OW/NHkUwIdjLSS3KYf0Nv4/nQiiI8dY2TcsQx01NniOg iat-mode=0  | Tobias Pulls <tobias.pulls@…>               | tpo/applications/tor-browser#31164         | ​Metrics    |
+| obfs4      | 193.11.166.194:27020         | 86AC7B8D430DAC4117E9F42C9EAED18133863AAF  | cert=0LDeJH4JzMDtkJJrFphJCiPqKx7loozKN7VNfuukMGfHO0Z8OGdzHVkhVAOfo1mUdv9cMg iat-mode=0  | Tobias Pulls <tobias.pulls@…>               | tpo/applications/tor-browser#31164         | ​Metrics    |
+| obfs4      | 193.11.166.194:27025         | 1AE2C08904527FEA90C4C4F8C1083EA59FBC6FAF  | cert=ItvYZzW5tn6v3G4UnQa6Qz04Npro6e81AP70YujmK/KXwDFPTs3aHXcHp4n8Vt6w/bv8cA iat-mode=0  | Tobias Pulls <tobias.pulls@…>               | tpo/applications/tor-browser#31164         | ​Metrics    |
+| obfs4      | 209.148.46.65:443            | 74FAD13168806246602538555B5521A0383A1875  | cert=ssH+9rP8dG2NLDN2XuFw63hIO/9MNNinLmxQDpVa+7kTOa9/m+tGWT1SmSYpQ9uTBGa6Hw iat-mode=0  | Micah Sherr <msherr@…>                      | legacy/trac#32606         | ​Metrics    |
+| obfs4      | 146.57.248.225:22            | 10A6CD36A537FCE513A322361547444B393989F0  | cert=K1gDtDAIcUfeLqbstggjIw2rtgIKqdIhUlHp82XRqNSq/mtAjp1BIC9vHKJ2FAEpGssTPw iat-mode=0  | Jaskaran Veer Singh <singh882+torbridge@…>  | legacy/trac#32547         | ​Metrics    |
+| obfs4      | 45.145.95.6:27015            | C5B7CD6946FF10C5B3E89691A7D3F2C122D2117C  | cert=TD7PbUO0/0k6xYHMPW3vJxICfkMZNdkRrb63Zhl5j9dW3iRGiCx0A7mPhe5T2EDzQ35+Zw iat-mode=0  | Toke Høiland-Jørgensen <toke@…>             | legacy/trac#32891         | ​Metrics    |
+| obfs4      | [2a0c:4d80:42:702::1]:27015  | C5B7CD6946FF10C5B3E89691A7D3F2C122D2117C  | cert=TD7PbUO0/0k6xYHMPW3vJxICfkMZNdkRrb63Zhl5j9dW3iRGiCx0A7mPhe5T2EDzQ35+Zw iat-mode=0  | Toke Høiland-Jørgensen <toke@…>             | legacy/trac#32891         | ​Metrics    |
+| meek       | 0.0.2.0:2                    | 97700DFE9F483596DDA6264C4D7DF7641E1E39CE  | url=https://meek.azureedge.net/ front=ajax.aspnetcdn.com                                | Sina Rabbani <srabbani@…>                   | legacy/trac#21342         | ​Metrics    |
+| snowflake  | 0.0.3.0:1                    | 2B280B23E1107BB62ABFC40DDCC8824814F80A72  | N/A                                                                                     | David Fifield <david@…>                     | N/A            | ​Metrics    |
+
+## Adding new default bridges
+
+The following is an informal list of requirements that we have for default bridges:
+* A reliable network link that can handle at least a sustained 100 Mbit/s of traffic.
+  * Any modern CPU can sustain at least 100 MBit/s. A CPU with the AES-NI extension is particularly helpful because it allows Tor to offload its AES operations to the CPU.
+  * We recommend 4 GB of RAM for 100 MBit/s.
+  * For more than 100 MBit/s, a second core may be necessary and more than 4 GB of RAM. 
+* We would like to personally know you (or somebody who is involved in the bridge's operation).
+  * You should also have a sustainable plan for running the bridge, so it doesn't get abandoned. 
+* It's useful (but not necessary) for the bridge to have a dedicated IP address because this IP address will get blocked by China and other places.
+  * If you don't have a dedicated IP address, don't host any services on the bridge that you don't want to see blocked in some countries or networks. 
+* You shouldn't also be running an exit relay.
+* You should give us at least a one month notice before you shut down your bridge.
+
+When we add a new default bridge, we should ask the operator if they want to receive outage alerts from our ​[monit deployment](https://gitlab.torproject.org/tpo/anti-censorship/monit-configuration).
