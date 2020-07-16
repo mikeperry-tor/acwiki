@@ -27,7 +27,8 @@
 * twaddle
 * twiddle
 * fuddle
-* meddle
+* [tweetle beetle paddle battle](https://www.youtube.com/watch?v=S82jwZ0pD1k)
+* [meddle](https://archive.org/details/06.Echoes_201702)
 * riddle
 * skedaddle
 * squiddle
