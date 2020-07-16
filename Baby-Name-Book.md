@@ -10,8 +10,6 @@
 * obfs5
 * ~~Turbo Tunnel (turbot for short)~~
 * Fleabane
-* From the "crypto means cryptozoology" department:
-  * Sasquatch
 * Twister
 * Moshpit
 * ~~Sharknado~~
