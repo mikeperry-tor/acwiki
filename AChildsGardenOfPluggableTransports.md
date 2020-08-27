@@ -1748,3 +1748,5 @@ Programs used to help generate the visualizations on this page:
 ```
 git clone https://www.bamsoftware.com/git/garden.git
 ```
+
+Archived [https://trac.torproject.org/projects/tor/wiki/doc/AChildsGardenOfPluggableTransports](https://trac.torproject.org/projects/tor/wiki/doc/AChildsGardenOfPluggableTransports)
