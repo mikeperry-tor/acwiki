@@ -3,7 +3,8 @@
 Tor Browser ships with a number of default bridges. These bridges are hard-coded in the file ​[bridge_prefs.js](https://gitweb.torproject.org/builders/tor-browser-build.git/tree/projects/tor-browser/Bundle-Data/PTConfigs/bridge_prefs.js). The following table is meant to be an authoritative list of our default bridges plus the people who operate these bridges. Whenever we add, remove, or change any of our default bridges, make sure to commit this change to the following repositories:
 * [​tor-browser-build](https://gitweb.torproject.org/builders/tor-browser-build.git/tree/projects/tor-browser/Bundle-Data/PTConfigs/bridge_prefs.js)
 * [​tor-android-service](https://gitweb.torproject.org/tor-android-service.git/tree/service/src/main/assets/common/bridges.txt)
-* ​[OONI](https://github.com/ooni/sysadmin/blob/master/ansible/roles/probe-services/templates/tor_targets.json) (Default bridges are indexed by a value that's determined as follows: `echo -n BRIDGE_FINGERPRINT | xxd -r -p | sha256sum`) 
+* [monit-configuration](https://gitlab.torproject.org/tpo/anti-censorship/monit-configuration)
+* ​[OONI](https://github.com/ooni/sysadmin/blob/master/ansible/roles/probe-services/templates/tor_targets.json) (Default bridges are indexed by a value that's determined as follows: `echo -n BRIDGE_FINGERPRINT | xxd -r -p | sha256sum`)
 
 The following repositories (used to) use default bridges but don't require updates:
 * ​[Onion Browser](https://github.com/OnionBrowser/OnionBrowser/blob/2.X/OnionBrowser/OnionManager.swift) (Onion Browser now fetches and parses bridge_prefs.js automatically.)
