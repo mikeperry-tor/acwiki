@@ -10,6 +10,6 @@
 
 * When you have code to review, create a merge request – ideally from your personal to the canonical repository. When creating the merge request, assign it to whoever should review your code.
 
-* We generally assign reviews once a week, as part of our [anti-censorship meeting](https://gitlab.torproject.org/tpo/anti-censorship/team#irc-meetings-schedule), but feel free to ping someone to review your code before our meeting, to get an expedited review.
+* We generally assign reviews once a week, as part of our [anti-censorship meeting](https://gitlab.torproject.org/tpo/anti-censorship/team#irc-meetings-schedule), but feel free to ping someone to review your code before our meeting, to get an expedited review. Our goal is to finish reviews in less than three days.
 
 * If you want somebody to review anything that is not code, tag them in the issue, so the issue shows up in their [todo list](https://gitlab.torproject.org/dashboard/todos), e.g., "@phw, please review this". You can use the tag @tpo/anti-censorship to reach all team members but please use it sparingly.
