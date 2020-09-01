@@ -4,6 +4,7 @@ Tor Browser ships with a number of default bridges. These bridges are hard-coded
 * [​tor-browser-build](https://gitweb.torproject.org/builders/tor-browser-build.git/tree/projects/tor-browser/Bundle-Data/PTConfigs/bridge_prefs.js)
 * [​tor-android-service](https://gitweb.torproject.org/tor-android-service.git/tree/service/src/main/assets/common/bridges.txt)
 * [monit-configuration](https://gitlab.torproject.org/tpo/anti-censorship/monit-configuration)
+* [emma](https://gitlab.torproject.org/tpo/anti-censorship/emma)
 * ​[OONI](https://github.com/ooni/sysadmin/blob/master/ansible/roles/probe-services/templates/tor_targets.json) (Default bridges are indexed by a value that's determined as follows: `echo -n BRIDGE_FINGERPRINT | xxd -r -p | sha256sum`)
 
 The following repositories (used to) use default bridges but don't require updates:
