@@ -1,0 +1,1 @@
+You can find GetTor's survival guide [here](https://gitlab.torproject.org/tpo/anti-censorship/gettor-project/gettor/-/wikis/Gettor-Service-Operator-HowTo).
