@@ -35,8 +35,8 @@ The following are our goals for 2020:
 - Snowflake should allow clients to start browsing quickly and with reasonable bandwidth
 - We have happy Snowflake proxy volunteers that remain active.
 - We have a good understanding of censorship events and performance of snowflake in different countries.
-- Build feedback loop between BridgeDB and OONI.
-- Experiment with a modular BridgeDB architecture.
+- ~~Build feedback loop between BridgeDB and OONI.~~
+- ~~Experiment with a modular BridgeDB architecture.~~
 
 You can follow up our roadmap in this [kanban board](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards). 
 
