@@ -7,6 +7,7 @@ General information
 * Bridgestrap invokes the tor process located at /home/bridgestrap/bin/tor-static. Take a look at [this comment](https://gitlab.torproject.org/tpo/anti-censorship/bridgestrap/-/issues/2#note_2710591) for why this is necessary.
 * Bridgestrap's systemd script is at /home/bridgestrap/.config/systemd/user/bridgestrap.service.
 * There's a crontab entry (run `crontab -e` as user bridgestrap) that invokes logrotate once a day.
+* Take a look at [bridgestrap's metrics](https://bridges.torproject.org/bridgestrap-metrics) for a quick check if the service is running.
 
 (Re)starting bridgestrap
 ------------------------
