@@ -15,4 +15,4 @@ General information
 1. Log into polyanthum.
 2. Change to the bridgestrap user by running `sudo -u bridgestrap -s`.
 3. (Re)start the bridgestrap process via its systemd script: `systemctl --user [start|stop|status] bridgestrap`.
-
+4. Take a look at bridgestrap's log file at /home/bridgestrap/logs/bridgestrap.log to make sure that the service (re)started successfully.
