@@ -1,0 +1,1 @@
+Service Operator HowTo can be found on [dip wiki](https://dip.torproject.org/torproject/anti-censorship/gettor/wikis/Gettor-Service-Operator-HowTo)
