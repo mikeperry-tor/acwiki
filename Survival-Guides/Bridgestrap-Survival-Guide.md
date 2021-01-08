@@ -18,3 +18,27 @@ General information
 2. Change to the bridgestrap user by running `sudo -u bridgestrap -s`.
 3. (Re)start the bridgestrap process via its systemd script: `systemctl --user [start|stop|status] bridgestrap`.
 4. Take a look at bridgestrap's log file at /home/bridgestrap/logs/bridgestrap.log to make sure that the service (re)started successfully.
+
+Deploying a new version
+-----------------------
+
+The following script takes as argument a bridgestrap executable and it deploys it on bridges.torproject.org. Replace `POLYANTHUM` with how you log into bridges.torproject.org.
+```bash
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 EXECUTABLE"
+    exit 1
+fi
+path="$1"
+executable=$(basename "$path")
+
+scp "$path" POLYANTHUM:/tmp
+ssh -t POLYANTHUM \
+    "chmod 777 /tmp/${executable} && " \
+    "sudo -u bridgestrap bash -i -c '" \
+      "systemctl --user stop bridgestrap && " \
+      "cp /tmp/${executable} /home/bridgestrap/bin/bridgestrap && " \
+      "systemctl --user start bridgestrap' && " \
+    "rm -f /tmp/${executable}"
+```
