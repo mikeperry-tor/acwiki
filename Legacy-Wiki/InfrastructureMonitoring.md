@@ -1,3 +1,0 @@
-# Infrastructure monitoring
-
-We are monitoring anti-censorship related services and machines with a [monit](https://mmonit.com/monit/) instance that is currently running on the host nymity.ch. You can find this instance's configuration file in a [gitlab repository](https://gitlab.torproject.org/torproject/anti-censorship/monit-configuration). Service outage alerts are sent to the [anti-censorship-alerts](https://lists.torproject.org/cgi-bin/mailman/listinfo/anti-censorship-alerts) mailing list. Feel free to subscribe if you're interested in receiving alerts!
