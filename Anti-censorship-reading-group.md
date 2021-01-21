@@ -18,6 +18,10 @@ Censorship-Resistant Internet Communications by Parasitizing on WebRTC](https://
 
   Meeting notes: http://meetbot.debian.net/tor-meeting/2020/tor-meeting.2020-11-12-15.59.html
 
+- [HTTPT: A Probe-Resistant Proxy](https://censorbib.nymity.ch/pdf/Frolov2020b.pdf)
+
+  Meeting notes: http://meetbot.debian.net/tor-meeting/2020/tor-meeting.2020-09-10-15.58.html
+
 - [Turbo Tunnel](https://www.bamsoftware.com/papers/turbotunnel/turbotunnel.pdf)
 
   Meeting notes: http://meetbot.debian.net/tor-meeting/2020/tor-meeting.2020-08-27-16.00.html
@@ -27,9 +31,21 @@ Abandonment of VPNs as a Privacy-Enhancing Technology](https://petsymposium.org/
 
   Meeting notes: http://meetbot.debian.net/tor-meeting/2020/tor-meeting.2020-07-23-15.58.html
 
+- [GoodbyeDPI](https://github.com/ValdikSS/GoodbyeDPI)
+
+  Meeting notes: https://lists.torproject.org/pipermail/tor-project/2020-July/002923.html
+
+- [Geneva](https://censorbib.nymity.ch/#Bock2019a)
+
+  Meeting notes: http://meetbot.debian.net/tor-meeting/2020/tor-meeting.2020-06-25-15.58.html
+
 - [V2Ray](https://www.v2ray.com/en/)
 
   Meeting notes: http://meetbot.debian.net/tor-meeting/2020/tor-meeting.2020-06-11-15.59.html
+
+- [Conjure: Summoning Proxies from Unused Address Space](https://censorbib.nymity.ch/#Frolov2019b)
+
+  Meeting notes: http://meetbot.debian.net/tor-meeting/2020/tor-meeting.2020-05-28-16.00.html
 
 - [Salmon: Robust Proxy Distribution for Censorship Circumvention](https://censorbib.nymity.ch/#Douglas2016a)
 
