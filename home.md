@@ -45,6 +45,14 @@ You can follow up our roadmap in this [kanban board](https://gitlab.torproject.o
 * [RACE (Resilient Anonymous Communication for Everyone)](https://gitlab.torproject.org/groups/tpo/-/milestones/10)
 * [Empowering Communities in the Global South to Bypass Censorship ](https://gitlab.torproject.org/tpo/anti-censorship/trac/-/issues/31265)
 
+## Projects that the team maintains
+
+* [Gettor](https://gitlab.torproject.org/tpo/anti-censorship/gettor-project/gettor/-/wikis/home)
+* [BridgeDB]
+* [rdsys]
+* [Pluggable Transports]
+* [Snowflake]
+
 # Becoming a volunteer
 
 Thanks for volunteering with us! There are many things that we need your help with:
