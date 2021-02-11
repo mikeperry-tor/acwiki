@@ -51,7 +51,8 @@ You can follow up our roadmap in this [kanban board](https://gitlab.torproject.o
 * [BridgeDB](https://gitlab.torproject.org/tpo/anti-censorship/bridgedb)
 * [rdsys](https://gitlab.torproject.org/tpo/anti-censorship/rdsys)
 * [Pluggable Transports](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports)
-* [Snowflake](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake)
+* [Snowflake](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/wikis/home)
+* [Snowflake Mobile](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake-mobile/-/wikis/home)
 
 # Becoming a volunteer
 
