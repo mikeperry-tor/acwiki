@@ -48,10 +48,10 @@ You can follow up our roadmap in this [kanban board](https://gitlab.torproject.o
 ## Projects that the team maintains
 
 * [Gettor](https://gitlab.torproject.org/tpo/anti-censorship/gettor-project/gettor/-/wikis/home)
-* [BridgeDB]
-* [rdsys]
-* [Pluggable Transports]
-* [Snowflake]
+* [BridgeDB](https://gitlab.torproject.org/tpo/anti-censorship/bridgedb)
+* [rdsys](https://gitlab.torproject.org/tpo/anti-censorship/rdsys)
+* [Pluggable Transports](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports)
+* [Snowflake](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake)
 
 # Becoming a volunteer
 
