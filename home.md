@@ -25,16 +25,23 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 # Roadmapping goals
 
-The following are our goals for 2020:
+The following are our goals for 2021:
+
+- Improve bridge distributions
+- Improve GetTor and merge it with rdsys
+- Improve the performance of Snowflake for users in Asia
+- Provide more feedback to users that have Snowflake proxies
+
+The following were our goals for 2020:
 
 - ~~We want to have more comprehensive BridgeDB metrics.~~
 - ~~We will improve BridgeDB's broken CAPTCHA system.~~
 - ~~We will monitor all critical components of the team's infrastructure.~~
 - Re-engineer GetTor to use multiple distributors (in addition to email)
 - We want to have accurate and safely-collected statistics of GetTor use.
-- Snowflake should allow clients to start browsing quickly and with reasonable bandwidth
-- We have happy Snowflake proxy volunteers that remain active.
-- We have a good understanding of censorship events and performance of snowflake in different countries.
+- ~~Snowflake should allow clients to start browsing quickly and with reasonable bandwidth~~
+- ~~We have happy Snowflake proxy volunteers that remain active.~~
+- ~~We have a good understanding of censorship events and performance of snowflake in different countries.~~
 - ~~Build feedback loop between BridgeDB and OONI.~~
 - ~~Experiment with a modular BridgeDB architecture.~~
 
