@@ -27,10 +27,11 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 The following are our goals for 2021:
 
-- Improve bridge distributions
+- Improve reputation based's bridge distributions
 - Improve GetTor and merge it with rdsys
 - Improve the performance of Snowflake for users in Asia
 - Provide more feedback to users that have Snowflake proxies
+- Complete refactoring of bridgedb into the more general rdsys
 
 The following were our goals for 2020:
 
