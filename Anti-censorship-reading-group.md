@@ -2,12 +2,21 @@ We hold an occasional anti-censorship reading group discussion at the tail end o
 
 # Upcoming Readings Schedule
 
-Our next reading group discussion will be on January 21, 2021 at 16 UTC.
+Our next reading group discussion will be on TBD
 
-Topic: [Early Detection of Censorship Events with Psiphon
-Network Data](https://tics.site/proceedings/2019a/icn_2019_7_10_38005.pdf)
+Topic: TBD
 
 # Past Readings
+
+- [Investigating Large Scale HTTPS Interception in
+Kazakhstan](https://censoredplanet.org/assets/Kazakhstan.pdf)
+
+  Meeting notes: http://meetbot.debian.net/tor-meeting/2021/tor-meeting.2021-03-04-15.58.html
+
+- [Early Detection of Censorship Events with Psiphon
+Network Data](https://tics.site/proceedings/2019a/icn_2019_7_10_38005.pdf)
+
+  Meeting notes: http://meetbot.debian.net/tor-meeting/2021/tor-meeting.2021-01-21-15.58.html
 
 - [Poking a Hole in the Wall: Efficient
 Censorship-Resistant Internet Communications by Parasitizing on WebRTC](https://dl.acm.org/doi/pdf/10.1145/3372297.3417874)
