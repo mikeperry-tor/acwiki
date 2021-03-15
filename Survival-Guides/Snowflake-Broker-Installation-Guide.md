@@ -3,7 +3,7 @@ These are instructions for setting up a Snowflake broker on Debian 10.
 Set up APT and etckeeper.
 Install etckeeper.
 ```
-root# vi /etc/apt/source.list # remove "contrib" and "non-free"
+root# vi /etc/apt/sources.list # remove "contrib" and "non-free"
 root# apt update
 root# apt upgrade
 root# apt install etckeeper
