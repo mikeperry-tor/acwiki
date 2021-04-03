@@ -26,3 +26,15 @@ If you are setting up a new domain front for Moat, you can point it towards eith
 
 The meek server and BridgeDB Moat distributor are run on polyanthum. The 
 
+## Troubleshooting the Moat server
+
+Moat consists of a meek server, some apache2 configs, and a BridgeDB distributor. The meek server listens on 127.0.0.1:2000 and is started by the [run-meek](https://gitlab.torproject.org/tpo/anti-censorship/bridgedb-admin/-/blob/master/bin/run-meek) script.
+
+There are `ProxyPass` rules in `/etc/apache2/sites-available/bridges.torproject.org.conf` on polyanthum to forward requests to https://bridges.torproject.org/meek and https://moat.torproject.org to http://127.0.0.1:2000/.
+
+Useful apache logs can be found in `/var/log/apache2/bridges.torproject.org-access.log` and `/var/log/apache2/bridges.torproject.org-error.log`.
+
+The BridgeDB Moat distributor listens on port 3881, as set in the BridgeDB configuration file `MOAT_HTTP_PORT = 3881` and a corresponding ProxyPass rule is set up to direct requests from the meek tunnel:
+```
+ProxyPass /moat/ http://127.0.0.1:3881/moat/
+```
