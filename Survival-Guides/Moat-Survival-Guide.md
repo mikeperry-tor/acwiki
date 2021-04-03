@@ -18,6 +18,11 @@ And the Fastly infrastructure:
    If you don't see this message, the problem is likely somewhere in Fastly.
 2. Take a look at our Azure CDN configuration in portal.azure.com or the Fastly account at fastly.com
 
+#### Setting up a new domain front
+
+If you are setting up a new domain front for Moat, you can point it towards either https://bridges.torproject.org/meek, or if the CDN does not allow you to forward to URLS, to https://moat.torproject.org.
+
 ## Troubleshooting polyanthum
 
 The meek server and BridgeDB Moat distributor are run on polyanthum. The 
+
