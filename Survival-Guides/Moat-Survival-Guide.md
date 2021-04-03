@@ -22,6 +22,8 @@ Right now Moat is deployed on Microsoft Azure.
 
 If you are setting up a new domain front for Moat, you can point it towards either https://bridges.torproject.org/meek, or if the CDN does not allow you to forward to URLS, to https://moat.torproject.org.
 
+You will also need to update the client side in Tor Browser. Moat is configured in [tor-launcher](https://gitlab.torproject.org/tpo/applications/tor-launcher). Once that has been updated, you can pull the latest changes in the Tor Browser build process.
+
 ## Troubleshooting polyanthum
 
 The meek server and BridgeDB Moat distributor are run on polyanthum. The 
