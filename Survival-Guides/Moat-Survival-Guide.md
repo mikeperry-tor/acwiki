@@ -24,10 +24,6 @@ If you are setting up a new domain front for Moat, you can point it towards eith
 
 You will also need to update the client side in Tor Browser. Moat is configured in [tor-launcher](https://gitlab.torproject.org/tpo/applications/tor-launcher). Once that has been updated, you can pull the latest changes in the Tor Browser build process.
 
-## Troubleshooting polyanthum
-
-The meek server and BridgeDB Moat distributor are run on polyanthum. The 
-
 ## Troubleshooting the Moat server
 
 Moat consists of a meek server, some apache2 configs, and a BridgeDB distributor. The meek server listens on 127.0.0.1:2000 and is started by the [run-meek](https://gitlab.torproject.org/tpo/anti-censorship/bridgedb-admin/-/blob/master/bin/run-meek) script.
