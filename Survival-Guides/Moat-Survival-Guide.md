@@ -10,7 +10,7 @@ Right now Moat is deployed on Microsoft Azure.
    ```
    If you don't see this message, the problem is likely somewhere in Azure.
 
-And the Fastly infrastructure:
+   And the Fastly infrastructure:
    ```
    $ wget -q -O - https://cdn.sstatic.net --header 'Host: moat.torproject.org.global.prod.fastly.net'           
    I’m just a happy little web server.
