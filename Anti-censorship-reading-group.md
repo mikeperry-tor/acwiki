@@ -8,6 +8,10 @@ Topic: TBD
 
 # Past Readings
 
+- [Domain Shadowing: Leveraging Content Delivery Networks for Robust Blocking-Resistant Communications](https://www.usenix.org/system/files/sec21fall-wei.pdf)
+
+  Meeting notes: http://meetbot.debian.net/tor-meeting/2021/tor-meeting.2021-04-29-16.00.html
+
 - [Investigating Large Scale HTTPS Interception in
 Kazakhstan](https://censoredplanet.org/assets/Kazakhstan.pdf)
 
