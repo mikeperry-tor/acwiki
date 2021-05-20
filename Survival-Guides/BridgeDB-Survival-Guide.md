@@ -25,6 +25,22 @@ Changing BridgeDB's configuration file
 
 BridgeDB's configuration file (and admin scripts) is maintained in the [bridgedb-admin](https://gitweb.torproject.org/project/bridges/bridgedb-admin.git/) repository. On polyanthum, BridgeDB's host, this repository is located at `/srv/bridges.torproject.org/home/bridgedb-admin`. and the configuration file is located at `/srv/bridges.torproject.org/home/bridgedb-admin/etc/bridgedb.conf`.
 
+Deploying a new version of BridgeDB
+-----------------------------------
+
+BridgeDB is run from a local clone of the BridgeDB repository. Once a new version has been tagged and pushed to the repository it's ready to be deployed.
+
+1. Log into BridgeDB's machine
+2. Change to the BridgeDB user by running `sudo -u bridgedb -s`
+3. Checkout the version tag you want to deploy
+   ```
+   git fetch origin
+   git checkout bridgedb-0.x.y
+   ```
+4. Kill the existing BridgeDB process by running `kill $(pgrep -f /home/bridgedb/virtualenvs/bridgedb/bin/bridgedb)`
+5. Reinstall BridgeDB by running `~/bridgedb-admin/bin/deploy-production`
+6. If BridgeDB fails to start, start BridgeDB by running `~/bridgedb-admin/bin/run-bridgedb` which should result in the following output: `Starting BridgeDB...		[OK]`.
+
 (Re)starting moat
 -----------------
 Moat is implemented by the binary `meek-server` located in `/srv/bridges.torproject.org/bin/`. The source code for this binary is available in the `meek-server` directory of the [meek repository](https://gitweb.torproject.org/pluggable-transports/meek.git/). To restart the binary, kill the existing process and then run the script `run-meek` located in `/srv/bridges.torproject.org/bin/`. To deploy a new binary, build it on your local machine and scp it onto polyanthum.
