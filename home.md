@@ -27,11 +27,23 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 The following are our goals for 2021:
 
-- Improve reputation based's bridge distributions
-- Improve GetTor and merge it with rdsys
+- ~~Improve reputation based bridge distribution (e.g. Salmon)~~
+- Better bridge distribution strategies (e.g. Conjure, Salmon)
+    1. conjure first priority <---
+    2. salmon second priority
+      Task 4.1 Let's build a plan for how we're going to start the Salmon research work (Task 4).
+- Make GetTor more reliable and reduce maintenance burden <---
+    Rewrite gettor in Go to include it in rdsys <-- Evaluate if it makes sense to integrate
+    The hard part of keeping gettor working in the past has been keeping all the files we distribute up-to-date. So let's not forget that part. :)
+- Complete integration of bridgedb into the more general rdsys <---
+    Integrating, not replacing bridgedb.
 - Improve the performance of Snowflake for users in Asia
-- Provide more feedback to users that have Snowflake proxies
-- Complete refactoring of bridgedb into the more general rdsys
+    The destination we want is that users use multiple Snowflakes and it helps
+- Snowflake network health -- have enough of the right snowflakes, have volunteers happy
+    Provide more feedback to users that run Snowflake proxies
+- Tor reachability from various countries
+    Task 1.1 Automated scans to create a reachability dataset
+    Task 1.1 Baselines before the blocking event -- get people used to running the tools and sending us the outputs. Maybe work with UX team to streamline this process, identify usability gaps in the tools.
 
 The following were our goals for 2020:
 
