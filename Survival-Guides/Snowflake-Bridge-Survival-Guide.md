@@ -1,6 +1,12 @@
 Snowflake bridge survival guide
 ===============================
 
+IP addresses:
+```
+37.218.242.151
+2a00:c6c0:0:151:4:8f94:69f5:7c01
+```
+
 SSH fingerprints:
 * `2048 SHA256:bP9tfPeIqkZkeKK1wcNT5t3CLyePz8oglFLRcdlP+gQ root@node (RSA)`
 * `1024 SHA256:ji5FxcUh6gjLj7RHl6ffHTRMW62Gp+8ZmGoL0p5nVl0 root@node (DSA)`
