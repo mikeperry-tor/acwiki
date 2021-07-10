@@ -24,6 +24,25 @@ If you are setting up a new domain front for Moat, you can point it towards eith
 
 You will also need to update the client side in Tor Browser. Moat is configured in [tor-launcher](https://gitlab.torproject.org/tpo/applications/tor-launcher). Once that has been updated, you can pull the latest changes in the Tor Browser build process.
 
+## Restarting the Moat server
+
+Moat is implemented with the binary `meek-server` located in `/srv/bridges.torproject.org/bin/`. The source code for this binary is available in the `meek-server` directory of the [meek repository](https://gitweb.torproject.org/pluggable-transports/meek.git/). We run a shim in a separate process to translate user address information from meek and insert it into an `X-Forwarded-For` header. 
+
+The meek server and moat shim can be restarted separately.
+
+1. Kill the existing processes running `meek-server` and/or `moat-shim`
+2. To start meek, run the script `run-meek` located in `/srv/bridges.torproject.org/bin/` as user `bridgedb`:
+```
+sudo -u bridgedb /srv/bridges.torproject.org/bin/run-meek
+```
+3.To start the moat shim, run the script `run-moat-shim` located in `/srv/bridges.torproject.org/bin/` as user `moat`:
+```
+sudo -u moat /srv/bridges.torproject.org/bin/run-moat-shim
+```
+
+#### Updating Moat
+To deploy a new binary for `meek-server` or the `moat-shim`, place the compiled binary in the [bridgedb-admin](https://gitlab.torproject.org/tpo/anti-censorship/bridgedb-admin) repository. Then pull the most recent changes and follow the above instructions for restarting Moat.
+
 ## Troubleshooting the Moat server
 
 Moat consists of a meek server, some apache2 configs, and a BridgeDB distributor. The meek server listens on 127.0.0.1:2000 and is started by the [run-meek](https://gitlab.torproject.org/tpo/anti-censorship/bridgedb-admin/-/blob/master/bin/run-meek) script.
