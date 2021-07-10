@@ -43,7 +43,8 @@ BridgeDB is run from a local clone of the BridgeDB repository. Once a new versio
 
 (Re)starting moat
 -----------------
-Moat is implemented by the binary `meek-server` located in `/srv/bridges.torproject.org/bin/`. The source code for this binary is available in the `meek-server` directory of the [meek repository](https://gitweb.torproject.org/pluggable-transports/meek.git/). To restart the binary, kill the existing process and then run the script `run-meek` located in `/srv/bridges.torproject.org/bin/`. To deploy a new binary, build it on your local machine and scp it onto polyanthum.
+
+See https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Moat-Survival-Guide
 
 (Re)starting wolpertinger
 -------------------------
