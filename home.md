@@ -23,9 +23,32 @@ We use the string "anti-censorship-team" on IRC to reach all team members, e.g. 
 
 For asynchronous communication, we use our ​[anti-censorship-team](https://lists.torproject.org/cgi-bin/mailman/listinfo/anti-censorship-team) mailing list. The list is [​publicly archived](https://lists.torproject.org/pipermail/anti-censorship-team/) and available for anyone to sign up, so feel free to participate! Among other things, we use this mailing list to coordinate meetings, send announcements, and discuss all matters related to the anti-censorship team. Note that for development-related topics, we use the ​[tor-dev](https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev) mailing list. 
 
-# Roadmapping goals
+# Road-mapping goals
 
-The following are our goals for 2021:
+
+## OKRs for Q3 2021 to Q2 2022
+
+- make Tor accessible in China
+- detect and categorize attempts to censor Tor
+- improve the design and reliability of our software
+- release our data and software for use by the broader anti-censorship community
+- improve the performance of Snowflake so that Tor bootstraps reliably on a mobile phone in China
+- deploy TapDance and Conjure as high collateral damage PT 
+- commit to a design for a reputation-based bridge distribution system
+- streamline our private bridge setup and distribution process
+- deploy probes in areas that are likely to censor Tor and collect pack captures and probe results for storage and analysis
+- provide OONI with suggestions for improving the accuracy of OONI's Tor tests
+- summarize the details of Tor blocking events with data from our probes and volunteers
+- add more user metrics based monitoring and alert rules using prometheus
+- deploy rdsys ad the new backend of bridgedb
+- ensure that key infrastructure can survive machine outages and restarts
+- remove hacky shims necessary for moat
+- future improve the snowflake library api to allow easy integration of snowflake with other tools
+- sanitize, publish and archive the results of our Tor reachability probes
+- complete our documentation for each of our tools so that other organizations can run their own anti-censorship infrastructure
+
+
+## The following are our goals for 2021:
 
 - ~~Improve reputation based bridge distribution (e.g. Salmon)~~
 - Better bridge distribution strategies (e.g. Conjure, Salmon)
@@ -45,7 +68,7 @@ The following are our goals for 2021:
     Task 1.1 Automated scans to create a reachability dataset
     Task 1.1 Baselines before the blocking event -- get people used to running the tools and sending us the outputs. Maybe work with UX team to streamline this process, identify usability gaps in the tools.
 
-The following were our goals for 2020:
+## The following were our goals for 2020:
 
 - ~~We want to have more comprehensive BridgeDB metrics.~~
 - ~~We will improve BridgeDB's broken CAPTCHA system.~~
@@ -64,6 +87,7 @@ You can follow up our roadmap in this [kanban board](https://gitlab.torproject.o
 
 * [RACE (Resilient Anonymous Communication for Everyone)](https://gitlab.torproject.org/groups/tpo/-/milestones/10)
 * [Empowering Communities in the Global South to Bypass Censorship ](https://gitlab.torproject.org/tpo/anti-censorship/trac/-/issues/31265)
+* [Sponsor 96: Rapid Expansion of Access to the Uncensored Internet through Tor in China, Hong Kong, & Tibet](https://gitlab.torproject.org/groups/tpo/-/milestones/24)
 
 ## Projects that the team maintains
 
