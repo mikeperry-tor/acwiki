@@ -46,3 +46,11 @@ The following is an informal list of requirements that we have for default bridg
 * You should give us at least a one month notice before you shut down your bridge.
 
 When we add a new default bridge, we should ask the operator if they want to receive outage alerts from our ​[monit deployment](https://gitlab.torproject.org/tpo/anti-censorship/monit-configuration).
+
+### torrc configuration
+
+In order to get metrics on our default bridges use, we need to publish the bridge descriptors. However, we do not want this bridge to be distributed over BridgeDB. To achieve this, ensure the following torrc options are set:
+```
+PublishDescriptor 1
+BridgeDistribution none
+```
