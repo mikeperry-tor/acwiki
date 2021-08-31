@@ -51,6 +51,6 @@ When we add a new default bridge, we should ask the operator if they want to rec
 
 In order to get metrics on our default bridges use, we need to publish the bridge descriptors. However, we do not want this bridge to be distributed over BridgeDB. To achieve this, ensure the following torrc options are set:
 ```
-PublishDescriptor 1
+PublishServerDescriptor 1
 BridgeDistribution none
 ```
