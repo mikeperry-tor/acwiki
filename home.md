@@ -81,22 +81,22 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 - ~~Build feedback loop between BridgeDB and OONI.~~
 - ~~Experiment with a modular BridgeDB architecture.~~
 
-You can follow up our roadmap in this [kanban board](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards). 
+You can follow up our roadmap in this [kanban board](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/groups/tpo/anti-censorship/-/boards). 
 
 ## Active Sponsors and Contracts
 
-* [RACE (Resilient Anonymous Communication for Everyone)](https://gitlab.torproject.org/groups/tpo/-/milestones/10)
-* [Empowering Communities in the Global South to Bypass Censorship ](https://gitlab.torproject.org/tpo/anti-censorship/trac/-/issues/31265)
-* [Sponsor 96: Rapid Expansion of Access to the Uncensored Internet through Tor in China, Hong Kong, & Tibet](https://gitlab.torproject.org/groups/tpo/-/milestones/24)
+* [RACE (Resilient Anonymous Communication for Everyone)](Sponsor-RACE)
+* [Empowering Communities in the Global South to Bypass Censorship ](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/trac/-/issues/31265)
+* [Sponsor 96: Rapid Expansion of Access to the Uncensored Internet through Tor in China, Hong Kong, & Tibet](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/groups/tpo/-/milestones/24)
 
 ## Projects that the team maintains
 
-* [Gettor](https://gitlab.torproject.org/tpo/anti-censorship/gettor-project/gettor/-/wikis/home)
-* [BridgeDB](https://gitlab.torproject.org/tpo/anti-censorship/bridgedb)
-* [rdsys](https://gitlab.torproject.org/tpo/anti-censorship/rdsys)
-* [Pluggable Transports](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports)
-* [Snowflake](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/wikis/home)
-* [Snowflake Mobile](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake-mobile/-/wikis/home)
+* [Gettor](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/gettor-project/gettor/-/wikis/home)
+* [BridgeDB](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/bridgedb)
+* [rdsys](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/rdsys)
+* [Pluggable Transports](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/pluggable-transports)
+* [Snowflake](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/pluggable-transports/snowflake/-/wikis/home)
+* [Snowflake Mobile](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/pluggable-transports/snowflake-mobile/-/wikis/home)
 
 # Becoming a volunteer
 
