@@ -68,6 +68,10 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
     Task 1.1 Automated scans to create a reachability dataset
     Task 1.1 Baselines before the blocking event -- get people used to running the tools and sending us the outputs. Maybe work with UX team to streamline this process, identify usability gaps in the tools.
 
+[Present and past roadmaps](Roadmaps).
+
+You can follow up what we are working on in this [kanban board](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/groups/tpo/anti-censorship/-/boards). 
+
 ## The following were our goals for 2020:
 
 - ~~We want to have more comprehensive BridgeDB metrics.~~
@@ -81,7 +85,6 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 - ~~Build feedback loop between BridgeDB and OONI.~~
 - ~~Experiment with a modular BridgeDB architecture.~~
 
-You can follow up our roadmap in this [kanban board](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/groups/tpo/anti-censorship/-/boards). 
 
 ## Active Sponsors and Contracts
 
