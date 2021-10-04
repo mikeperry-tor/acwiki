@@ -19,13 +19,37 @@
 
 ### <span dir="">What worked well?</span>
 
-</div>\* <span dir="">We did a bunch of really cool work</span> \* <span dir="">Meskio has jumped in and made a lot of progress on the s30 side of things</span> \* <span dir="">Coordination with other teams for the auto connect work.</span> \* <span dir="">S28 program manager remains happy with us. The s30/s96 ones too I think.</span> \* <span dir="">We have a promising third dev on the way. we hired other dev!  \\\\o/</span> \* <span dir="">We have actual results from our censorship assessment vantage points!</span>
+</div>\* <span dir="">We did a bunch of really cool work</span>
+
+\* <span dir="">Meskio has jumped in and made a lot of progress on the s30 side of things</span>
+
+\* <span dir="">Coordination with other teams for the auto connect work.</span>
+
+\* <span dir="">S28 program manager remains happy with us. The s30/s96 ones too I think.</span>
+
+\* <span dir="">We have a promising third dev on the way. we hired other dev!  \\o/</span>
+
+\* <span dir="">We have actual results from our censorship assessment vantage points!</span>
 
 <div>
 
 ### <span dir="">What could work better?</span>
 
-</div>\* <span dir="">Cecylia is still a bottleneck on the racecar 'assessments' + race dev</span> \* <span dir="">We have a bunch of external groups who would love to coordinate with us but we don't have time/energy to start those coordination.</span> \* <span dir="">We have a lot of different irons in the fire right now and few people, so we are spread over many different code repositories and sponsor work and it's hard to prioritize between projects and keep up with new events</span> \* <span dir="">I don't know whether our censorship assessment vantage points are collecting data today or dead or what. :)</span> \* <span dir="">We have notifications from our monitoring infrastructure but we don't really have habits for how to react to the notifications.</span> \* <span dir="">Seems smart for us to change our notifications to only send email when it's actionable, e.g. if it's failed three tests in a row or something.</span> \* <span dir="">It remains tricky, especially with our limited capacity, to prioritize _between_ sponsors. Like, we do individual sponsor meetings, but it seems like all the prioritized tasks are for whichever sponsor meeting we just had. That thrashing results in a lot of changing priorities.</span> \* <span dir=""> We will use the Thursday gaba-cecylia syncs to do a weekly check-in for the overall roadmap for the week.</span>
+</div>\* <span dir="">Cecylia is still a bottleneck on the racecar 'assessments' + race dev</span>
+
+\* <span dir="">We have a bunch of external groups who would love to coordinate with us but we don't have time/energy to start those coordination.</span>
+
+\* <span dir="">We have a lot of different irons in the fire right now and few people, so we are spread over many different code repositories and sponsor work and it's hard to prioritize between projects and keep up with new events</span>
+
+\* <span dir="">I don't know whether our censorship assessment vantage points are collecting data today or dead or what. :)</span>
+
+\* <span dir="">We have notifications from our monitoring infrastructure but we don't really have habits for how to react to the notifications.</span>
+
+  \* <span dir="">Seems smart for us to change our notifications to only send email when it's actionable, e.g. if it's failed three tests in a row or something.</span>
+
+\* <span dir="">It remains tricky, especially with our limited capacity, to prioritize _between_ sponsors. Like, we do individual sponsor meetings, but it seems like all the prioritized tasks are for whichever sponsor meeting we just had. That thrashing results in a lot of changing priorities.</span>
+
+  \* <span dir=""> We will use the Thursday gaba-cecylia syncs to do a weekly check-in for the overall roadmap for the week.</span>
 
 ## <span dir="">ROADMAP 2021 Q4</span>
 
