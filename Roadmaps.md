@@ -68,7 +68,7 @@
   * <span dir="">O2.2.2: Deploy next generation bridge distribution system (rdsys) <-- meskio</span>
   * <span dir="">O2.3: React and steer our response to censorship. \[in China in particular\]</span>
     * <span dir="">Needs to be decided who is going to take this work.</span>
-    * <span dir="">Needs some scoping and planning. Plausible to imagine that it will be a combination of Cecylia and Xiaokang, and then each of them will do other dev things too. Check with Xiaokang when he starts what he wants to focus on.</span>
+    * <span dir="">Needs some scoping and planning. Plausible to imagine that it will be a combination of Cecylia and new-dev, and then each of them will do other dev things too. Check with new-dev when he starts what he wants to focus on.</span>
     * <span dir="">One challenge to keep in mind here: we need new distribution strategies, and/or PTs, because the ones we have today are not enough in China.</span>
   * <span dir="">O3.1: Improve automatic censorship detection during bootstrapping in Tor Browser (desktop and Android). <-- meskio</span>
   * <span dir="">~~O3.2: Deploy Snowflake as a bridge option in Tor Browser stable.~~</span>
