@@ -19,12 +19,11 @@
 
 ### <span dir="">What worked well?</span>
 
-* 
 * <span dir="">We did a bunch of really cool work</span>
+* <span dir="">Meskio has jumped in and made a lot of progress on the s30 side of things</span>
+* <span dir="">Coordination with other teams for the auto connect work.</span>
 
-</div>\* <span dir="">Meskio has jumped in and made a lot of progress on the s30 side of things</span> \\\* <span dir="">Coordination with other teams for the auto connect work.</span>
-
-* <span dir="">S28 program manager remains happy with us. The s30/s96 ones too I think.</span>
+</div>* <span dir="">S28 program manager remains happy with us. The s30/s96 ones too I think.</span>
 * <span dir="">We have a promising third dev on the way. we hired other dev!  \\o/</span>
 * <span dir="">We have actual results from our censorship assessment vantage points!</span>
 
@@ -32,14 +31,13 @@
 
 ### <span dir="">What could work better?</span>
 
-</div>* 
-* <span dir="">Cecylia is still a bottleneck on the racecar 'assessments' + race dev</span> 
+</div>* <span dir="">Cecylia is still a bottleneck on the racecar 'assessments' + race dev</span> 
 * <span dir="">We have a bunch of external groups who would love to coordinate with us but we don't have time/energy to start those coordination.</span> 
-* <span dir="">We have a lot of different irons in the fire right now and few people, so we are spread over many different code repositories and sponsor work and it's hard to prioritize between projects and keep up with new events</span>
-* <span dir="">I don't know whether our censorship assessment vantage points are collecting data today or dead or what. :)</span>
-* <span dir="">We have notifications from our monitoring infrastructure but we don't really have habits for how to react to the notifications.</span>
-*  <span dir="">Seems smart for us to change our notifications to only send email when it's actionable, e.g. if it's failed three tests in a row or something.</span>
-* <span dir="">It remains tricky, especially with our limited capacity, to prioritize _between_ sponsors. Like, we do individual sponsor meetings, but it seems like all the prioritized tasks are for whichever sponsor meeting we just had. That thrashing results in a lot of changing priorities.</span>
+* <span dir="">We have a lot of different irons in the fire right now and few people, so we are spread over many different code repositories and sponsor work and it's hard to prioritize between projects and keep up with new events</span> \* 
+* <span dir="">I don't know whether our censorship assessment vantage points are collecting data today or dead or what. :)</span> \* 
+* <span dir="">We have notifications from our monitoring infrastructure but we don't really have habits for how to react to the notifications.</span> \* 
+* <span dir="">Seems smart for us to change our notifications to only send email when it's actionable, e.g. if it's failed three tests in a row or something.</span> \* 
+* <span dir="">It remains tricky, especially with our limited capacity, to prioritize _between_ sponsors. Like, we do individual sponsor meetings, but it seems like all the prioritized tasks are for whichever sponsor meeting we just had. That thrashing results in a lot of changing priorities.</span> \* 
 * <span dir="">We will use the Thursday gaba-cecylia syncs to do a weekly check-in for the overall roadmap for the week.</span>
 
 ## <span dir="">ROADMAP 2021 Q4</span>
@@ -133,13 +131,13 @@
 * <span dir="">sponsor 30</span>
   * <span dir="">starting with conjure</span>
 * <span dir="">Coordinate with other external research projects, to share plans and to try to get them in on helping us with our tasks:</span>
-* <span dir="">\[Roger would be happy to launch any of these conversations, but if we have no capacity to follow up on them, it seems sort of silly to launch them. But also we need to get other groups helping us, since we can't do everything ourselves. How to get out of being stuck?\]</span>
-  * <span dir="">Nick Feamster wants to do data analysis on our censorship assessment data set</span>
-  * <span dir="">Roya and Paul Pearce could run spooky-scan on the default bridge addresses</span>
-  * <span dir="">Eric Wustrow wants to run obfs4+conjure for us. <---  end of this quarter or next quarter</span>
-  * <span dir="">Jed Crandall's student wants to tell us about his circumvention ideas re VPNs</span>
-  * <span dir="">Dave Levin (Geneva) wants to brainstorm how Geneva could be useful to us</span>
-  * <span dir="">Ian Goldberg has a student working on a better Salmon design <----- next year</span>
+* <span dir="">Roger would be happy to launch any of these conversations, but if we have no capacity to follow up on them, it seems sort of silly to launch them. But also we need to get other groups helping us, since we can't do everything ourselves. How to get out of being stuck?</span>
+  * <span dir="">data analysis on our censorship assessment data set</span>
+  * <span dir="">run spooky-scan on the default bridge addresses</span>
+  * <span dir="">run obfs4+conjure for us. <---  end of this quarter or next quarter</span>
+  * <span dir="">student wants to tell us about his circumvention ideas re VPNs</span>
+  * <span dir="">Geneva wants to brainstorm how Geneva could be useful to us</span>
+  * <span dir="">Student working on a better Salmon design <----- next year</span>
 * <span dir="">S28-extension tasks (should move some of these to MUST HAVE above):</span>
   * <span dir="">Coordinate with TPA/metrics to get a place to store the measurement dataset.</span>
   * <span dir="">Have a plan for how we're going to keep the docker installs up to date.</span>
