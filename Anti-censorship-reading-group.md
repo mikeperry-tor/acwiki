@@ -8,6 +8,14 @@ Topic: TBD
 
 # Past Readings
 
+- [Exploring Simple Detection Techniques for DNS-over-HTTPS Tunnels](https://dl.acm.org/doi/10.1145/3473604.3474563)
+
+  Meeting notes: http://meetbot.debian.net/tor-meeting/2021/tor-meeting.2021-10-07-16.01.html
+
+- [BlindTLS: Circumventing TLS-based HTTPS censorship](https://dl.acm.org/doi/10.1145/3473604.3474564)
+
+  Meeting notes: http://meetbot.debian.net/tor-meeting/2021/tor-meeting.2021-09-23-15.59.html
+
 - [Domain Shadowing: Leveraging Content Delivery Networks for Robust Blocking-Resistant Communications](https://www.usenix.org/system/files/sec21fall-wei.pdf)
 
   Meeting notes: http://meetbot.debian.net/tor-meeting/2021/tor-meeting.2021-04-29-16.00.html
