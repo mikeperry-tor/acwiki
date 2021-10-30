@@ -2,11 +2,15 @@ We hold an occasional anti-censorship reading group discussion at the tail end o
 
 # Upcoming Readings Schedule
 
-Our next reading group discussion will be on TBD
+Our next reading group discussion will be on 2021-11-21
 
-Topic: TBD
+Topic: [Measuring QQMail's automated email censorship in China](https://dl.acm.org/doi/10.1145/3473604.3474560)
 
 # Past Readings
+
+- [Characterizing Transnational Internet Performance and the Great Bottleneck of China](https://dl.acm.org/doi/pdf/10.1145/3379479)
+
+  Meeting notes: http://meetbot.debian.net/tor-meeting/2021/tor-meeting.2021-10-28-16.00.html
 
 - [Exploring Simple Detection Techniques for DNS-over-HTTPS Tunnels](https://dl.acm.org/doi/10.1145/3473604.3474563)
 
