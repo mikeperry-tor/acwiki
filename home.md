@@ -89,8 +89,8 @@ You can follow up what we are working on in this [kanban board](http://eweiibe6t
 ## Active Sponsors and Contracts
 
 * [RACE (Resilient Anonymous Communication for Everyone)](Sponsor-RACE)
-* [Empowering Communities in the Global South to Bypass Censorship ](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/trac/-/issues/31265)
-* [Sponsor 96: Rapid Expansion of Access to the Uncensored Internet through Tor in China, Hong Kong, & Tibet](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/groups/tpo/-/milestones/24)
+* [Empowering Communities in the Global South to Bypass Censorship ](https://gitlab.torproject.org/tpo/anti-censorship/team/-/issues/12)
+* [Sponsor 96: Rapid Expansion of Access to the Uncensored Internet through Tor in China, Hong Kong, & Tibet](https://gitlab.torproject.org/groups/tpo/-/milestones/24)
 
 ## Projects that the team maintains
 
