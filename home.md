@@ -100,6 +100,7 @@ You can follow up what we are working on in this [kanban board](http://eweiibe6t
 * [Pluggable Transports](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/pluggable-transports)
 * [Snowflake](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/pluggable-transports/snowflake/-/wikis/home)
 * [Snowflake Mobile](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/pluggable-transports/snowflake-mobile/-/wikis/home)
+* [Services](ServicesAntiCensorship)
 
 # Becoming a volunteer
 
