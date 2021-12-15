@@ -49,3 +49,13 @@ See https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guid
 (Re)starting wolpertinger
 -------------------------
 The wolpertinger binary is also located in `/srv/bridges.torproject.org/bin/`. Its source code is available [here](https://gitlab.torproject.org/torproject/anti-censorship/wolpertinger). To restart wolpertinger, kill the existing process and then run the script `run-wolpertinger` located in `/srv/bridges.torproject.org/bin/`. To deploy a new binary, build it on your local machine and scp it onto polyanthum.
+
+Updating country blockades
+--------------------------
+
+There is a file at `/srv/bridgedb.torproject.org/etc/blocked-bridges` that contains the list of all bridges blocked in each country. The syntax is one line per bridge per country with the following sintax:
+```
+fingerprint <fingerprint> country-code ru
+```
+
+After editing the file we need to send a SIGHUP signal to bridgedb to reload it or wait for the next automatic bridge reload to take effect.
