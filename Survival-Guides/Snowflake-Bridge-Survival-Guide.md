@@ -35,7 +35,16 @@ The standalone proxy-go instances are managed by runit. You can see a list of po
         sv stop snowflake-proxy-standalone-17h   # stop
         ps xww | grep runsvdir  # check for error in the run script
 ```
-Logs are stored in `/home/snowflake-proxy/*.log.d`. Adding a new instance:
+Logs are stored in `/home/snowflake-proxy/*.log.d`. 
+
+Upgrading proxy-go. Copy the binary to /usr/local/bin/proxy-go, then run:
+```
+sv restart snowflake-proxy-standalone-17h
+sv restart snowflake-proxy-standalone-29h
+```
+(Adjust as needed if there are other named services under /etc/service.)
+
+Adding a new instance:
 ```
         cd /etc/runit
         mkdir -p my-instance/log
