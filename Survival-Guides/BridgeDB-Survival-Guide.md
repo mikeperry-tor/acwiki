@@ -59,3 +59,24 @@ fingerprint <fingerprint> country-code ru
 ```
 
 After editing the file we need to send a SIGHUP signal to bridgedb to reload it or wait for the next automatic bridge reload to take effect.
+
+Recreating the captchas
+-----------------------
+
+The gimp from debian doesn't have anymore support for python. Let's install the one from flatpak:
+```
+flatpak install org.gimp.GIMP
+```
+(you could use another gimp installation by changing the make-captchas script)
+
+You need to run gimp "normally" at least once, so you get the gimp configuration folder created.
+
+Now let's clone the gimp-captcha repo and generate new captchas:
+```
+git clone https://gitlab.torproject.org/meskio/gimp-captcha
+cd gimp-captcha
+./make-captchas -d new -n 100000
+```
+
+Copy the captchas to polyanthum into `/srv/bridgedb.torprject.org/run/captchas-YYYY-MM-DD`, replace the `/srv/bridgedb.torprject.org/run/captchas` symlink and restart bridgedb.
+
