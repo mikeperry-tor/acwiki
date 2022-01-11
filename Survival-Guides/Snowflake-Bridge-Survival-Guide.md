@@ -23,7 +23,7 @@ Upgrading snowflake-server. You need to give the new binary permission to bind p
 3. `setcap 'cap_net_bind_service=+ep' /usr/local/bin/snowflake-server`
 4. `service tor start`
 
-Check /var/log/syslog and /var/log/tor/snowflake-server.log for error messages. If snowflake-server.log shows `bind: permission denied`, ensure that you have run the `setcap` command, and that the `NoNewPrivileges=no` configuration from [[AntiCensorshipTeam/SnowflakeBridgeInstallationGuide]] is in place.
+Check /var/log/syslog and /var/log/tor/snowflake-server.log for error messages. If there are `bind: permission denied` errors, ensure that you have run the `setcap` command, and that the tor `NoNewPrivileges=no` configuration from the [Snowflake Bridge Installation Guide](Survival Guides/Snowflake Bridge Installation Guide) is in place.
 
 Standalone proxy-go instances
 -----------------------------
