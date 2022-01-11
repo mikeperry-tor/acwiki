@@ -97,7 +97,6 @@ Add configuration to /etc/tor/torrc. The fact that the firewall does not export 
 
 ```
 Nickname flakey
-ContactInfo Tor Anti-Censorship Team <anti-censorship-team@lists.torproject.org>
 SocksPort 0
 ORPort 9001 
 AssumeReachable 1
