@@ -27,6 +27,9 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 ## Priorities for 2022
 
+
+## Roadmap
+
 ### Q1
 
 * s30 O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1.
@@ -56,7 +59,7 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 * sponsor 28 & extension: we will have the new developer full time into this project.
 * sponsor 28 - Improve the performance of Snowflake for users in Asia (cecylia)
 
-## Q2, Q3, Q4---------------------------------------------------------
+## Q2, Q3, Q4
 
 * s30 O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1. - conjure (2 months) (cecylia)
 
