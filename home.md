@@ -27,6 +27,52 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 ## Priorities for 2022
 
+### Q1
+
+* s30 O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1.
+* s30 conjure (2 months) - cecylia starting in March
+  * server side : the university
+  * start talking again with eric and his team
+  * define server side for them to setup bridge (documentation)
+  * client side : around 2 weeks
+    * write a conjure client based on their specification (tor pt part with their client side library)
+  * staging/testing
+    * deployment
+  * add it to alpha version of TB
+  * metrics (discuss with people that maintain conjure bridge)
+    * how many clients are connected
+
+* s96 O1.1.1 Prepare the Snowflake system for a surge in operators and users. <-- scale in Q1/Q2 2022 <-- shell
+* s96 O1.2: Increase the number of Snowflake bridges.
+* s96 O1.2.2: Scale Tor reachability through mobile Snowflakes. <-- support to GP
+* s96 O1.4: Increase the number of active obfs4 and HTTPT bridges. 
+* s96 O1.4.3: Monitor bridge health.   <-- Meskio/Shel with Gus
+* s96 O2.1: Make it easier for humans & harder for censors to get bridges from moat distributor.  <-- Q1
+* s96 O2.2: Deploy improved bridge distribution systems.
+* s96 O2.2.2: Deploy next generation bridge distribution system (rdsys) <-- meskio - 
+* s96 O2.3: React and steer our response to censorship. <-- shel
+* s96 O3.1: Improve automatic censorship detection during bootstrapping in Tor Browser (desktop and Android). <-- meskio
+
+* sponsor 28 & extension: we will have the new developer full time into this project.
+* sponsor 28 - Improve the performance of Snowflake for users in Asia (cecylia)
+
+## Q2, Q3, Q4---------------------------------------------------------
+
+* s30 O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1. - conjure (2 months) (cecylia)
+
+* s96 O1.1.1 Prepare the Snowflake system for a surge in operators and users. <-- scale in Q1/Q2 2022 (shell)
+* s96 O1.2: Increase the number of Snowflake bridges.
+* s96 O1.2.2: Scale Tor reachability through mobile Snowflakes. <-- support to GP
+* s96 O1.3: Implement bridges with pluggable transport HTTPT support. <-- Q2/Q3 (Shell)
+* s96 O1.4: Increase the number of active obfs4 and HTTPT bridges. 
+* s96 O1.4.3: Monitor bridge health.   <-- Meskio/Shel with Gus
+* s96 O2.2: Deploy improved bridge distribution systems.
+* s96 O2.2.1.: Deploy the Salmon bridge distribution system. <-- Start as soon as possible (Meskio & Shell - support from Cecylia)
+* s96 O2.3: React and steer our response to censorship. (Shel)
+* s96 O4.3: Modify GetTor so that it can distribute Tor Browser via messaging apps <--- we are late - any time during 2022 (meskio)
+* s96 O3.1 plan for deprecation of bridgedb (Q4)
+
+* sponsor 28 & extension: we will have the new developer full time into this project.
 
 ## OKRs for Q1 and Q2 2022
 
