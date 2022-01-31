@@ -50,7 +50,6 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 - complete our documentation for each of our tools so that other organizations can run their own anti-censorship infrastructure
 
 [Priorities for previous years](previous-priorities)
-[Present and past roadmaps](Roadmaps).
 
 You can follow up what we are working on in this [kanban board](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/groups/tpo/anti-censorship/-/boards). 
 
