@@ -23,10 +23,12 @@ We use the string "anti-censorship-team" on IRC to reach all team members, e.g. 
 
 For asynchronous communication, we use our ​[anti-censorship-team](https://lists.torproject.org/cgi-bin/mailman/listinfo/anti-censorship-team) mailing list. The list is [​publicly archived](https://lists.torproject.org/pipermail/anti-censorship-team/) and available for anyone to sign up, so feel free to participate! Among other things, we use this mailing list to coordinate meetings, send announcements, and discuss all matters related to the anti-censorship team. Note that for development-related topics, we use the ​[tor-dev](https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-dev) mailing list. 
 
-# Road-mapping goals
+# Priorities
+
+## Priorities for 2022
 
 
-## OKRs for Q3 2021 to Q2 2022
+## OKRs for Q1 and Q2 2022
 
 - make Tor accessible in China
 - detect and categorize attempts to censor Tor
@@ -47,6 +49,7 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 - sanitize, publish and archive the results of our Tor reachability probes
 - complete our documentation for each of our tools so that other organizations can run their own anti-censorship infrastructure
 
+[Priorities for previous years](previous-priorities)
 
 ## The following are our goals for 2021:
 
