@@ -1,6 +1,3 @@
-Snowflake bridge survival guide
-===============================
-
 IP addresses:
 ```
 37.218.242.151
@@ -8,60 +5,62 @@ IP addresses:
 ```
 
 SSH fingerprints:
-* `2048 SHA256:bP9tfPeIqkZkeKK1wcNT5t3CLyePz8oglFLRcdlP+gQ root@node (RSA)`
-* `1024 SHA256:ji5FxcUh6gjLj7RHl6ffHTRMW62Gp+8ZmGoL0p5nVl0 root@node (DSA)`
-* `256 SHA256:rl1WUhqOk3D2h2hwcK4x2HRPcnowUJuKnxQXYXOCXuk root@node (ED25519)`
 
-Tor fingerprints:
+```
+2048 SHA256:bP9tfPeIqkZkeKK1wcNT5t3CLyePz8oglFLRcdlP+gQ (RSA)
+1024 SHA256:ji5FxcUh6gjLj7RHl6ffHTRMW62Gp+8ZmGoL0p5nVl0 (DSA)
+256  SHA256:rl1WUhqOk3D2h2hwcK4x2HRPcnowUJuKnxQXYXOCXuk (ED25519)
+```
+
 * Bridge fingerprint 2B280B23E1107BB62ABFC40DDCC8824814F80A72
 * Hashed fingerprint 5481936581E23D2D178105D44DB6915AB06BFB7F
-* https://metrics.torproject.org/rs.html#details/5481936581E23D2D178105D44DB6915AB06BFB7F
+* [Relay search page](https://metrics.torproject.org/rs.html#details/5481936581E23D2D178105D44DB6915AB06BFB7F)
 
-Upgrading snowflake-server. You need to give the new binary permission to bind ports 443 and 80. This cheat sheet is also commented in `/etc/tor/torrc`.
-1. `service tor stop`
-2. `install --owner root ~/new-server /usr/local/bin/snowflake-server`
-3. `setcap 'cap_net_bind_service=+ep' /usr/local/bin/snowflake-server`
-4. `service tor start`
+## Components
 
-Check /var/log/syslog and /var/log/tor/snowflake-server.log for error messages. If there are `bind: permission denied` errors, ensure that you have run the `setcap` command, and that the tor `NoNewPrivileges=no` configuration from the [Snowflake Bridge Installation Guide](Survival Guides/Snowflake Bridge Installation Guide) is in place.
+![Diagram of snowflake-server talking to haproxy, haproxy talking to each of the four extor-static-cookie instances, and the extor-static-cookie instances talking to their respective instance of tor](uploads/5675ac7c12bbd4c1df6922abcc002c70/snowflake-bridge-loadbalanced.png)
 
-Standalone proxy-go instances
------------------------------
+The interacting components on the bridge are a bit complicated, for performance reasons. See the [installation guide](Survival Guides/Snowflake Bridge Installation Guide#introduction) for the reasoning. There are four main components:
 
-The standalone proxy-go instances are managed by runit. You can see a list of possible instances under `/etc/service`. They are set up to periodically restart themselves in case of a hang.
-```
-sv status snowflake-proxy-standalone-17h        # check status
-sv start snowflake-proxy-standalone-17h  # start
-sv stop snowflake-proxy-standalone-17h   # stop
-ps xww | grep runsvdir  # check for error in the run script
-```
-Logs are stored in `/home/snowflake-proxy/*.log.d`. 
+* [snowflake-server](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/tree/main/server): Receives WebSocket connections from Snowflake proxies, manages Turbo Tunnel sessions, forwards sessions as TCP connections to HAProxy. Listens externally on port 443 (and port 80, for ACME certificate renewal).
+* [HAProxy](https://www.haproxy.org/): Load balancer. Receives connections from snowflake-server and balances them over the multiple instances of tor, via their respective extor-static-cookie interfaces. Listens on 127.0.0.1:10000.
+* tor: There are multiple instances of tor, because one is not enough for the load on the bridge. Each instance's `ORPort` is blocked from outside access by the firewall, and `ExtORPort auto` makes them listen for ExtORPort connections on an ephemeral localhost port. Each instance of tor runs an extor-static-cookie, which provides HAProxy a stable ExtORPort port number, and provides snowflake-server (via HAProxy) a stable authentication key.
+* [extor-static-cookie](https://gitlab.torproject.org/dcf/extor-static-cookie): Exposes an ExtORPort interface that uses an unchanging authentication key. These listen on 127.0.0.1, on port numbers 10000+*N*, where *N* is the instance number 1, 2, ….
 
-Upgrading proxy-go. Copy the binary to /usr/local/bin/proxy-go, then run:
-```
-sv restart snowflake-proxy-standalone-17h
-sv restart snowflake-proxy-standalone-29h
-```
-(Adjust as needed if there are other named services under /etc/service.)
 
-Adding a new instance:
+## Upgrading snowflake-server
+
 ```
-cd /etc/runit
-mkdir -p my-instance/log
-cat > my-instance/run <<EOF
-#!/bin/sh
-exec chpst -u snowflake-proxy timeout 17h /usr/local/bin/proxy-go -broker https://snowflake-broker.bamsoftware.com/ 2>&1
-EOF
-cat > my-instance/log/run <<EOF
-#!/bin/sh
-exec chpst -u snowflake-proxy svlogd /home/snowflake-proxy/my-instance.log.d
-EOF
-chmod +x my-instance/run my-instance/log/run
-cd /etc/service
-ln -s /etc/runit/my-instance/
-mkdir /home/snowflake-proxy/my-instance.log.d
-chown snowflake-proxy:nogroup /home/snowflake-proxy/my-instance.log.d
-sv start my-instance
+# install --owner root /home/user/snowflake-server /usr/local/bin/
+# service snowflake-server restart
 ```
+
+Check for errors in `service snowflake-server status` and /var/log/snowflake-server/snowflake-server.log.
+
+See /etc/systemd/system/snowflake-server.service for configuration variables.
+
+
+## Upgrading extor-static-cookie
+
+```
+# install --owner root /home/user/extor-static-cookie /usr/local/bin/
+# service tor restart
+```
+
+The static ExtORPort authentication cookie does not need to be stable long-term. If it accidentally gets lost or damaged, you can create a new one using the [gen-auth-cookie](https://gitlab.torproject.org/dcf/extor-static-cookie/-/blob/main/gen-auth-cookie) script in the extor-static-cookie source code. You will need to restart tor and snowflake-server.
+
+```
+# extor-static-cookie/gen-auth-cookie > static_extended_orport_auth_cookie
+# service tor restart
+# service snowflake-server restart
+```
+
+
+## Adding more tor instances
+
+See the [installation guide](Survival Guides/Snowflake Bridge Installation Guide#tor). After creating the tor instances, you will also have add new `server` lines in the `backend tor-instances` section of /etc/haproxy/haproxy.cfg.
+
+
+## Firewall
 
 Firewall configuration is in `/etc/ferm/ferm.conf`. Run `service ferm restart` after making changes.
