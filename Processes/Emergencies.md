@@ -35,3 +35,14 @@ Some examples:
 ### Censorship Events
 
 Censorship events do not cleanly belong in code red or code yellow because each event is different. Actionable steps to respond to a new censorship event can take priority over other work. The team should work with the community team to diagnose the event, find existing working solutions, and brainstorm improvements of changes that can be made to overcome the blocking.
+
+## Contact information
+
+All team members should monitor the [anti-censorship alerts mailing list](https://lists.torproject.org/pipermail/anti-censorship-alerts/). If there is a critical outage that **has not been broadcasted on that mailing list**, the team can be reached by sending an email to the public [anti-censorship-team](https://lists.torproject.org/pipermail/anti-censorship-team/) list at `anti-censorship-team@lists.torproject.org`.
+
+They may also be reached on the OFTC IRC server in `#tor-dev` or `#tor-project`.
+To highlight the whole team, use the keyword `anti-censorship-team`. Otherwise, the following team members are usually around:
+- `meskio`
+- `shelikhoo`
+- `cohosh`
+- `arma`
