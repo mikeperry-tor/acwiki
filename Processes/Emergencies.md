@@ -22,7 +22,6 @@ We have two automated systems for anti-censorship alerts:
   - any of our bridge distributors
 - GetTor, a service for downloading Tor Browser in places that censor our website, is down
 - Snowflake outages. This may include the broker, the bridge, the NAT probe check, or issues with our proxy pool
-- 
 
 ### Code Yellow (non-emergency outages)
 
