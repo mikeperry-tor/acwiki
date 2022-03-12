@@ -64,6 +64,7 @@ Put a link to the survival guide in /etc/motd so that it shows when logging in.
 
 ```
 # echo >/etc/motd "https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Snowflake-Bridge-Survival-Guide"
+# etckeeper commit "motd"
 ```
 
 Add a normal user account with sudo. Repeat the process for additional users.
@@ -136,31 +137,29 @@ Then, on the bridge, install extor-static-cookie and the static cookie file.
 Install tor.
 
 ```
-# apt install tor
+# apt install tor tor-geoipdb
 ```
 
 Create multiple instances of tor using [tor-instance-create](https://manpages.debian.org/testing/tor/tor-instance-create.8.en.html). Do not start them yet. They will all need to share the same keys so that they have the same bridge fingerprint. If you adjust the number of tor instances, you will have to adjust haproxy.cfg to match.
 
 ```
-# tor-instance-create snowflake1
-# tor-instance-create snowflake2
-# tor-instance-create snowflake3
-# tor-instance-create snowflake4
+# INSTANCES=$(for n in $(seq 1 4); do echo "snowflake$n"; done)
+# for instance in $INSTANCES; do tor-instance-create "$instance"; done
 ```
 
 Copy the keys into each instance.
 
 ```
-# for instance in snowflake1 snowflake2 snowflake3 snowflake4; do cp -r -v keys/ "/var/lib/tor-instances/$instance/" && chown -R -v _tor-"$instance" "/var/lib/tor-instances/$instance/keys"; done
+# for instance in $INSTANCES; do cp -r -v keys/ "/var/lib/tor-instances/$instance/" && chown -R -v _tor-"$instance" "/var/lib/tor-instances/$instance/keys"; done
 ```
 
 **Important** Create placeholder directories to prevent the tor instances from rotating their onion keys. Without this step, the instances will independently change their onion keys every 28 days, and clients will be anable to connect, unless they are lucky enough to connect to the instance whose descriptor they have cached. Also make the onion key files read-only, as defense in depth in case tor changes its file renaming strategy. For more information, see https://forum.torproject.net/t/tor-relays-how-to-reduce-tor-cpu-load-on-a-single-bridge/1483/23.
 
 ```
-# rm -fv /var/lib/tor-instances/*/keys/secret_onion_key{,_ntor}.old
-# mkdir -m 700 -p -v /var/lib/tor-instances/*/keys/secret_onion_key{,_ntor}.old
-# for instance in snowflake1 snowflake2 snowflake3 snowflake4; do for dir in /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}.old; do echo >"$dir/README" "This directory exists to prevent onion key rotation. See https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Snowflake-Bridge-Installation-Guide"; done; done
-# chmod -v -w /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}
+# for instance in $INSTANCES; do rm -fv /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}.old; done
+# for instance in $INSTANCES; do mkdir -m 700 -p -v /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}.old; done
+# for instance in $INSTANCES; do for dir in /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}.old; do echo >"$dir/README" "This directory exists to prevent onion key rotation. See https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Snowflake-Bridge-Installation-Guide"; done; done
+# for instance in $INSTANCES; do chmod -v -w /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}; done
 ```
 
 Edit the instance-specific torrc files. They all have the same contents, except that `ServerTransportListenAddr` will count through `127.0.0.1:10001`, `127.0.0.1:10002`, etc., and `Nickname` will count through `flakey1`, `flakey2`, etc. Replace `NUM` in the example below:
@@ -241,17 +240,17 @@ Then, on the bridge, install snowflake-server and a systemd service file for it.
 	# pluggable transports messages (e.g. SMETHOD, SMETHOD-ERROR) are ignored.
 	#
 	# https://lists.torproject.org/pipermail/tor-relays/2022-January/020183.html
-	 
+
 	[Unit]
 	Description=Snowflake pluggable transport server
-	 
+
 	[Service]
 	Type=exec
 	Restart=on-failure
 	User=snowflake-server
 	StateDirectory=snowflake-server
 	LogsDirectory=snowflake-server
-	 
+
 	AmbientCapabilities=CAP_NET_BIND_SERVICE
 	NoNewPrivileges=true
 	ProtectHome=true
