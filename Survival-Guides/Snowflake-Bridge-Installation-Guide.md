@@ -60,6 +60,12 @@ Set up a firewall. You need to expose ports 22, 80, and 443.
 # etckeeper commit "firewall"
 ```
 
+Set the time zone to UTC.
+
+```
+# dpkg-reconfigure tzdata
+```
+
 Put a link to the survival guide in /etc/motd so that it shows when logging in.
 
 ```
