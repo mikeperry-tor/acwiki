@@ -64,6 +64,7 @@ Set the time zone to UTC.
 
 ```
 # dpkg-reconfigure tzdata
+# etckeeper commit "set time zone to UTC"
 ```
 
 Put a link to the survival guide in /etc/motd so that it shows when logging in.
