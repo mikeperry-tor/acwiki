@@ -59,9 +59,27 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 * sponsor 28 & extension: we will have the new developer full time into this project.
 * sponsor 28 - Improve the performance of Snowflake for users in Asia (cecylia)
 
-## Q2, Q3, Q4
+## Q2
 
-* s30 O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1. - conjure (2 months) (cecylia)
+
+* sponsor 30 O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1. - Implement and deploy conjure - Cecylia 
+* sponsor 96 O1.1.1 Prepare the Snowflake system for a surge in operators and users. - shel
+* sponsor 96 O1.2: Increase the number of Snowflake bridges. - shel
+* sponsor 96 O1.2.2: Scale Tor reachability through mobile Snowflakes.
+* sponsor 96 O1.3: Implement bridges with pluggable transport HTTPT support.
+* sponsor 96 O1.4: Increase the number of active obfs4 and HTTPT bridges. 
+* sponsor 96 O1.4.3: Monitor bridge health.   - Meskio with Gus
+* sponsor 96 obfsproxy security issues - meskio
+* sponsor 96  O2.2: Deploy improved bridge distribution systems.
+* sponsor 96 Salmon based design :) --- Roger
+* sponsor 96 O2.3: React and steer our response to censorship. - Shel
+* sponsor 96 O4.3: Modify GetTor so that it can distribute Tor Browser via messaging apps - Meskio
+* sponsor 96 get gettor into rdsys - Q2
+* sponsor 28 - itchyonion
+* sponsor 928 probetest centralized log collection (shel)
+* sponsor 125 dynamic bridges
+
+## Q3, Q4
 
 * s96 O1.1.1 Prepare the Snowflake system for a surge in operators and users. <-- scale in Q1/Q2 2022 (shell)
 * s96 O1.2: Increase the number of Snowflake bridges.
