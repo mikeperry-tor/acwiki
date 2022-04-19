@@ -1,15 +1,19 @@
+## Bridge sites
+
+### snowflake-01 (flakey)
+
 IP addresses:
 ```
-37.218.242.151
-2a00:c6c0:0:151:4:8f94:69f5:7c01
+193.187.88.42
+2a0c:dd40:1:b::42
 ```
 
 SSH fingerprints:
 
 ```
-2048 SHA256:bP9tfPeIqkZkeKK1wcNT5t3CLyePz8oglFLRcdlP+gQ (RSA)
-1024 SHA256:ji5FxcUh6gjLj7RHl6ffHTRMW62Gp+8ZmGoL0p5nVl0 (DSA)
-256  SHA256:rl1WUhqOk3D2h2hwcK4x2HRPcnowUJuKnxQXYXOCXuk (ED25519)
+256 SHA256:WK24RKtRyfmKGWfM5M4nFyKkoSNBFqJb5zVtMAW0B2g (ECDSA)
+256 SHA256:6+UwLKXZxvDhj7gK9afgnfPzw9oRLCRb4pzoRVip9KI (ED25519)
+3072 SHA256:cG7BnmuOUjEklGZhmSGhNeVVJcphM1iJ5dKvfgL4KHI (RSA)
 ```
 
 * Bridge fingerprint 2B280B23E1107BB62ABFC40DDCC8824814F80A72
@@ -63,4 +67,4 @@ See the [installation guide](Survival Guides/Snowflake Bridge Installation Guide
 
 ## Firewall
 
-Firewall configuration is in `/etc/ferm/ferm.conf`. Run `service ferm restart` after making changes.
+Firewall configuration is in `/etc/nftables.conf`. Run `systemd restart nftables` after making changes.
