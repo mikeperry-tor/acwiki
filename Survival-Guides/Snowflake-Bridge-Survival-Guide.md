@@ -8,6 +8,8 @@ IP addresses:
 2a0c:dd40:1:b::42
 ```
 
+SSH port 4722.
+
 SSH fingerprints:
 
 ```
