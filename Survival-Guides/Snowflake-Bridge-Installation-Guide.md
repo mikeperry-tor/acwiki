@@ -154,22 +154,7 @@ Create multiple instances of tor using [tor-instance-create](https://manpages.de
 # for instance in $INSTANCES; do tor-instance-create "$instance"; done
 ```
 
-Copy the keys into each instance.
-
-```
-# for instance in $INSTANCES; do cp -r -v keys/ "/var/lib/tor-instances/$instance/" && chown -R -v _tor-"$instance" "/var/lib/tor-instances/$instance/keys"; done
-```
-
-**Important** Create placeholder directories to prevent the tor instances from rotating their onion keys. Without this step, the instances will independently change their onion keys every 28 days, and clients will be anable to connect, unless they are lucky enough to connect to the instance whose descriptor they have cached. Also make the onion key files read-only, as defense in depth in case tor changes its file renaming strategy. For more information, see https://forum.torproject.net/t/tor-relays-how-to-reduce-tor-cpu-load-on-a-single-bridge/1483/23.
-
-```
-# for instance in $INSTANCES; do rm -fv /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}.old; done
-# for instance in $INSTANCES; do mkdir -m 700 -p -v /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}.old; done
-# for instance in $INSTANCES; do for dir in /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}.old; do echo >"$dir/README" "This directory exists to prevent onion key rotation. See https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Snowflake-Bridge-Installation-Guide"; done; done
-# for instance in $INSTANCES; do chmod -v -w /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}; done
-```
-
-Edit the instance-specific torrc files. They all have the same contents, except that `ServerTransportListenAddr` will count through `127.0.0.1:10001`, `127.0.0.1:10002`, etc., and `Nickname` will count through `flakey1`, `flakey2`, etc. Replace `NUM` in the example below:
+Edit the instance-specific torrc files. (But don't start the instances yet.) All the torrc files have the same contents, except that `ServerTransportListenAddr` will count through `127.0.0.1:10001`, `127.0.0.1:10002`, etc., and `Nickname` will count through `NICKNAME1`, `NICKNAME2`, etc. Replace `NICKNAME` and `NUM` in the example below:
 
 ```
 # vi /etc/tor/instances/*/torrc
@@ -184,7 +169,29 @@ Edit the instance-specific torrc files. They all have the same contents, except 
 	SocksPort 0
 	ServerTransportPlugin snowflake exec /usr/local/bin/extor-static-cookie /etc/extor-static-cookie/static_extended_orport_auth_cookie
 	ServerTransportListenAddr snowflake 127.0.0.1:1000NUM
-	Nickname flakeyNUM
+	Nickname NICKNAMENUM
+```
+
+The next step is different depending on whether you are installing a new bridge for the first time, or moving an existing bridge (with an existing relay fingerprint) to a new server.
+
+* If you are installing a new bridge for the first time, start and stop the tor@snowflake1 instance in order to generate keys, then copy the keys into the other instances.
+  ```
+  # systemctl start tor@snowflake1 && systemctl stop tor@snowflake1
+  # for instance in $INSTANCES; do if [ $instance != snowflake1 ]; then cp -r -v /var/lib/tor-instances/snowflake1/keys "/var/lib/tor-instances/$instance/" && chown -R -v _tor-"$instance" "/var/lib/tor-instances/$instance/keys"; fi; done
+  ```
+  Make a backup copy of one of the keys directories. You will need the backup if you ever reinstall or move the bridge and want to keep the same relay fingerprint.
+* If you are moving an existing bridge to a new server, copy the keys/ directory from the existing server (as a tar file, for example) into the new instances.
+  ```
+  # for instance in $INSTANCES; do cp -r -v keys/ "/var/lib/tor-instances/$instance/" && chown -R -v _tor-"$instance" "/var/lib/tor-instances/$instance/keys"; done
+  ```
+
+**Important** After installing the keys, create placeholder directories to prevent the tor instances from rotating their onion keys. Without this step, the instances will independently change their onion keys every 28 days, and clients will be unable to connect, unless they are lucky enough to connect to the instance whose descriptor they have cached. Also make the onion key files read-only, as defense in depth in case tor changes its file renaming strategy. For more information, see https://forum.torproject.net/t/tor-relays-how-to-reduce-tor-cpu-load-on-a-single-bridge/1483/23.
+
+```
+# for instance in $INSTANCES; do rm -fv /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}.old; done
+# for instance in $INSTANCES; do mkdir -m 700 -p -v /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}.old; done
+# for instance in $INSTANCES; do for dir in /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}.old; do echo >"$dir/README" "This directory exists to prevent onion key rotation. See https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Snowflake-Bridge-Installation-Guide"; done; done
+# for instance in $INSTANCES; do chmod -v -w /var/lib/tor-instances/"$instance"/keys/secret_onion_key{,_ntor}; done
 ```
 
 Then start all the instances of tor. Check /var/log/syslog for error messages.
@@ -192,6 +199,12 @@ Then start all the instances of tor. Check /var/log/syslog for error messages.
 ```
 # service tor restart
 # etckeeper commit "tor snowflake instances"
+```
+
+You can verify that all instances have the same identity key with:
+
+```
+# cat /var/lib/tor-instances/*/fingerprint
 ```
 
 
