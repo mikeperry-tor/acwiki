@@ -22,6 +22,28 @@ SSH fingerprints:
 * Hashed fingerprint 5481936581E23D2D178105D44DB6915AB06BFB7F
 * [Relay search page](https://metrics.torproject.org/rs.html#details/5481936581E23D2D178105D44DB6915AB06BFB7F)
 
+
+### snowflake-02 (crusty)
+
+IP addresses:
+```
+141.212.118.18
+2607:f018:600:8:be30:5bff:fef1:c6fa
+```
+
+SSH fingerprints:
+
+```
+256 SHA256:NmTVmA4WCgoR8xmu3T065TeEe3k7uTEAMKeLAfB37vM  (ECDSA)
+256 SHA256:VpARXHZ6eH8AcifmFiHVCrF8Exxmdp7C8qBHmolbDu8  (ED25519)
+3072 SHA256:rCNv1Il4tAM9B4l4nWH7BpYxrxZcMHkJhXxi5ma4Bs4  (RSA)
+```
+
+* Bridge fingerprint 8838024498816A039FCBBAB14E6F40A0843051FA
+* Hashed fingerprint 91DA221A149007D0FD9E5515F5786C3DD07E4BB0
+* [Relay search page](https://metrics.torproject.org/rs.html#details/91DA221A149007D0FD9E5515F5786C3DD07E4BB0)
+
+
 ## Components
 
 ![Diagram of snowflake-server talking to haproxy, haproxy talking to each of the four extor-static-cookie instances, and the extor-static-cookie instances talking to their respective instance of tor](uploads/5675ac7c12bbd4c1df6922abcc002c70/snowflake-bridge-loadbalanced.png)
