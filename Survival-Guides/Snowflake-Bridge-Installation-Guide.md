@@ -52,6 +52,7 @@ Set up a firewall. You need to expose ports 22, 80, and 443.
 	            proto tcp dport http ACCEPT;
 	            # allow snowflake-server WebSocket
 	            proto tcp dport https ACCEPT;
+	            #...
 	        }
 	        # ...
 	    }
@@ -299,3 +300,54 @@ Then, on the bridge, install snowflake-server and a systemd service file for it.
 ```
 
 Check for errors in `service snowflake-server status` and /var/log/snowflake-server/snowflake-server.log.
+
+## Appendix: WireGuard
+
+The [snowflake-02](Survival-Guides/Snowflake-Bridge-Survival-Guide#snowflake-02-crusty) bridge site uses WireGuard before the SSH port.
+
+Open a UDP port for WireGuard:
+
+```
+# vi /etc/ferm/ferm.conf
+	domain (ip ip6) {
+	    table filter {
+	        chain INPUT {
+	            #...
+	            # allow WireGaurd
+	            proto udp dport 51820 ACCEPT;
+	            #...
+	        }
+	        # ...
+	    }
+	}
+```
+
+Install WireGuard, generate a keypair, and set up an interface. The server will be at 10.100.0.1, and the clients will be at 10.100.0.*X* for increasing values of *X*.
+
+```
+# apt install wireguard
+# cd /etc/wireguard
+# (umask 077 && wg genkey > privatekey)
+# wg pubkey < privatekey > publickey
+# (umask 077 && vi wg0.conf)
+	[Interface]
+	PrivateKey = <contents of privatekey file>
+	ListenPort = 51820
+	Address = 10.100.0.1/24
+# systemctl enable --now wg-quick@wg0.service
+# etckeeper commit "wireguard"
+```
+
+Use `wg show` to show the status of the network interface.
+
+To add a new client, add a new `[Peer]` section to /etc/wireguard/wg0.conf, with the client's public key, and a distinct `AllowedIPs` address:
+
+```
+# vi /etc/wireguard/wg0.conf
+	# <username>
+	[Peer]
+	PublicKey = <contents of user's publickey file>
+	AllowedIPs = 10.100.0.<X>/32
+# systemctl restart wg-quick@wg0.service
+# etckeeper commit "Add wireguard peer 'username'"
+```
