@@ -313,7 +313,7 @@ Open a UDP port for WireGuard:
 	    table filter {
 	        chain INPUT {
 	            #...
-	            # allow WireGaurd
+	            # allow WireGuard
 	            proto udp dport 51820 ACCEPT;
 	            #...
 	        }
