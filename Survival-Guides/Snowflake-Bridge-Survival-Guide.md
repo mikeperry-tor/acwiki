@@ -2,6 +2,10 @@
 
 ### snowflake-01 (flakey)
 
+* Bridge fingerprint 2B280B23E1107BB62ABFC40DDCC8824814F80A72
+* Hashed fingerprint 5481936581E23D2D178105D44DB6915AB06BFB7F
+* [Relay search page](https://metrics.torproject.org/rs.html#details/5481936581E23D2D178105D44DB6915AB06BFB7F)
+
 IP addresses:
 ```
 193.187.88.42
@@ -18,12 +22,11 @@ SSH fingerprints:
 3072 SHA256:cG7BnmuOUjEklGZhmSGhNeVVJcphM1iJ5dKvfgL4KHI (RSA)
 ```
 
-* Bridge fingerprint 2B280B23E1107BB62ABFC40DDCC8824814F80A72
-* Hashed fingerprint 5481936581E23D2D178105D44DB6915AB06BFB7F
-* [Relay search page](https://metrics.torproject.org/rs.html#details/5481936581E23D2D178105D44DB6915AB06BFB7F)
-
-
 ### snowflake-02 (crusty)
+
+* Bridge fingerprint 8838024498816A039FCBBAB14E6F40A0843051FA
+* Hashed fingerprint 91DA221A149007D0FD9E5515F5786C3DD07E4BB0
+* [Relay search page](https://metrics.torproject.org/rs.html#details/91DA221A149007D0FD9E5515F5786C3DD07E4BB0)
 
 IP addresses:
 ```
@@ -39,9 +42,57 @@ SSH fingerprints:
 3072 SHA256:rCNv1Il4tAM9B4l4nWH7BpYxrxZcMHkJhXxi5ma4Bs4  (RSA)
 ```
 
-* Bridge fingerprint 8838024498816A039FCBBAB14E6F40A0843051FA
-* Hashed fingerprint 91DA221A149007D0FD9E5515F5786C3DD07E4BB0
-* [Relay search page](https://metrics.torproject.org/rs.html#details/91DA221A149007D0FD9E5515F5786C3DD07E4BB0)
+The snowflake-02 site requires WireGuard authentication before the SSH port. To generate a WireGuard client keypair and network interface:
+
+```
+client# apt install wireguard
+client# cd /etc/wireguard
+client# (umask 077 && wg genkey > wgsf02.privatekey)
+client# wg pubkey < wgsf02.privatekey > wgsf02.publickey
+client# (umask 077 && vi wgsf02.conf)
+	[Interface]
+	PrivateKey = <contents of wgsf02.privatekey file>
+	Address = 10.100.0.<X>/24
+
+	[Peer]
+	PublicKey = QnSqezDULR28QdzKbirO+wrWSa4HMoZhyGmHJVsVJyc=
+	AllowedIPs = 10.100.0.1/32
+	Endpoint = 141.212.118.18:51820
+```
+
+Replace *<X>* in the above wgsf02.conf file to make an IP address that is not already used by another client.
+
+On the bridge, add a new `[Peer]` entry to /etc/wireguard/wg0.conf:
+
+```
+bridge# vi /etc/wireguard/wg0.conf
+	# username
+	[Peer]
+	PublicKey = <contents of user's wgsf02.publickey file>
+	AllowedIPs = 10.100.0.<X>/32
+bridge# systemctl restart wg-quick@wg0.service
+bridge# etckeeper commit "Add wireguard peer 'username'"
+```
+
+On the client, enable the wgsf02 interface, and test it with `ping`:
+
+```
+client# systemctl enable --now wg-quick@wgsf02.service
+client# ping 10.100.0.1
+```
+
+Use `wg show` on the bridge and on the client to see each endpoint's view of the state of the tunnel.
+
+On the client, you can set up an SSH `Host` alias for convenience, so that you can do `ssh snowflake-02`:
+
+```
+client# ssh-keygen -f ~/.ssh/snowflake-02
+client# vi ~/.ssh/config
+	Host snowflake-02
+	HostName 10.100.0.1
+	User username
+	IdentityFile ~/.ssh/snowflake-02
+```
 
 
 ## Components
