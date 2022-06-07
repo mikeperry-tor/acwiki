@@ -12,8 +12,7 @@ SSH fingerprints:
 
 1. Log into BridgeDB's machine.
 2. Change to the BridgeDB user by running `sudo -u bridgedb -s`
-3. Kill the existing BridgeDB process by running `kill $(pgrep -f /home/bridgedb/virtualenvs/bridgedb/bin/bridgedb)`
-3. Start BridgeDB by running `~/bridgedb-admin/bin/run-bridgedb` which should result in the following output: `Starting BridgeDB...		[OK]`.
+3. Re)start the bridgedb process via its systemd script: `systemctl --user [start|stop|status] bridgedb`.
 
 Inspecting log files
 --------------------
