@@ -31,13 +31,13 @@ Moat is implemented with the binary `meek-server` located in `/srv/bridges.torpr
 The meek server and moat shim can be restarted separately.
 
 1. Kill the existing processes running `meek-server` and/or `moat-shim`
-2. To start meek, run the script `run-meek` located in `/srv/bridges.torproject.org/bin/` as user `bridgedb`:
+2. To start meek, use systemd as user `bridgedb`:
 ```
-sudo -u bridgedb /srv/bridges.torproject.org/bin/run-meek
+sudo -u bridgedb systemctl --user restart meek
 ```
-3.To start the moat shim, run the script `run-moat-shim` located in `/srv/bridges.torproject.org/bin/` as user `moat`:
+3.To start the moat shim, use systemd as user `moat`:
 ```
-sudo -u moat /srv/bridges.torproject.org/bin/run-moat-shim
+sudo -u moat systemctl --user restart moat-shim
 ```
 
 #### Updating Moat
