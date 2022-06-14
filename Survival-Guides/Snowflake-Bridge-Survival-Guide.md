@@ -60,7 +60,7 @@ client# (umask 077 && vi wgsf02.conf)
 	Endpoint = 141.212.118.18:51820
 ```
 
-Replace *<X>* in the above wgsf02.conf file to make an IP address that is not already used by another client.
+Replace `<X>` in the above wgsf02.conf file to make an IP address that is not already used by another client.
 
 On the bridge, add a new `[Peer]` entry to /etc/wireguard/wg0.conf:
 
