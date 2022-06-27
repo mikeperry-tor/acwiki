@@ -50,7 +50,7 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 ## Roadmap
 
-## Q3
+## Q3 - July to September 2022
 
 * sponsor 30
   * O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1.
@@ -83,7 +83,7 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
   * probetest centralized log collection (shell) Q3
 
 
-## Q2
+## Q2 - April to June 2022
 
 * sponsor 30 O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1. - Implement and deploy conjure - Cecylia
 * sponsor 96 O1.1.1 Prepare the Snowflake system for a surge in operators and users. - shel
@@ -103,7 +103,7 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 * sponsor 125 dynamic bridges
 
 
-### Q1
+### Q1 - January to March 2022
 
 * s30 O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1.
 * s30 conjure (2 months) - cecylia starting in March
