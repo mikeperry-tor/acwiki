@@ -16,3 +16,7 @@ Upgrading `conjure-server`. You need to give the new binary permission to bind p
 4. `service tor start`
 
 Check `/var/log/syslog` and `/var/log/tor/conjure-server.log` for error messages. If `conjure-server.log` shows `bind: permission denied`, ensure that you have run the `setcap` command, and that the `NoNewPrivileges=no`.
+
+### Adding Conjure stations to the allowlist
+
+The conjure bridge only accepts HAProxy connections from known Conjure stations. You can add a new station IP from which to accept connections by modifying the `--allowed-stations` argument in the `ServerTransportPlugin` line of the `/etc/tor/torrc` file to be a comma separated list of station IPs.
