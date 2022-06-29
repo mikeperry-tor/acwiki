@@ -7,6 +7,7 @@ Tor fingerprints:
 
 * Bridge fingerprint 50B99540A96C5E9F9F7704BAAE11DF01564711F4
 * Hashed fingerprint A84C946BF4E14E63A3C92E140532A4594F2C24CD
+* metrics page: https://metrics.torproject.org/rs.html#details/A84C946BF4E14E63A3C92E140532A4594F2C24CD
 
 Upgrading `conjure-server`. You need to give the new binary permission to bind port 80. This cheat sheet is also commented in `/etc/tor/torrc`.
 
