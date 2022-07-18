@@ -18,6 +18,7 @@
 * For a DNS-based pluggable transport:
   * Dinosaur
   * Dienstag
+* [North Star / Polaris](tpo/anti-censorship/pluggable-transports/snowflake#40158)
 
 # Rhyming words in english that suggest confusion:
 
