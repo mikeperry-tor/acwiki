@@ -10,7 +10,7 @@ These are research project ideas relating to anti-censorship work at Tor. If you
 
 ## Calibrate bridge users estimation with on-bridge socket counts
 
-Tor Metrics [bridge user graphs](https://metrics.torproject.org/userstats-bridge-country.html) depict not unique IP addresses, but rather an average number of concurrently connected users per day.
+Tor Metrics [bridge user graphs](https://metrics.torproject.org/userstats-bridge-country.html) depict not unique IP addresses, but rather an [average number of concurrently connected users per day](https://metrics.torproject.org/reproducible-metrics.html#users).
 Simplifying slightly, the number of concurrent users is estimated
 by [taking the number of directory requests and dividing by 10](https://research.torproject.org/techreports/counting-daily-bridge-users-2012-10-24.pdf).
 The constant of 10 is somewhat arbitrary, reflecting an educated guess that an average Tor users remains connected for 2.4 hours per day.
