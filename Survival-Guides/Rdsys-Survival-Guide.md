@@ -16,8 +16,9 @@ General information
 
 1. Log into bridges.torproject.org.
 2. Change to the rdsys user by running `sudo -u rdsys -s`.
-3. (Re)start the rdsys-backend process via its systemd script: `systemctl --user [start|stop|status] rdsys-backend`.
-4. Take a look at rdsys's log file at /home/rdsys/logs/rdsys-backend.log to make sure that the service (re)started successfully.
+3. Update the rdsys-admin repo if needed `cd ~/rdsys-admin; git pull`
+4. (Re)start the rdsys-backend process via its systemd script: `systemctl --user [start|stop|status] rdsys-backend`.
+5. Take a look at rdsys's log file at /home/rdsys/logs/rdsys-backend.log to make sure that the service (re)started successfully.
 
 Deploying a new version
 -----------------------
