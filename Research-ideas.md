@@ -24,8 +24,9 @@ as closely as possible.
 The idea is to repeatedly sample the number of sockets that are connected to the localhost [ExtORPort](https://gitweb.torproject.org/torspec.git/tree/proposals/196-transport-control-ports.txt) to get an average per day, then compare that locally computed average with what Tor Metrics reports.
 If the currently used ExtOrPort is 127.0.0.1:1234, then you can sample the number of sockets currently connected to the ExtOrPort with a command like
 ```
-ss -n | grep -c '127.0.0.1:1234\s*$'
+ss -n state established 'dport = 1234' 'dst 127.0.0.1' | wc -l
 ```
+(Subtract 1 to account for the header in the output.)
 @dcf did a one-off test on the snowflake-01 bridge. At a time when Tor Metrics would have reported about 60k clients,
 the number of sockets connected to the [haproxy load balancer](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Snowflake-Bridge-Survival-Guide#components) in front of
 the multiple ExtOrPorts was about 30k.
