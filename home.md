@@ -50,6 +50,36 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 ## Roadmap
 
+## Q4 - October to December 2022
+
+* Sponsor 30
+  * O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1.
+    * [conjure](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards?label_name[]=Sponsor%2030
+) (2 months) (cecylia) 
+
+* [Sponsor 96](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards?label_name[]=Sponsor%2096)
+  * O1.1.1 Prepare the Snowflake system for a surge in operators and users.
+    * proxies need to be updated to next version. <-- Q4 shell
+    * setup new bridges.
+  * O1.3: Implement bridges with pluggable transport HTTPT support. <--Q4(Shell)
+  * O1.4: Increase the number of active obfs4 and HTTPT bridges. 
+  * O1.4.3: Monitor bridge health.   <-- Meskio with Gus
+    * obfsproxy security issues - <--- will go to icebox for now
+  * O2.2: Deploy improved bridge distribution systems.
+    * Salmon based design: Cecylia in Q4
+    * rdsys DB for bridges (meskio) Q4
+  * O2.3: React and steer our response to censorship. (Shell) - Q4
+    * vantage points in specific places
+  * O4.1: Localize all UI modified in this project. (meskio) Q4
+    * Q4 Localize gettor. 
+    * Q4 Bot Telegram.
+  * O4.3: Modify GetTor so that it can distribute Tor Browser via messaging apps
+    * get gettor into rdsys - Deployment in Q4.
+
+* Sponsor 28 (itchyonion) & extension (shel)
+  * probetest centralized log collection (shell) Q4
+  * Raw Probe Log Data Collection
+
 ## Q3 - July to September 2022
 
 * sponsor 30
