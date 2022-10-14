@@ -219,6 +219,7 @@ diff --git a/service/src/main/java/org/torproject/android/service/TorService.jav
 -            builder.configurePluggableTransportsFromSettings(pluggableTransportObfs, pluggableTransportSnow);
 +            builder.configurePluggableTransportsFromSettings(pluggableTransportObfs, pluggableTransportSnow, pluggableTransportNewpt);
 ```
+That's it! There is a bit of a chicken-and-egg problem here, where the merge request with these changes will have to merged before the git hash of the `tor-android-service` library can be updated to include the new version. Negotiate with the applications team.
 
 ## Restrict to alpha versions of Tor Browser
 
