@@ -68,7 +68,7 @@ Integrating a new PT into android builds of Tor Browser requires modifications t
 
 This project is not maintained by the applications team at TPO, so changes to this repository are handled by the creation of patches that are applied at build time. Use the following procedure to create a patch:
 
-1. Clone the upstream repository
+1. Clone the upstream [repository](https://github.com/thaliproject/Tor_Onion_Proxy_Library.git)
    ```
    git clone https://github.com/thaliproject/Tor_Onion_Proxy_Library.git
    ```
@@ -97,7 +97,52 @@ This project is not maintained by the applications team at TPO, so changes to th
    +    }
     }
    ```
-4. 
+4. Modify the `TorConfigBuilder` class
+
+   In [`TorConfigBuilder.java`](https://github.com/thaliproject/Tor_Onion_Proxy_Library/blob/master/universal/src/main/java/com/msopentech/thali/toronionproxy/TorConfigBuilder.java), modify the `configurePluggableTransportsFromSettings` method to add existence and executable checks for your new PT.
+   <details>
+   <summary>example diff</summary>
+
+   ```diff
+   diff --git a/universal/src/main/java/com/msopentech/thali/toronionproxy/TorConfigBuilder.java b/universal/src/main/java/com/msopentech/thali/toronionproxy/TorConfigBuilder.java
+   --- a/universal/src/main/java/com/msopentech/thali/toronionproxy/TorConfigBuilder.java
+   +++ b/universal/src/main/java/com/msopentech/thali/toronionproxy/TorConfigBuilder.java
+   @@ -109,8 +109,8 @@ public final class TorConfigBuilder {
+   -    public TorConfigBuilder configurePluggableTransportsFromSettings(File pluggableTransportObfs, File pluggableTransportSnow) throws IOException {
+   -        if (pluggableTransportObfs == null  || pluggableTransportSnow == null) {
+   +    public TorConfigBuilder configurePluggableTransportsFromSettings(File pluggableTransportObfs, File pluggableTransportSnow, File pluggableTransportConjure) throws IOException {
+   +        if (pluggableTransportObfs == null  || pluggableTransportSnow == null || pluggableTransportConjure == null) {
+                return this;
+            }
+
+   @@ -124,6 +124,11 @@ public final class TorConfigBuilder {
+   +        if (!pluggableTransportConjure.exists()) {
+   +            throw new IOException("Conjure binary does not exist: " + pluggableTransportConjure
+   +                    .getCanonicalPath());
+   +        }
+   +
+
+   @@ -134,8 +139,12 @@ public final class TorConfigBuilder {
+   +        if (!pluggableTransportConjure.canExecute()) {
+   +            throw new IOException("Conjure binary is not executable: " + pluggableTransportConjure
+   +                    .getCanonicalPath());
+   +        }
+
+   -        transportPlugin(pluggableTransportObfs.getCanonicalPath(), pluggableTransportSnow.getCanonicalPath());
+   +        transportPlugin(pluggableTransportObfs.getCanonicalPath(), pluggableTransportSnow.getCanonicalPath(), pluggableTransportConjure.getCanonicalPath());
+            return this;
+        }
+   ```
+   </details>
+
+   And add the `ClientTransportPlugin` line to the `transportPlugin` method in the same file:
+   <details>
+   <summary>example diff</summary>
+   ```
+
+   ```
+   </details>
+5. 
 
 #### Create a patch for `tor-android-service`
 
