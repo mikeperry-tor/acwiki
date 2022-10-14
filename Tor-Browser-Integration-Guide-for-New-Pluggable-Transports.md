@@ -151,7 +151,55 @@ This project is not maintained by the applications team at TPO, so changes to th
         }
    ```
    </details>
-5. 
+5. Commit the changes
+   ```
+   git commit -am "Bug XXXXX: Add newpt support
+   ```
+6. Export a patch file of your commit
+   ```
+   git format-patch [previous commit hash]
+   ```
+
+This will produce a file called `0001-Bug-XXXXX-Add-newpt-support.patch`. Copy this into the [`tor-onion-proxy-library` project](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/tree/main/projects/tor-onion-proxy-library) in `tor-browser-build`. Make sure you `git add` this file when making your commit so that it gets included with the rest of your changes to `tor-browser-build`.
+
+Returning to the `tor-browser-build` repository, now modify the [config file](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/tor-onion-proxy-library/config) for the `tor-onion-proxy-library` project to include the new patch file as an input.
+
+```diff
+diff --git a/projects/tor-onion-proxy-library/config b/projects/tor-onion-proxy-library/config
+--- a/projects/tor-onion-proxy-library/config
++++ b/projects/tor-onion-proxy-library/config
+@@ -44,3 +44,4 @@ input_files:
+   - filename: gradle.patch
+   - filename: 0001-Bug-33931-Filter-bridges-in-stream-by-type.patch
+   - filename: 0001-Bug-30318-Add-snowflake-support.patch
++  - filename: 0001-Bug-XXXXX-Add-newpt-support.patch
+```
+Next, modify the [build script](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/tor-onion-proxy-library/build) to copy the PT binary from `tor-expert-bundle` to the right location and apply the new patch.
+
+```diff
+diff --git a/projects/tor-onion-proxy-library/build b/projects/tor-onion-proxy-library/build
+--- a/projects/tor-onion-proxy-library/build
++++ b/projects/tor-onion-proxy-library/build
+@@ -22,6 +22,7 @@ cd /var/tmp/build/[% project %]-[% c('version') %]
+ patch -p1 < $rootdir/0001-Bug-30318-Add-snowflake-support.patch
++patch -p1 < $rootdir/0001-Bug-XXXXX-Add-newpt-support.patch
+ 
+ [% FOREACH arch = ['armv7', 'aarch64', 'x86', 'x86_64'] -%]
+   # Extract tor-expert-bundle
+@@ -36,12 +37,16 @@ patch -p1 < $rootdir/0001-Bug-30318-Add-snowflake-support.patch
+     cp $ptdir/snowflake-client external/pluto/bin/armeabi-v7a/
+     cp $ptdir/snowflake-client external/pluto/bin/armeabi/
++    cp $ptdir/newpt-client external/pluto/bin/armeabi-v7a/
++    cp $ptdir/newpt-client external/pluto/bin/armeabi/
+   [% ELSIF arch == "aarch64" -%]
+     cp $ptdir/snowflake-client external/pluto/bin/arm64-v8a/
++    cp $ptdir/newpt-client external/pluto/bin/arm64-v8a/
+   [% ELSE -%]
+     cp $ptdir/snowflake-client external/pluto/bin/[% arch %]/
++    cp $ptdir/newpt-client external/pluto/bin/[% arch %]/
+   [% END -%]
+ [% END -%]
+```
 
 #### Create a patch for `tor-android-service`
 
