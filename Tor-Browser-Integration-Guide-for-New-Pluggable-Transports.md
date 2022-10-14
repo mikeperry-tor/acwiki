@@ -110,26 +110,26 @@ This project is not maintained by the applications team at TPO, so changes to th
    @@ -109,8 +109,8 @@ public final class TorConfigBuilder {
    -    public TorConfigBuilder configurePluggableTransportsFromSettings(File pluggableTransportObfs, File pluggableTransportSnow) throws IOException {
    -        if (pluggableTransportObfs == null  || pluggableTransportSnow == null) {
-   +    public TorConfigBuilder configurePluggableTransportsFromSettings(File pluggableTransportObfs, File pluggableTransportSnow, File pluggableTransportConjure) throws IOException {
+   +    public TorConfigBuilder configurePluggableTransportsFromSettings(File pluggableTransportObfs, File pluggableTransportSnow, File pluggableTransportNewpt) throws IOException {
    +        if (pluggableTransportObfs == null  || pluggableTransportSnow == null || pluggableTransportConjure == null) {
                 return this;
             }
 
    @@ -124,6 +124,11 @@ public final class TorConfigBuilder {
-   +        if (!pluggableTransportConjure.exists()) {
-   +            throw new IOException("Conjure binary does not exist: " + pluggableTransportConjure
+   +        if (!pluggableTransportNewpt.exists()) {
+   +            throw new IOException("Conjure binary does not exist: " + pluggableTransportNewpt
    +                    .getCanonicalPath());
    +        }
    +
 
    @@ -134,8 +139,12 @@ public final class TorConfigBuilder {
-   +        if (!pluggableTransportConjure.canExecute()) {
-   +            throw new IOException("Conjure binary is not executable: " + pluggableTransportConjure
+   +        if (!pluggableTransportNewpt.canExecute()) {
+   +            throw new IOException("Conjure binary is not executable: " + pluggableTransportNewpt
    +                    .getCanonicalPath());
    +        }
 
    -        transportPlugin(pluggableTransportObfs.getCanonicalPath(), pluggableTransportSnow.getCanonicalPath());
-   +        transportPlugin(pluggableTransportObfs.getCanonicalPath(), pluggableTransportSnow.getCanonicalPath(), pluggableTransportConjure.getCanonicalPath());
+   +        transportPlugin(pluggableTransportObfs.getCanonicalPath(), pluggableTransportSnow.getCanonicalPath(), pluggableTransportNewpt.getCanonicalPath());
             return this;
         }
    ```
@@ -138,8 +138,17 @@ This project is not maintained by the applications team at TPO, so changes to th
    And add the `ClientTransportPlugin` line to the `transportPlugin` method in the same file:
    <details>
    <summary>example diff</summary>
-   ```
 
+   ```diff
+   @@ -502,9 +511,10 @@ public final class TorConfigBuilder {
+
+   -    public TorConfigBuilder transportPlugin(String obfsPath, String snowPath) {
+   +    public TorConfigBuilder transportPlugin(String obfsPath, String snowPath, String newptPath) {
+         buffer.append("ClientTransportPlugin meek_lite,obfs3,obfs4 exec ").append(obfsPath).append('\n');
+         buffer.append("ClientTransportPlugin snowflake exec ").append(snowPath).append(" -url https://snowflake-broker.torproject.net.global.prod.fastly.net/ -front cdn.sstatic.net -ice stun:stun.l.google.com:19302,stun:stun.voip.blackberry.com:3478,stun:stun.altar.com.pl:3478,stun:stun.antisip.com:3478,stun:stun.bluesip.net:3478,stun:stun.dus.net:3478,stun:stun.epygi.com:3478,stun:stun.sonetel.com:3478,stun:stun.sonetel.net:3478,stun:stun.stunprotocol.org:3478,stun:stun.uls.co.za:3478,stun:stun.voipgate.com:3478,stun:stun.voys.nl:3478\n");
+   +     buffer.append("ClientTransportPlugin newpt exec ").append(newptPath).append("-arg1 foo -arg2 bar\n");
+         return this;
+        }
    ```
    </details>
 5. 
