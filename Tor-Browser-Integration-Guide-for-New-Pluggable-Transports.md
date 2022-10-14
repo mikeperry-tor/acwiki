@@ -1,4 +1,4 @@
-Note: this is a work-in-progress and is incomplete.
+Note: this guide is a work in progress and may be incomplete.
 
 This is a guide for anti-censorship team members on how to add support for a new pluggable transport (PT) to Tor Browser.
 
