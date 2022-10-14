@@ -203,6 +203,10 @@ diff --git a/projects/tor-onion-proxy-library/build b/projects/tor-onion-proxy-l
 
 #### Create a patch for `tor-android-service`
 
+The `tor-android-service` project is maintained by the applications team and has [its own repository](https://gitlab.torproject.org/tpo/applications/tor-android-service). You will need to open a merge request with changes to the repository to complete the android builds.
+
+The only change we need is to update the call to `configurePluggableTransportsFromSettings` to match the changes we made in our patch above.
+
 ## Restrict to alpha versions of Tor Browser
 
 It's a good idea to test new PTs in alpha versions of tor browser first. This can be configured in the reproducible build system. 
