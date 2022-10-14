@@ -37,7 +37,27 @@ diff --git a/projects/tor-expert-bundle/build b/projects/tor-expert-bundle/build
 +tar -xkf $rootdir/[% c('input_files_by_name/newpt') %]
 ```
 
-## Set the ClientTransportPlugin line in the default torrc files 
+## Set the ClientTransportPlugin line for desktop platforms
+
+Each platform has its own torrc defaults file in the `browser` project. There is one for:
+- [linux](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/browser/Bundle-Data/PTConfigs/linux/torrc-defaults-appendix)
+- [windows](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/browser/Bundle-Data/PTConfigs/windows/torrc-defaults-appendix)
+- [mac](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/browser/Bundle-Data/PTConfigs/mac/torrc-defaults-appendix)
+
+```diff
+diff --git a/projects/browser/Bundle-Data/PTConfigs/linux/torrc-defaults-appendix b/projects/browser/Bun
+dle-Data/PTConfigs/linux/torrc-defaults-appendix
+--- a/projects/browser/Bundle-Data/PTConfigs/linux/torrc-defaults-appendix
++++ b/projects/browser/Bundle-Data/PTConfigs/linux/torrc-defaults-appendix
+@@ -2,4 +2,4 @@
+ ClientTransportPlugin meek_lite,obfs2,obfs3,obfs4,scramblesuit exec ./TorBrowser/Tor/PluggableTransport
+s/obfs4proxy
+
++## newpt configuration
++ClientTransportPlugin newpt exec ./TorBrowser/Tor/PluggableTransports/newpt-client -arg1 foo -arg2 bar
+```
+
+Once these are updated, the new PT will work on all desktop platforms of Tor Browser. The next step covers how to add support in Android platforms.
 
 ## Configure the onion-proxy and android-service to accept the PT
 
