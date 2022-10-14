@@ -14,21 +14,20 @@ This guide will give a brief overview of how to write these files, more complete
 
 Make sure to define the following things in the config:
 
-```
-# vim: filetype=yaml sw=2
+```yaml
 git_url: [URL of the git repository that the PT client can be cloned from]
 git_hash: [git commit hash of the version of the PT to include in the build]
 ```
 Don't change the `filename` or `container` arguments, all projects should be built in a container and the filename will place the result of the build in a spot that rbm can find it later.
 
-```
+```yaml
 filename: '[% project %]-[% c("version") %]-[% c("var/osname") %]-[% c("var/build_id") %].tar.gz'
 container:
   use_container: 1
 ```
 The input files should list all dependencies for the project. This includes all go libraries (other than the standard library) that are needed to build it. This is the most time-consuming part of defining reproducible builds. All dependencies need to have their own rbm project (with their own `config` and possibly `build` files). 
 
-```
+```yaml
 input_files:
   - project: container-image
   - name: go
