@@ -60,7 +60,46 @@ s/obfs4proxy
 
 Once these are updated, the new PT will work on all desktop platforms of Tor Browser. The next step covers how to add support in Android platforms.
 
-## Configure the onion-proxy and android-service to accept the PT
+## Adding PT support in Android
+
+Integrating a new PT into android builds of Tor Browser requires modifications to a few different repositories.
+
+#### Create a patch for `tor-onion-proxy-library`
+
+This project is not maintained by the applications team at TPO, so changes to this repository are handled by the creation of patches that are applied at build time. Use the following procedure to create a patch:
+
+1. Clone the upstream repository
+   ```
+   git clone https://github.com/thaliproject/Tor_Onion_Proxy_Library.git
+   ```
+2. Apply the existing PT patches in order
+
+   Copy or download all of the existing `*.patch` files from the [`tor-onion-proxy-library`](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/tree/main/projects/tor-onion-proxy-library) project in `tor-browser-build` and apply them in the order specified in the corresponding [build script](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/bf61fa94cb3584537cfa01d4aca361f33f0faf0b/projects/tor-onion-proxy-library/build).
+
+   For example, at the time of this writing:
+   ```
+   git am -3 gradle.patch
+   git am -3 0001-Bug-33931-Filter-bridges-in-stream-by-type.patch
+   git am -3 0001-Bug-30318-Add-snowflake-support.patch
+   ```
+3. Modify `build.gradle` to find the executable
+
+   ```diff
+   diff --git a/android/build.gradle b/android/build.gradle
+   --- a/android/build.gradle
+   +++ b/android/build.gradle
+   @@ -96,6 +96,9 @@ task copyPluggableTransports(type: Copy) {
+        rename { filename ->
+            filename.replace 'snowflake-client', 'libSnowflake.so'
+        }
+   +    rename { filename ->
+   +        filename.replace 'newpt-client', 'libNewpt.so'
+   +    }
+    }
+   ```
+4. 
+
+#### Create a patch for `tor-android-service`
 
 ## Restrict to alpha versions of Tor Browser
 
