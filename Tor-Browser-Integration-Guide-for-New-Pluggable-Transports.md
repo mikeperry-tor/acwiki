@@ -45,8 +45,61 @@ input_files:
 ```
 
 
-#### Writitng the `build` script
+#### Writing the `build` script
 
+Most of the build script can be copied from an additional project and modified to change the name of the target PT. 
+
+```bash
+#!/bin/bash
+[% c("var/set_default_env") -%]
+[% pc('go', 'var/setup', { go_tarfile => c('input_files_by_name/go') }) %]
+distdir=/var/tmp/dist/[% project %]
+mkdir -p $distdir
+
+[% IF c("var/android") -%]
+  [% pc(c('var/compiler'), 'var/setup', { compiler_tarfile => c('input_files_by_name/' _ c('var/compiler')) }) %]
+  # We need to explicitly set CGO_ENABLED with Go 1.13.x as the Android build
+  # breaks otherwise.
+  export CGO_ENABLED=1
+[% END -%]
+```
+
+Each dependency listed in the `input_files` part of the `config` above needs to be extracted into the right place. Which projects these are will depend on the PT:
+```bash
+tar -C /var/tmp/dist -xf [% c('input_files_by_name/goptlib') %]
+tar -C /var/tmp/dist -xf [% c('input_files_by_name/go-dep-1') %]
+tar -C /var/tmp/dist -xf [% c('input_files_by_name/go-dep-2') %]
+```
+
+```bash
+mkdir -p /var/tmp/build
+tar -C /var/tmp/build -xf [% project %]-[% c('version') %].tar.gz
+cd /var/tmp/build/[% project %]-[% c('version') %]
+```
+Make a directly in the `$GOPATH` for the PT source code:
+```bash
+mkdir -p "$GOPATH/src/[domain name and path for the PT git repository]"
+```
+
+```bash
+cd client
+go build -ldflags '-s'
+```
+Copy the compiled client binary to the right filename, depending on the platform.
+```bash
+cp -a client[% IF c("var/windows") %].exe[% END %] $distdir/newpt-client[% IF c("var/windows") %].exe[% END %]
+```
+If there is a README, copy it.
+```bash
+cd ..
+cp -a README.md $distdir/README.NEWPT.md
+
+cd $distdir
+[% c('tar', {
+        tar_src => [ '.' ],
+        tar_args => '-czf ' _ dest_dir _ '/' _ c('filename'),
+    }) %]
+```
 
 After the project has been defined, it can be tested and debugged by building just the project directly:
 ```
