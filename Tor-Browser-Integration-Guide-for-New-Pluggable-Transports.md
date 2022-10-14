@@ -205,7 +205,20 @@ diff --git a/projects/tor-onion-proxy-library/build b/projects/tor-onion-proxy-l
 
 The `tor-android-service` project is maintained by the applications team and has [its own repository](https://gitlab.torproject.org/tpo/applications/tor-android-service). You will need to open a merge request with changes to the repository to complete the android builds.
 
-The only change we need is to update the call to `configurePluggableTransportsFromSettings` to match the changes we made in our patch above.
+Update the call to `configurePluggableTransportsFromSettings` to match the method signature made in the patch to `tor-onion-proxy-library` above. What this looks like will depend on how many pluggable transports there are. For the patch above, it will look like this:
+```diff
+diff --git a/service/src/main/java/org/torproject/android/service/TorService.java b/service/src/main/java/org/torproject/android/service/TorService.java
+--- a/service/src/main/java/org/torproject/android/service/TorService.java
++++ b/service/src/main/java/org/torproject/android/service/TorService.java
+@@ -369,8 +369,10 @@ public final class TorService extends Service implements TorServiceConstants, Or
+             File pluggableTransportSnow = new File(nativeDir, "libSnowflake.so");
+             if(!pluggableTransportSnow.canExecute()) pluggableTransportSnow.setExecutable(true);
++            File pluggableTransportNewpt = new File(nativeDir, "libNewpt.so");
++            if(!pluggableTransportNewpt.canExecute()) pluggableTransportNewpt.setExecutable(true);
+ 
+-            builder.configurePluggableTransportsFromSettings(pluggableTransportObfs, pluggableTransportSnow);
++            builder.configurePluggableTransportsFromSettings(pluggableTransportObfs, pluggableTransportSnow, pluggableTransportNewpt);
+```
 
 ## Restrict to alpha versions of Tor Browser
 
