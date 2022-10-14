@@ -44,6 +44,7 @@ Each platform has its own torrc defaults file in the `browser` project. There is
 - [windows](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/browser/Bundle-Data/PTConfigs/windows/torrc-defaults-appendix)
 - [mac](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/browser/Bundle-Data/PTConfigs/mac/torrc-defaults-appendix)
 
+Pay close attention to how the executables are called in each of the different platforms and emulate the existing ClientTransportPlugin lines but with your own PT name and arguments. For example:
 ```diff
 diff --git a/projects/browser/Bundle-Data/PTConfigs/linux/torrc-defaults-appendix b/projects/browser/Bun
 dle-Data/PTConfigs/linux/torrc-defaults-appendix
