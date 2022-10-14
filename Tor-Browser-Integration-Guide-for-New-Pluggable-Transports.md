@@ -46,7 +46,7 @@ input_files:
 
 #### Writing the `build` script
 
-Most of the build script can be copied from an existing PT project and modified to change the name of the new PT. 
+Most of the build script can be copied from an existing PT project and modified slightly for the new PT. 
 
 ```bash
 #!/bin/bash
