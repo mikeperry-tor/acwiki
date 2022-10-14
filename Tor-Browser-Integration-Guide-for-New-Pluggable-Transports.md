@@ -4,7 +4,55 @@ This is a guide for anti-censorship team members on how to add support for a new
 
 ## Build the PT client reproducibly
 
-The first step is to create a project in tor-browser-build to build the pluggable transport client reproducibly on all platforms.
+The first step is to create an [rbm](https://rbm.torproject.org/) project in tor-browser-build to build the pluggable transport client reproducibly on all platforms. This project will have a `config` file and a `build` script. See examples of projects for existing PTs:
+- [obfs4](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/tree/main/projects/obfs4)
+- [snowflake](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/tree/main/projects/snowflake)
+
+This guide will give a brief overview of how to write these files, more complete documentation is available in the [rbm repository](https://gitlab.torproject.org/tpo/applications/rbm/-/tree/main/doc).
+
+#### Writing the `config`
+
+Make sure to define the following things in the config:
+
+```
+# vim: filetype=yaml sw=2
+git_url: [URL of the git repository that the PT client can be cloned from]
+git_hash: [git commit hash of the version of the PT to include in the build]
+```
+Don't change the `filename` or `container` arguments, all projects should be built in a container and the filename will place the result of the build in a spot that rbm can find it later.
+
+```
+filename: '[% project %]-[% c("version") %]-[% c("var/osname") %]-[% c("var/build_id") %].tar.gz'
+container:
+  use_container: 1
+```
+The input files should list all dependencies for the project. This includes all go libraries (other than the standard library) that are needed to build it. This is the most time-consuming part of defining reproducible builds. All dependencies need to have their own rbm project (with their own `config` and possibly `build` files). 
+
+```
+input_files:
+  - project: container-image
+  - name: go
+    project: go
+  - name: goptlib
+    project: goptlib
+  - name: [go dependency 1]
+    project: [go dependency 1]
+  - name: [go dependency 2]
+    project: [go dependency 2]
+  - name: '[% c("var/compiler") %]'
+    project: '[% c("var/compiler") %]'
+    enable: '[% c("var/android") %]'
+```
+
+
+#### Writitng the `build` script
+
+
+After the project has been defined, it can be tested and debugged by building just the project directly:
+```
+./rbm/rbm build $project --target nightly --target $platform
+```
+This saves time and resources, rather than doing a full tor browser build.
 
 ## Add the client binary to the tor-expert-bundle
 
