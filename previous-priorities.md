@@ -7,7 +7,7 @@
 - **improve the performance of Snowflake so that Tor bootstraps reliably on a mobile phone in China <-- work mostly done by dcf**
 - **deploy TapDance and Conjure as high collateral damage PT**
 - **commit to a design for a reputation-based bridge distribution system**
-- ~~streamline our private bridge setup and distribution process ~~<-- mostly handled by community team, check with ggus how they are handling it [see https://gitlab.torproject.org/tpo/community/support/-/issues/28526 for original motivation]
+- ~~streamline our private bridge setup and distribution process~~ <-- mostly handled by community team, check with ggus how they are handling it [see https://gitlab.torproject.org/tpo/community/support/-/issues/28526 for original motivation]
 - **deploy probes in areas that are likely to censor Tor and collect packet captures and probe results for storage and analysis**
 - **provide OONI with suggestions for improving the accuracy of OONI's Tor tests**
 - **summarize the details of Tor blocking events with data from our probes and volunteers**
