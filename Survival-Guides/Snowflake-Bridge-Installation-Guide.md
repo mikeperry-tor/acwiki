@@ -3,21 +3,21 @@ Instructions for setting up a Snowflake bridge on Debian 11.
 
 ## Introduction
 
-The configuration of the Snowflake bridge is a little bit complicated, for performance reasons. The [usual way](https://community.torproject.org/relay/setup/bridge/) to run a pluggable transport server is to run one tor process, which itself runs and manages the pluggable transport process (e.g. snowflake-server) according to the `ServerTransportPlugin` and `ServerTransportListenAddr` options. This is how the Snowflake bridge was configured before tpo/anti-censorship/pluggable-transports/snowflake#40091, tpo/anti-censorship/pluggable-transports/snowflake#40095.
+The configuration of the Snowflake bridge is a little bit complicated, for performance reasons. The [usual way](https://community.torproject.org/relay/setup/bridge/) to run a pluggable transport server is to run one tor process, which itself runs and manages the pluggable transport process (e.g. snowflake-server) according to the `ServerTransportPlugin` and `ServerTransportListenAddr` options. This is how the Snowflake bridge was configured before tpo/anti-censorship/pluggable-transports/snowflake#40091 and tpo/anti-censorship/pluggable-transports/snowflake#40095.
 
-![Diagram of tor managing snowflake-server](uploads/2f0c30b846a9895628e98ee615b2ee12/snowflake-bridge-single.png)
-[Inkscape SVG source code](uploads/cfa4c581073a52a232b8bc7c8fd6053c/snowflake-bridge-single.svg)
+![Diagram of tor managing snowflake-server](uploads/d1511ae780cd0b408adf01666944b074/snowflake-bridge-single.png)
+[Inkscape SVG source code](uploads/58a24ab0294ceaf624e6d42bfd65f4a5/snowflake-bridge-single.svg)
 
-But the usual setup does not work with the amount of traffic the Snowflake bridge gets. The tor process becomes a bottleneck. tor is mostly single-threaded, so once it reaches 100% of one CPU core, it cannot go any faster, no matter how many CPUs there are total, how much the RAM, or how well the other programs are optimized.
+But the usual setup does not work with the amount of traffic the Snowflake bridge gets. The tor process becomes a bottleneck. tor is mostly single-threaded, so once it reaches 100% of one CPU core, it cannot go any faster, no matter how many CPUs there are total, how much RAM there is, or how well the other programs are optimized.
 
-To work around the problem of tor being limited to one CPU, we run multiple instances of tor, and put them behind [HAProxy](https://www.haproxy.org/), a load balancer. The tor instances all have the same identity keys and onion keys, so a client's fingerprint verification will check out, no matter which instance of tor the load balancer connects it to. The snowflake-server process is no longer run and managed by (any instance of) tor; instead it runs as a normal system daemon, managed by systemd. snowflake-server forwards connections to haproxy, and haproxy forwards connections to the multiple instances of tor.
+To work around the problem of tor being limited to one CPU, we run multiple instances of tor, and put them behind [HAProxy](https://www.haproxy.org/), a load balancer. The tor instances all have the same identity keys and onion keys, so a client's fingerprint verification will check out, no matter which instance of tor the load balancer connects it to. The snowflake-server process is no longer run and managed by (any instance of) tor; instead it runs as a normal system daemon, managed by systemd. snowflake-server forwards connections to HAProxy, and HAProxy forwards connections to the multiple instances of tor.
 
-There is one more complication, the extended ORPort (ExtORPort). The ExtORPort allows connections to be tagged with [a transport name and a client IP address](https://gitweb.torproject.org/torspec.git/tree/proposals/196-transport-control-ports.txt?id=554d63ad3a60b705c3a5cbe2e3e9b33094a049dd#n56); this metadata is essential for metrics. But in order to connect to the ExtORPort, you need to [authenticate](https://gitweb.torproject.org/torspec.git/tree/proposals/217-ext-orport-auth.txt?id=554d63ad3a60b705c3a5cbe2e3e9b33094a049dd#n75) using a secret key, stored in a file. Every instance of tor generates this secret key independently; there would be no way for snowflake-server to know which key to authenticate with, not knowing which instance of tor the load balancer will assign a connection to. To work around this problem, there is a shim called [extor-static-cookie](https://gitlab.torproject.org/dcf/extor-static-cookie) that presents an ExtORPort with a fixed, unchanging authentication key on a static port, and forwards the connections (again as ExtORPort) to tor, using that instance of tor's authentication key on an ephemeral port `ExtORPort auto`. One extor-static-cookie process is run per instance of tor, using `ServerTransportPlugin` and `ServerTransportListenAddr`.
+There is one more complication, the extended ORPort (ExtORPort). The ExtORPort allows connections to be tagged with [a transport name and a client IP address](https://gitweb.torproject.org/torspec.git/tree/ext-orport-spec.txt?id=29245fd50d1ee3d96cca52154da4d888f34fedea#n145); this metadata is essential for metrics. But in order to connect to the ExtORPort, you need to [authenticate](https://gitweb.torproject.org/torspec.git/tree/proposals/217-ext-orport-auth.txt?id=554d63ad3a60b705c3a5cbe2e3e9b33094a049dd#n75) using a secret key, stored in a file. Every instance of tor generates this secret key independently; there would be no way for snowflake-server to know which key to authenticate with, not knowing which instance of tor the load balancer will assign a connection to. To work around this problem, there is a shim called [extor-static-cookie](https://gitlab.torproject.org/dcf/extor-static-cookie) that presents an ExtORPort with a fixed, unchanging authentication key on a static port, and forwards the connections (again as ExtORPort) to tor, using that instance of tor's authentication key on an ephemeral port. One extor-static-cookie process is run per instance of tor, using `ServerTransportPlugin` and `ServerTransportListenAddr`.
 
 The load-balanced setup looks like this:
 
-![Diagram of snowflake-server talking to haproxy, haproxy talking to each of the four extor-static-cookie instances, and the extor-static-cookie instances talking to their respective instance of tor](uploads/5675ac7c12bbd4c1df6922abcc002c70/snowflake-bridge-loadbalanced.png)
-[Inkscape SVG source code](uploads/365f465663f395b6db82ca1b38dd17c6/snowflake-bridge-loadbalanced.svg)
+![Diagram of snowflake-server talking to HAProxy, HAProxy talking to each of the four extor-static-cookie instances, and the extor-static-cookie instances talking to their respective instance of tor](uploads/03f9830a35603ac7cfcf425f4bfd9494/snowflake-bridge-loadbalanced.png)
+[Inkscape SVG source code](uploads/0b54e689e44f0679a97d83e252333a69/snowflake-bridge-loadbalanced.svg)
 
 References:
 
@@ -25,6 +25,22 @@ References:
   * The same as https://lists.torproject.org/pipermail/tor-relays/2021-December/020156.html.
 * tpo/anti-censorship/pluggable-transports/snowflake#28651
   * Other ideas for scaling the Snowflake bridge that don't quite work yet, because of the need to match the fingerprint the client expects.
+
+
+## Localhost address ranges
+
+We reserve different localhost IP address ranges for different purposes. This is to mitigate problems with ephemeral port exhaustion when there are many live connections. (See tpo/anti-censorship/pluggable-transports/snowflake#40198, tpo/anti-censorship/pluggable-transports/snowflake#40201.)
+
+The purpose of each address range is listed in the table below. "⁎" stands for a random IP address octet, or a random ephemeral port.
+
+|Address range|Purpose|Where configured|
+|-------------|-------|----------------|
+|127.0.0.1:10000           |HAProxy listen port (dialed by snowflake-server)|`bind` in haproxy.cfg, `TOR_PT_EXTENDED_SERVER_PORT` in snowflake-server.service|
+|127.0.1.⁎:⁎               |snowflake-server source address when dialing HAProxy|`orport-srcaddr` in `TOR_PT_SERVER_TRANSPORT_OPTIONS` in snowflake-server.service|
+|127.0.2.<var>N</var>:⁎    |HAProxy source address when dialing extor-static-cookie instance <var>N</var>|`source` in haproxy.cfg|
+|127.0.3.<var>N</var>:10000|extor-static-cookie instance <var>N</var> listen port (dialed by HAProxy)|`ServerTransportListenAddr` in torrc, `server` in haproxy.cfg|
+|127.0.4.<var>N</var>:⁎    |tor instance <var>N</var> ExtORPort (dialed by extor-static-cookie)|`ExtORPort` in torrc|
+|127.0.5.⁎:⁎               |extor-static-cookie source address when dialing tor ExtORPort|`orport-srcaddr` in `ServerTransportOptions` in torrc|
 
 
 ## General system setup
@@ -155,9 +171,9 @@ Create multiple instances of tor using [tor-instance-create](https://manpages.de
 # for instance in $INSTANCES; do tor-instance-create "$instance"; done
 ```
 
-Edit the instance-specific torrc files. (But don't start the instances yet.) All the torrc files have the same contents, except that `ServerTransportListenAddr` will count through `127.0.0.1:10001`, `127.0.0.1:10002`, etc., and `Nickname` will count through `NICKNAME1`, `NICKNAME2`, etc. Replace `NICKNAME` and `NUM` in the example below:
+Edit the instance-specific torrc files. (But don't start the instances yet.) All the torrc files have the same contents, except that `ServerTransportListenAddr` will count through `127.0.3.1:10000`, `127.0.3.2:10000`, etc., and `Nickname` will count through <code><var>NICKNAME</var>1</code>, <code><var>NICKNAME</var>2</code>, etc. Replace <code><var>NICKNAME</var></code> and <code><var>N</var></code> in the example below:
 
-```
+<pre>
 # vi /etc/tor/instances/*/torrc
 	# This is one of the instances of tor to which snowflake-server forwards
 	# incoming traffic, via a load balancer. Each of the instances has a different
@@ -165,13 +181,14 @@ Edit the instance-specific torrc files. (But don't start the instances yet.) All
 	BridgeRelay 1
 	AssumeReachable 1
 	BridgeDistribution none
-	ORPort 127.0.0.1:auto
-	ExtORPort auto
+	ORPort 127.0.0.1:auto # unused
+	ExtORPort 127.0.4.1:auto
 	SocksPort 0
 	ServerTransportPlugin snowflake exec /usr/local/bin/extor-static-cookie /etc/extor-static-cookie/static_extended_orport_auth_cookie
-	ServerTransportListenAddr snowflake 127.0.0.1:1000NUM
-	Nickname NICKNAMENUM
-```
+	ServerTransportListenAddr snowflake 127.0.3.<mark><var>N</var></mark>:10000
+	ServerTransportOptions snowflake orport-srcaddr=127.0.5.0/24
+	Nickname <mark><var>NICKNAME</var><var>N</var></mark>
+</pre>
 
 The next step is different depending on whether you are installing a new bridge for the first time, or moving an existing bridge (with an existing relay fingerprint) to a new server.
 
@@ -209,9 +226,13 @@ You can verify that all instances have the same identity key with:
 ```
 
 
-## haproxy
+## HAProxy
 
-Install haproxy, which is a load balancer. Configure it to listen on port 10000, and forward to the instances of tor at 10001, 10002, .... Append the configuration to the end of what is there already.
+Install HAProxy, which is a load balancer. Configure it to listen at 127.0.0.1:10000, and forward to the instances of extor-static-cookie at 127.0.3.<var>N</var>:10000, using respective source addresses 127.0.2.<var>N</var>.
+
+The explicit source port ranges of `15000-64000` are a hack to [prevent HAProxy from using the `IP_BIND_ADDRESS_NO_PORT` option](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/issues/40201#note_2839449), which eliminates "no free ports" errors that otherwise occur at high levels of use.
+
+Append the configuration to the end of what is present by default in haproxy.cfg.
 
 ```
 # apt install haproxy
@@ -225,12 +246,12 @@ Install haproxy, which is a load balancer. Configure it to listen on port 10000,
 	backend tor-instances
 		mode tcp
 		timeout server 600s
-		server snowflake1 127.0.0.1:10001
-		server snowflake2 127.0.0.1:10002
-		server snowflake3 127.0.0.1:10003
-		server snowflake4 127.0.0.1:10004
+		server snowflake1 127.0.3.1:10000 source 127.0.2.1:15000-64000
+		server snowflake1 127.0.3.2:10000 source 127.0.2.2:15000-64000
+		server snowflake1 127.0.3.3:10000 source 127.0.2.3:15000-64000
+		server snowflake1 127.0.3.4:10000 source 127.0.2.4:15000-64000
 # service haproxy restart
-# etckeeper commit "haproxy"
+# etckeeper commit "HAProxy"
 ```
 
 
@@ -288,10 +309,11 @@ Then, on the bridge, install snowflake-server and a systemd service file for it.
 	Environment=TOR_PT_SERVER_BINDADDR=snowflake-[::]:443
 	Environment=TOR_PT_EXTENDED_SERVER_PORT=127.0.0.1:10000
 	Environment=TOR_PT_AUTH_COOKIE_FILE=/etc/extor-static-cookie/static_extended_orport_auth_cookie
+	Environment=TOR_PT_SERVER_TRANSPORT_OPTIONS=snowflake:orport-srcaddr=127.0.1.0/24;snowflake:num-turbotunnel=2
 	Environment=TOR_PT_STATE_LOCATION=%S/snowflake-server/pt_state
 	Environment=TOR_PT_EXIT_ON_STDIN_CLOSE=0
 
-	ExecStart=/usr/local/bin/snowflake-server --acme-hostnames snowflake.bamsoftware.com,snowflake.freehaven.net,snowflake.torproject.net --acme-email dcf@torproject.org --log %L/snowflake-server/snowflake-server.log
+	ExecStart=/usr/local/bin/snowflake-server --acme-hostnames snowflake.torproject.net --acme-email dcf@torproject.org --log %L/snowflake-server/snowflake-server.log
 
 	[Install]
 	WantedBy=multi-user.target
@@ -301,9 +323,28 @@ Then, on the bridge, install snowflake-server and a systemd service file for it.
 
 Check for errors in `service snowflake-server status` and /var/log/snowflake-server/snowflake-server.log.
 
+
+## Appendix: Outbound bind addresses
+
+The [snowflake-01](Survival-Guides/Snowflake-Bridge-Survival-Guide#snowflake-02-flakey) bridge uses multiple outgoing IP addresses, in an effort to appear less like a participant in the [DDoS attack](https://status.torproject.org/issues/2022-06-09-network-ddos/) that was current in 2022. See tpo/anti-censorship/pluggable-transports/snowflake#40223.
+
+To make this work, we set `OutboundBindAddress` to different values in different instances' torrc files:
+
+<pre>
+OutboundBindAddress 193.187.88.<var>X</var>
+OutboundBindAddress [2a0c:dd40:1:b::<var>X</var>]
+</pre>
+
+Besides setting multiple outbound addresses, we also communicate with the authors of DDoS mitigation scripts to exempt the Snowflake bridges' addresses:
+
+* [toralf/torutils](https://github.com/toralf/torutils/issues/7)
+* [Enkidu-6/tor-ddos](https://github.com/Enkidu-6/tor-ddos/issues/25)
+* [steinex/tor-ddos](https://github.com/steinex/tor-ddos/issues/2)
+
+
 ## Appendix: WireGuard
 
-The [snowflake-02](Survival-Guides/Snowflake-Bridge-Survival-Guide#snowflake-02-crusty) bridge site uses WireGuard before the SSH port.
+The [snowflake-02](Survival-Guides/Snowflake-Bridge-Survival-Guide#snowflake-02-crusty) bridge uses WireGuard before the SSH port.
 
 Open a UDP port for WireGuard:
 
