@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="25cm"
+   height="13cm"
+   viewBox="0 0 250 130"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="snowflake-bridge-loadbalanced.svg"
+   inkscape:export-xdpi="119.96615"
+   inkscape:export-ydpi="119.96615">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1654"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1652"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(-0.6)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1576"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend"
+       inkscape:collect="always">
+      <path
+         transform="scale(-0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1574"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1307"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend">
+      <path
+         transform="scale(-0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1305"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Mend"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path942"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(-0.6)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1576-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend">
+      <path
+         inkscape:connector-curvature="0"
+         transform="scale(-0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1574-6" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.1260145"
+     inkscape:cx="813.76719"
+     inkscape:cy="224.19331"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1507"
+     inkscape:window-height="708"
+     inkscape:window-x="1049"
+     inkscape:window-y="16"
+     inkscape:window-maximized="0"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     units="cm">
+    <inkscape:grid
+       type="xygrid"
+       id="grid815"
+       units="mm"
+       spacingx="3"
+       spacingy="3"
+       empspacing="2"
+       originx="1.4"
+       originy="1.9" />
+    <sodipodi:guide
+       position="144.60473,108.1"
+       orientation="1,0"
+       id="guide1345"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(150.60474,-101.1)">
+    <g
+       id="g851"
+       transform="translate(0.79526,-1.7999974)">
+      <rect
+         y="105"
+         x="9"
+         height="12"
+         width="54"
+         id="rect821"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#26b100;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <text
+         id="text819"
+         y="110.3916"
+         x="36.162781"
+         style="font-size:4.23333311px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:4.93888903px;stroke-width:0.26458332px"
+           y="110.3916"
+           x="36.162781"
+           id="tspan817"
+           sodipodi:role="line">tor@snowflake1</tspan></text>
+      <text
+         id="text825"
+         y="115.62514"
+         x="35.922485"
+         style="font-size:2.82222223px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:2.82222222px;stroke-width:0.26458332px"
+           y="115.62514"
+           x="35.922485"
+           id="tspan823"
+           sodipodi:role="line">ExtORPort 127.0.4.1:auto</tspan></text>
+    </g>
+    <g
+       id="g875"
+       transform="translate(0.79526,-4.7999974)">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#81e1f3;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect853"
+         width="48"
+         height="12"
+         x="12"
+         y="123" />
+      <text
+         xml:space="preserve"
+         style="font-size:4.23333311px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="35.995178"
+         y="128.3916"
+         id="text857"><tspan
+           sodipodi:role="line"
+           id="tspan855"
+           x="35.995178"
+           y="128.3916"
+           style="font-size:4.93888903px;stroke-width:0.26458332px">extor-static-cookie</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:2.82222223px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="35.990524"
+         y="133.62514"
+         id="text861"><tspan
+           sodipodi:role="line"
+           id="tspan859"
+           x="35.990524"
+           y="133.62514"
+           style="font-size:2.82222222px;stroke-width:0.26458332px">ExtORPort 127.0.3.1:10000</tspan></text>
+    </g>
+    <path
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+       d="m 36.795259,115.2 v 3"
+       id="path877"
+       inkscape:connector-curvature="0" />
+    <path
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none"
+       d="m 12.79526,124.2 c -18,0 -18,36 -36,36"
+       id="path879"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.82222223px;line-height:1.25;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       x="65.022438"
+       y="107.73252"
+       id="text911"><tspan
+         sodipodi:role="line"
+         id="tspan909"
+         x="65.022438"
+         y="107.73252"
+         style="font-size:3.52777767px;text-align:start;text-anchor:start;stroke-width:0.26458332px">To middle relays</tspan></text>
+    <path
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-end:url(#marker1576)"
+       d="m 63.79526,109.2 h 33"
+       id="path913"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g1213"
+       transform="translate(0.79526,31.200003)">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#26b100;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect1203"
+         width="54"
+         height="12"
+         x="9"
+         y="105" />
+      <text
+         xml:space="preserve"
+         style="font-size:4.23333311px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="36.182072"
+         y="110.3916"
+         id="text1207"><tspan
+           sodipodi:role="line"
+           id="tspan1205"
+           x="36.182072"
+           y="110.3916"
+           style="font-size:4.93888903px;stroke-width:0.26458332px">tor@snowflake2</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:2.82222223px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="35.922485"
+         y="115.62514"
+         id="text1211"><tspan
+           sodipodi:role="line"
+           id="tspan1209"
+           x="35.922485"
+           y="115.62514"
+           style="font-size:2.82222222px;stroke-width:0.26458332px">ExtORPort 127.0.4.2:auto</tspan></text>
+    </g>
+    <g
+       transform="translate(0.79526,28.200003)"
+       id="g1225">
+      <rect
+         y="123"
+         x="12"
+         height="12"
+         width="48"
+         id="rect1215"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#81e1f3;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <text
+         id="text1219"
+         y="128.3916"
+         x="35.995178"
+         style="font-size:4.23333311px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:4.93888903px;stroke-width:0.26458332px"
+           y="128.3916"
+           x="35.995178"
+           id="tspan1217"
+           sodipodi:role="line">extor-static-cookie</tspan></text>
+      <text
+         id="text1223"
+         y="133.62514"
+         x="35.990524"
+         style="font-size:2.82222223px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:2.82222222px;stroke-width:0.26458332px"
+           y="133.62514"
+           x="35.990524"
+           id="tspan1221"
+           sodipodi:role="line">ExtORPort 127.0.3.2:10000</tspan></text>
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       id="path1227"
+       d="m 36.795259,148.2 v 3"
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path1229"
+       d="m 12.79526,157.2 c -18,0 -18,9 -36,9"
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none" />
+    <text
+       id="text1233"
+       y="140.73251"
+       x="65.022438"
+       style="font-size:2.82222223px;line-height:1.25;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-size:3.52777767px;text-align:start;text-anchor:start;stroke-width:0.26458332px"
+         y="140.73251"
+         x="65.022438"
+         id="tspan1231"
+         sodipodi:role="line">To middle relays</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path1235"
+       d="m 63.79526,142.2 h 33"
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-end:url(#Arrow2Mend)" />
+    <g
+       transform="translate(0.79526,64.200003)"
+       id="g1247">
+      <rect
+         y="105"
+         x="9"
+         height="12"
+         width="54"
+         id="rect1237"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#26b100;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <text
+         id="text1241"
+         y="110.3916"
+         x="36.132637"
+         style="font-size:4.23333311px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:4.93888903px;stroke-width:0.26458332px"
+           y="110.3916"
+           x="36.132637"
+           id="tspan1239"
+           sodipodi:role="line">tor@snowflake3</tspan></text>
+      <text
+         id="text1245"
+         y="115.62514"
+         x="35.922485"
+         style="font-size:2.82222223px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:2.82222222px;stroke-width:0.26458332px"
+           y="115.62514"
+           x="35.922485"
+           id="tspan1243"
+           sodipodi:role="line">ExtORPort 127.0.4.3:auto</tspan></text>
+    </g>
+    <g
+       id="g1259"
+       transform="translate(0.79526,61.200003)">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#81e1f3;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect1249"
+         width="48"
+         height="12"
+         x="12"
+         y="123" />
+      <text
+         xml:space="preserve"
+         style="font-size:4.23333311px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="35.995178"
+         y="128.3916"
+         id="text1253"><tspan
+           sodipodi:role="line"
+           id="tspan1251"
+           x="35.995178"
+           y="128.3916"
+           style="font-size:4.93888903px;stroke-width:0.26458332px">extor-static-cookie</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:2.82222223px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="35.990524"
+         y="133.62514"
+         id="text1257"><tspan
+           sodipodi:role="line"
+           x="35.990524"
+           y="133.62514"
+           style="font-size:2.82222223px;stroke-width:0.26458332px"
+           id="tspan1750">ExtORPort 127.0.3.3:10000</tspan></text>
+    </g>
+    <path
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"
+       d="m 36.795259,181.2 v 3"
+       id="path1261"
+       inkscape:connector-curvature="0" />
+    <path
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none"
+       d="m 12.79526,190.2 c -18,0 -18,-18 -36,-18"
+       id="path1263"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.82222223px;line-height:1.25;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       x="65.022438"
+       y="173.73251"
+       id="text1267"><tspan
+         sodipodi:role="line"
+         id="tspan1265"
+         x="65.022438"
+         y="173.73251"
+         style="font-size:3.52777767px;text-align:start;text-anchor:start;stroke-width:0.26458332px">To middle relays</tspan></text>
+    <path
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-end:url(#Arrow2Mend)"
+       d="m 63.79526,175.2 h 33"
+       id="path1269"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g1281"
+       transform="translate(0.79526,97.200003)">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#26b100;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect1271"
+         width="54"
+         height="12"
+         x="9"
+         y="105" />
+      <text
+         xml:space="preserve"
+         style="font-size:4.23333311px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="36.073551"
+         y="110.3916"
+         id="text1275"><tspan
+           sodipodi:role="line"
+           id="tspan1273"
+           x="36.073551"
+           y="110.3916"
+           style="font-size:4.93888903px;stroke-width:0.26458332px">tor@snowflake4</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:2.82222223px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="35.922485"
+         y="115.62514"
+         id="text1279"><tspan
+           sodipodi:role="line"
+           id="tspan1277"
+           x="35.922485"
+           y="115.62514"
+           style="font-size:2.82222222px;stroke-width:0.26458332px">ExtORPort 127.0.4.4:auto</tspan></text>
+    </g>
+    <g
+       transform="translate(0.79526,94.200003)"
+       id="g1293">
+      <rect
+         y="123"
+         x="12"
+         height="12"
+         width="48"
+         id="rect1283"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#81e1f3;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate" />
+      <text
+         id="text1287"
+         y="128.3916"
+         x="35.995178"
+         style="font-size:4.23333311px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:4.93888903px;stroke-width:0.26458332px"
+           y="128.3916"
+           x="35.995178"
+           id="tspan1285"
+           sodipodi:role="line">extor-static-cookie</tspan></text>
+      <text
+         id="text1291"
+         y="133.62514"
+         x="35.990524"
+         style="font-size:2.82222223px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:2.82222223px;stroke-width:0.26458332px"
+           y="133.62514"
+           x="35.990524"
+           id="tspan1289"
+           sodipodi:role="line">ExtORPort 127.0.3.4:10000</tspan></text>
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       id="path1295"
+       d="m 36.795259,214.2 v 3"
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path1297"
+       d="m 12.79526,223.2 c -18,0 -18,-45 -36,-45"
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none" />
+    <text
+       id="text1301"
+       y="206.73251"
+       x="65.022438"
+       style="font-size:2.82222223px;line-height:1.25;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-size:3.52777767px;text-align:start;text-anchor:start;stroke-width:0.26458332px"
+         y="206.73251"
+         x="65.022438"
+         id="tspan1299"
+         sodipodi:role="line">To middle relays</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path1303"
+       d="m 63.79526,208.2 h 33"
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-end:url(#marker1307)" />
+    <g
+       id="g1343"
+       transform="translate(-74.20474,52.200003)">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#ff764b;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect1333"
+         width="33"
+         height="24.000004"
+         x="18"
+         y="105" />
+      <text
+         xml:space="preserve"
+         style="font-size:4.23333311px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="34.349277"
+         y="110.3916"
+         id="text1337"><tspan
+           sodipodi:role="line"
+           id="tspan1335"
+           x="34.349277"
+           y="110.3916"
+           style="font-size:4.93888903px;stroke-width:0.26458332px">haproxy</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:2.82222223px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="34.466236"
+         y="127.62145"
+         id="text1341"><tspan
+           sodipodi:role="line"
+           id="tspan1339"
+           x="34.466236"
+           y="127.62145"
+           style="font-size:2.82222223px;stroke-width:0.26458332px">bind 127.0.0.1:10000</tspan></text>
+    </g>
+    <g
+       id="g1566"
+       transform="translate(3.79526,-1.7999974)">
+      <rect
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;fill:#e2e900;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none;enable-background:accumulate"
+         id="rect1539"
+         width="48"
+         height="12"
+         x="-114"
+         y="165" />
+      <text
+         xml:space="preserve"
+         style="font-size:4.23333311px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="-90.131432"
+         y="170.3916"
+         id="text1543"><tspan
+           sodipodi:role="line"
+           id="tspan1541"
+           x="-90.131432"
+           y="170.3916"
+           style="font-size:4.93888903px;stroke-width:0.26458332px">snowflake-server</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:2.82222223px;line-height:1.25;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         x="-90.018082"
+         y="175.62514"
+         id="text1547"><tspan
+           sodipodi:role="line"
+           id="tspan1545"
+           x="-90.018082"
+           y="175.62514"
+           style="font-size:2.82222222px;stroke-width:0.26458332px">bind 0.0.0.0:443</tspan></text>
+    </g>
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path1553"
+       d="m -62.20474,169.2 6,0"
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none" />
+    <text
+       id="text1570"
+       y="167.17348"
+       x="-148.5164"
+       style="font-size:2.82222223px;line-height:1.25;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-size:3.52777767px;text-align:start;text-anchor:start;stroke-width:0.26458332px"
+         y="167.17348"
+         x="-148.5164"
+         id="tspan1568"
+         sodipodi:role="line">To Snowflake proxies</tspan></text>
+    <path
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-end:url(#marker1654)"
+       d="m -110.20474,169.2 h -39"
+       id="path1572"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>
