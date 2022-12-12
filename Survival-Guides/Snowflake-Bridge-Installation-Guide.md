@@ -363,7 +363,7 @@ Open a UDP port for WireGuard:
 	}
 ```
 
-Install WireGuard, generate a keypair, and set up an interface. The server will be at 10.100.0.1, and the clients will be at 10.100.0.*X* for increasing values of *X*.
+Install WireGuard, generate a keypair, and set up an interface. The server will be at 10.100.0.1, and the clients will be at 10.100.0.<var>X</var> for increasing values of <var>X</var>.
 
 ```
 # apt install wireguard
@@ -381,14 +381,14 @@ Install WireGuard, generate a keypair, and set up an interface. The server will 
 
 Use `wg show` to show the status of the network interface.
 
-To add a new client, add a new `[Peer]` section to /etc/wireguard/wg0.conf, with the client's public key, and a distinct `AllowedIPs` address:
+To add a new client on the server, add a new `[Peer]` section to /etc/wireguard/wg0.conf, with the client's public key, and an `AllowedIPs` address with a distinct value of <code><var>X</var></code>:
 
-```
+<pre>
 # vi /etc/wireguard/wg0.conf
-	# <username>
+	# <mark><var>username</var></mark>
 	[Peer]
-	PublicKey = <contents of user's publickey file>
-	AllowedIPs = 10.100.0.<X>/32
+	PublicKey = <mark><var>contents of user's publickey file</var></mark>
+	AllowedIPs = 10.100.0.<mark><var>X</var></mark>/32
 # systemctl restart wg-quick@wg0.service
 # etckeeper commit "Add wireguard peer 'username'"
-```
+</pre>
