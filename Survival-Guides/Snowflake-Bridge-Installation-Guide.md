@@ -142,7 +142,7 @@ Increase the [ephemeral port range](https://support.torproject.org/relay-operato
 
 ```
 # echo "net.ipv4.ip_local_port_range = 15000 64000" > /etc/sysctl.d/ip_local_port_range.conf
-# sysctl -w net.ipv4.ip_local_port_range="15000 64000"
+# sysctl -p
 # etckeeper commit "net.ipv4.ip_local_port_range"
 ```
 
