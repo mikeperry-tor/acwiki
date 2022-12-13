@@ -304,7 +304,7 @@ Then, on the bridge, install snowflake-server and a systemd service file for it.
 	ProtectClock=true
 	ProtectKernelModules=true
 	ProtectKernelLogs=true
-	LimitNOFILE=131072
+	LimitNOFILE=1048576
 
 	Environment=TOR_PT_MANAGED_TRANSPORT_VER=1
 	Environment=TOR_PT_SERVER_TRANSPORTS=snowflake
