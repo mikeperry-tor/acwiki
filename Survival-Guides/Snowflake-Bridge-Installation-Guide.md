@@ -77,18 +77,7 @@ Set up a firewall. You need to expose ports 22, 80, and 443.
 # etckeeper commit "firewall"
 ```
 
-TODO: Document how to [disable connection tracking](tpo/anti-censorship/pluggable-transports/snowflake#40189).
-In nftables.conf (not ferm) it is:
-
-```
-table inet filter {
-	chain prerouting {
-		type filter hook prerouting priority -300;
-		iifname lo counter notrack
-		tcp dport 443 counter notrack
-	}
-}
-```
+TODO: Document how to disable connection tracking if it turns out to be important; see tpo/anti-censorship/pluggable-transports/snowflake#40239.
 
 Set the time zone to UTC.
 
