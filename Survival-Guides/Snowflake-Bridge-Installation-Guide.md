@@ -368,19 +368,19 @@ Open a UDP port for WireGuard:
 
 Install WireGuard, generate a keypair, and set up an interface. The server will be at 10.100.0.1, and the clients will be at 10.100.0.<var>X</var> for increasing values of <var>X</var>.
 
-```
+<pre>
 # apt install wireguard
 # cd /etc/wireguard
-# (umask 077 && wg genkey > privatekey)
-# wg pubkey < privatekey > publickey
-# (umask 077 && vi wg0.conf)
+# (umask 077 &amp;&amp; wg genkey &gt; privatekey)
+# wg pubkey &lt; privatekey &gt; publickey
+# (umask 077 &amp;&amp; vi wg0.conf)
 	[Interface]
-	PrivateKey = <contents of privatekey file>
+	PrivateKey = <mark><var>contents of privatekey file</var></mark>
 	ListenPort = 51820
 	Address = 10.100.0.1/24
 # systemctl enable --now wg-quick@wg0.service
 # etckeeper commit "wireguard"
-```
+</pre>
 
 Use `wg show` to show the status of the network interface.
 
