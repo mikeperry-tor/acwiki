@@ -77,8 +77,6 @@ Set up a firewall. You need to expose ports 22, 80, and 443.
 # etckeeper commit "firewall"
 ```
 
-TODO: Document how to disable connection tracking if it turns out to be important; see tpo/anti-censorship/pluggable-transports/snowflake#40239.
-
 Set the time zone to UTC.
 
 ```
@@ -127,12 +125,15 @@ User <user>
 IdentityFile ~/.ssh/snowflake-key
 ```
 
-Increase the [ephemeral port range](https://support.torproject.org/relay-operators/relay-bridge-overloaded/#tcp-port-exhaustion).
+Set sysctl parameters:
+* Increase the [ephemeral port range](https://support.torproject.org/relay-operators/relay-bridge-overloaded/#tcp-port-exhaustion).
+* Increase the nftables connection tracking limits (tpo/anti-censorship/pluggable-transports/snowflake#40239).
 
 ```
 # echo "net.ipv4.ip_local_port_range = 15000 64000" > /etc/sysctl.d/ip_local_port_range.conf
-# sysctl -p
-# etckeeper commit "net.ipv4.ip_local_port_range"
+# (echo "net.netfilter.nf_conntrack_max = 524288"; echo "net.netfilter.nf_conntrack_buckets = 524288") > /etc/sysctl.d/nf_conntrack.conf
+# sysctl --system
+# etckeeper commit "sysctl"
 ```
 
 
