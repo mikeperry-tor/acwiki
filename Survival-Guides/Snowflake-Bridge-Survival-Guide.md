@@ -37,42 +37,42 @@ IP addresses:
 SSH fingerprints:
 
 ```
-256 SHA256:NmTVmA4WCgoR8xmu3T065TeEe3k7uTEAMKeLAfB37vM  (ECDSA)
-256 SHA256:VpARXHZ6eH8AcifmFiHVCrF8Exxmdp7C8qBHmolbDu8  (ED25519)
-3072 SHA256:rCNv1Il4tAM9B4l4nWH7BpYxrxZcMHkJhXxi5ma4Bs4  (RSA)
+256 SHA256:NmTVmA4WCgoR8xmu3T065TeEe3k7uTEAMKeLAfB37vM (ECDSA)
+256 SHA256:VpARXHZ6eH8AcifmFiHVCrF8Exxmdp7C8qBHmolbDu8 (ED25519)
+3072 SHA256:rCNv1Il4tAM9B4l4nWH7BpYxrxZcMHkJhXxi5ma4Bs4 (RSA)
 ```
 
 The snowflake-02 site requires WireGuard authentication before the SSH port. To generate a WireGuard client keypair and network interface:
 
-```
+<pre>
 client# apt install wireguard
 client# cd /etc/wireguard
-client# (umask 077 && wg genkey > wgsf02.privatekey)
-client# wg pubkey < wgsf02.privatekey > wgsf02.publickey
+client# (umask 077 && wg genkey &gt; wgsf02.privatekey)
+client# wg pubkey &lt; wgsf02.privatekey &gt; wgsf02.publickey
 client# (umask 077 && vi wgsf02.conf)
 	[Interface]
-	PrivateKey = <contents of wgsf02.privatekey file>
-	Address = 10.100.0.<X>/24
+	PrivateKey = &lt;contents of wgsf02.privatekey file&gt;
+	Address = 10.100.0.<mark><var>X</var/></mark>/24
 
 	[Peer]
 	PublicKey = QnSqezDULR28QdzKbirO+wrWSa4HMoZhyGmHJVsVJyc=
 	AllowedIPs = 10.100.0.1/32
 	Endpoint = 141.212.118.18:51820
-```
+</pre>
 
-Replace `<X>` in the above wgsf02.conf file to make an IP address that is not already used by another client.
+Replace <code><mark><var>X</var></mark></code> in the above wgsf02.conf file to make an IP address that is not already used by another client.
 
 On the bridge, add a new `[Peer]` entry to /etc/wireguard/wg0.conf:
 
-```
+<pre>
 bridge# vi /etc/wireguard/wg0.conf
 	# username
 	[Peer]
-	PublicKey = <contents of user's wgsf02.publickey file>
-	AllowedIPs = 10.100.0.<X>/32
+	PublicKey = <mark><var>contents of user's wgsf02.publickey file</var></mark>
+	AllowedIPs = 10.100.0.<mark><var>X</var></mark>/32
 bridge# systemctl restart wg-quick@wg0.service
 bridge# etckeeper commit "Add wireguard peer 'username'"
-```
+</pre>
 
 On the client, enable the wgsf02 interface, and test it with `ping`:
 
@@ -104,7 +104,7 @@ The interacting components on the bridge are a bit complicated, for performance 
 * [snowflake-server](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/tree/main/server): Receives WebSocket connections from Snowflake proxies, manages Turbo Tunnel sessions, forwards sessions as TCP connections to HAProxy. Listens externally on port 443 (and port 80, for ACME certificate renewal).
 * [HAProxy](https://www.haproxy.org/): Load balancer. Receives connections from snowflake-server and balances them over the multiple instances of tor, via their respective extor-static-cookie interfaces. Listens on 127.0.0.1:10000.
 * tor: There are multiple instances of tor, because one is not enough for the load on the bridge. Each instance's `ORPort` is blocked from outside access by the firewall, and `ExtORPort auto` makes them listen for ExtORPort connections on an ephemeral localhost port. Each instance of tor runs an extor-static-cookie, which provides HAProxy a stable ExtORPort port number, and provides snowflake-server (via HAProxy) a stable authentication key.
-* [extor-static-cookie](https://gitlab.torproject.org/dcf/extor-static-cookie): Exposes an ExtORPort interface that uses an unchanging authentication key. These listen on 127.0.0.1, on port numbers 10000+*N*, where *N* is the instance number 1, 2, ….
+* [extor-static-cookie](https://gitlab.torproject.org/dcf/extor-static-cookie): Exposes an ExtORPort interface that uses an unchanging authentication key. These listen on 127.0.0.1, on port numbers 10000+<var>N</var>, where <var>N</var> is the instance number 1, 2, ….
 
 
 ## Upgrading snowflake-server
