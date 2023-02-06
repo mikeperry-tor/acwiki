@@ -185,7 +185,7 @@ Edit the instance-specific torrc files. (But don't start the instances yet.) All
 	AssumeReachable 1
 	BridgeDistribution none
 	ORPort 127.0.0.1:auto # unused
-	ExtORPort 127.0.4.1:auto
+	ExtORPort 127.0.4.<mark><var>N</var></mark>:auto
 	SocksPort 0
 	ServerTransportPlugin snowflake exec /usr/local/bin/extor-static-cookie /etc/extor-static-cookie/static_extended_orport_auth_cookie
 	ServerTransportListenAddr snowflake 127.0.3.<mark><var>N</var></mark>:10000
