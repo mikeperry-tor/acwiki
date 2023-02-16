@@ -73,7 +73,7 @@ Set up a firewall. You need to expose ports 22, 80, and 443.
 	        # ...
 	    }
 	}
-# service ferm restart
+# systemctl restart ferm
 # etckeeper commit "firewall"
 ```
 
@@ -111,7 +111,7 @@ $ sudo -s
 	PermitRootLogin no
 	AllowUsers user
 	PasswordAuthentication no
-# service sshd restart
+# systemctl restart ssh
 # rm /root/.ssh/authorized_keys
 # etckeeper commit "sshd access control"
 ```
@@ -218,7 +218,7 @@ The next step is different depending on whether you are installing a new bridge 
 Then start all the instances of tor. Check /var/log/syslog for error messages.
 
 ```
-# service tor restart
+# systemctl restart tor
 # etckeeper commit "tor snowflake instances"
 ```
 
@@ -253,7 +253,7 @@ Append the configuration to the end of what is present by default in haproxy.cfg
 		server snowflake1 127.0.3.2:10000 source 127.0.2.2:15000-64000
 		server snowflake1 127.0.3.3:10000 source 127.0.2.3:15000-64000
 		server snowflake1 127.0.3.4:10000 source 127.0.2.4:15000-64000
-# service haproxy restart
+# systemctl restart haproxy
 # etckeeper commit "HAProxy"
 ```
 
