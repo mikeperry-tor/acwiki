@@ -36,9 +36,9 @@ BridgeDB is run from a local clone of the BridgeDB repository. Once a new versio
    git fetch origin
    git checkout bridgedb-0.x.y
    ```
-4. Kill the existing BridgeDB process by running `kill $(pgrep -f /home/bridgedb/virtualenvs/bridgedb/bin/bridgedb)`
-5. Reinstall BridgeDB by running `~/bridgedb-admin/bin/deploy-production`. If rust is not available you might want to pass `CRYPTOGRAPHY_DONT_BUILD_RUST=1` as environment variable to avoid python's cryptography library to use it.
-6. If BridgeDB fails to start, start BridgeDB by running `~/bridgedb-admin/bin/run-bridgedb` which should result in the following output: `Starting BridgeDB...		[OK]`.
+4. Enable bridgedb virtualenv `source ~/virtualenvs/bridgedb/bin/activate`
+5. Reinstall BridgeDB by running `make install`
+6. Restart bridgedb systemd service `systemctl --user restart bridgedb`
 
 (Re)starting moat
 -----------------
