@@ -136,6 +136,13 @@ Set sysctl parameters:
 # etckeeper commit "sysctl"
 ```
 
+You also need to cause the nf_conntrack module to be loaded early in the boot process, otherwise the sysctl settings above will not take effect after a reboot (tpo/anti-censorship/pluggable-transports/snowflake#40259). Create a file /etc/modules-load.d/nf_conntrack.conf:
+
+```
+# Load nf_conntrack early so that its sysctl settings later in the boot process take effect.
+nf_conntrack
+```
+
 
 ## extor-static-cookie
 
