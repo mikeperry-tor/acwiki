@@ -42,23 +42,10 @@ There are two servers where rdsys services live in:
 Deploying a new version
 -----------------------
 
-The following script takes as argument an rdsys-backend executable and it deploys it on bridges.torproject.org. Replace `POLYANTHUM` with how you log into bridges.torproject.org.
-```bash
-#!/bin/bash
-
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 EXECUTABLE"
-    exit 1
-fi
-path="$1"
-executable=$(basename "$path")
-
-scp "$path" POLYANTHUM:/tmp
-ssh -t POLYANTHUM \
-    "chmod 777 /tmp/${executable} && " \
-    "sudo -u rdsys bash -i -c '" \
-      "systemctl --user stop rdsys-backend && " \
-      "cp /tmp/${executable} /home/rdsys/bin/rdsys-backend && " \
-      "systemctl --user start rdsys-backend' && " \
-    "rm -f /tmp/${executable}"
-```
+1. Compile the binary disabling CGO: `CGO_ENABLED=0 go build ./cmd/backend`
+2. Copy the binary to the server: `scp backend polyanthium:`
+3. Log into polyanthium.
+4. Change to the rdsys user by running `sudo -u rdsys -s`.
+5. Make a copy of the old binary so we can roll back if there is any problem: `mv ~/bin/rdsys-backend ~/bin/rdsys-backend.old
+6. Copy the binary to its place: `cp /home/<user>/backend ~/bin/rdsys-backend`
+7. Restart the service process via systemd: `systemctl --user restart rdsys-backend`.
