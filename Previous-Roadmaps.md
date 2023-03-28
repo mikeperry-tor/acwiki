@@ -1,3 +1,122 @@
+# 2022 roadmap
+
+## Q4 - October to December 2022
+
+* Sponsor 30
+  * O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1.
+    * [conjure](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards?label_name[]=Sponsor%2030
+) (2 months) (cecylia) 
+
+* [Sponsor 96](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards?label_name[]=Sponsor%2096)
+  * O1.1.1 Prepare the Snowflake system for a surge in operators and users.
+    * proxies need to be updated to next version. <-- Q4 shell
+    * setup new bridges.
+  * O1.3: Implement bridges with pluggable transport HTTPT support. <--Q4(Shell)
+  * O1.4: Increase the number of active obfs4 and HTTPT bridges. 
+  * O1.4.3: Monitor bridge health.   <-- Meskio with Gus
+    * obfsproxy security issues - <--- will go to icebox for now
+  * O2.2: Deploy improved bridge distribution systems.
+    * Salmon based design: Cecylia in Q4
+    * rdsys DB for bridges (meskio) Q4
+  * O2.3: React and steer our response to censorship. (Shell) - Q4
+    * vantage points in specific places
+  * O4.1: Localize all UI modified in this project. (meskio) Q4
+    * Q4 Localize gettor. 
+    * Q4 Bot Telegram.
+  * O4.3: Modify GetTor so that it can distribute Tor Browser via messaging apps
+    * get gettor into rdsys - Deployment in Q4.
+
+* Sponsor 28 (itchyonion) & extension (shel)
+  * probetest centralized log collection (shell) Q4
+  * Raw Probe Log Data Collection
+
+## Q3 - July to September 2022
+
+* sponsor 30
+  * O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1.
+    * conjure (2 months) (cecylia) <-- maintenance in Q3.
+  * https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards?label_name[]=Sponsor%2030
+
+* sponsor 96
+  * O1.1.1 Prepare the Snowflake system for a surge in operators and users. <-- deployed snowflake broker in Q2.
+    * next in Q3:
+      * proxies need to be updated to next version.
+      * setup new bridges.
+  * O1.3: Implement bridges with pluggable transport HTTPT support. <--Q3 (Shell)
+  * O1.4: Increase the number of active obfs4 and HTTPT bridges.
+    * O1.4.3: Monitor bridge health.   <-- Meskio with Gus
+      * obfsproxy security issues - meskio Q3
+  * O2.2: Deploy improved bridge distribution systems.
+    * Salmon based design: Roger on Q3.
+    * rdsys DB for bridges (meskio) Q3
+  * O2.3: React and steer our response to censorship. (Shell) - Q3
+    * vantage points in specific places
+  * O4.1: Localize all UI modified in this project. (meskio) Q3
+    * Q3 Localize gettor.
+    * Q3 Bot Telegram.
+  * O4.3: Modify GetTor so that it can distribute Tor Browser via messaging apps
+    * support onionsprout deployment - It was deployed in Q2
+    * get gettor into rdsys - implemented in Q2. Deployment in Q3.
+  * https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards?label_name[]=Sponsor%2096
+
+* sponsor 28 (itchyonion) & extension (shel)
+  * probetest centralized log collection (shell) Q3
+
+
+## Q2 - April to June 2022
+
+* sponsor 30 O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1. - Implement and deploy conjure - Cecylia
+* sponsor 96 O1.1.1 Prepare the Snowflake system for a surge in operators and users. - shel
+* sponsor 96 O1.2: Increase the number of Snowflake bridges. - shel
+* sponsor 96 O1.2.2: Scale Tor reachability through mobile Snowflakes.
+* sponsor 96 O1.3: Implement bridges with pluggable transport HTTPT support.
+* sponsor 96 O1.4: Increase the number of active obfs4 and HTTPT bridges.
+* sponsor 96 O1.4.3: Monitor bridge health.   - Meskio with Gus
+* sponsor 96 obfsproxy security issues - meskio
+* sponsor 96  O2.2: Deploy improved bridge distribution systems.
+* sponsor 96 Salmon based design :) --- Roger
+* sponsor 96 O2.3: React and steer our response to censorship. - Shel
+* sponsor 96 O4.3: Modify GetTor so that it can distribute Tor Browser via messaging apps - Meskio
+* sponsor 96 get gettor into rdsys - Q2
+* sponsor 28 - itchyonion
+* sponsor 928 probetest centralized log collection (shel)
+* sponsor 125 dynamic bridges
+
+
+### Q1 - January to March 2022
+
+* s30 O2.3.1 - Develop new and/or improve existing bridge selection and distribution strategies based on data collected about successful, effective methods per evaluation during O1.1.
+* s30 conjure (2 months) - cecylia starting in March
+  * server side : the university
+  * start talking again with eric and his team
+  * define server side for them to setup bridge (documentation)
+  * client side : around 2 weeks
+    * write a conjure client based on their specification (tor pt part with their client side library)
+  * staging/testing
+    * deployment
+  * add it to alpha version of TB
+  * metrics (discuss with people that maintain conjure bridge)
+    * how many clients are connected
+
+* s96 O1.1.1 Prepare the Snowflake system for a surge in operators and users. <-- scale in Q1/Q2 2022 <-- shell
+* s96 O1.2: Increase the number of Snowflake bridges.
+* s96 O1.2.2: Scale Tor reachability through mobile Snowflakes. <-- support to GP
+* s96 O1.4: Increase the number of active obfs4 and HTTPT bridges.
+* s96 O1.4.3: Monitor bridge health.   <-- Meskio/Shel with Gus
+* s96 O2.1: Make it easier for humans & harder for censors to get bridges from moat distributor.  <-- Q1
+* s96 O2.2: Deploy improved bridge distribution systems.
+* s96 O2.2.2: Deploy next generation bridge distribution system (rdsys) <-- meskio -
+* s96 O2.3: React and steer our response to censorship. <-- shel
+* s96 O3.1: Improve automatic censorship detection during bootstrapping in Tor Browser (desktop and Android). <-- meskio
+
+* sponsor 28 & extension: we will have the new developer full time into this project.
+* sponsor 28 - Improve the performance of Snowflake for users in Asia (cecylia)
+
+You can follow up what we are working on in this [kanban board](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/groups/tpo/anti-censorship/-/boards).
+
+
+#2021 roadmap
+
 <div>
 
 <span dir="">## Review Q4 2021 - what did we do? </span>
