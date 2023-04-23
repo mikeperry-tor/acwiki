@@ -19,3 +19,5 @@ Updating to a new version
 5. Activate the virtualenv `. ~/venv/bin/activate`
 6. Install the latest version of the bot `cd ~/onionsproutsbot && python setup.py install`
 7. Restart onionsprouts bot `systemctl --user restart onionsproutsbot`
+
+If the new version is producing errors try to delete `~/database/OSB.db` and restart again
