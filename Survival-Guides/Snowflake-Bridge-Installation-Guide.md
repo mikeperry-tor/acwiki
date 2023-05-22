@@ -31,16 +31,16 @@ References:
 
 We reserve different localhost IP address ranges for different purposes. This is to mitigate problems with ephemeral port exhaustion when there are many live connections. (See tpo/anti-censorship/pluggable-transports/snowflake#40198, tpo/anti-censorship/pluggable-transports/snowflake#40201.)
 
-The purpose of each address range is listed in the table below. "⁎" stands for a random IP address octet, or a random ephemeral port.
+The purpose of each address range is listed in the table below. "\*" stands for a random IP address octet, or a random ephemeral port.
 
 |Address range|Purpose|Where configured|
 |-------------|-------|----------------|
 |127.0.0.1:10000           |HAProxy listen port (dialed by snowflake-server)|`bind` in haproxy.cfg, `TOR_PT_EXTENDED_SERVER_PORT` in snowflake-server.service|
-|127.0.1.⁎:⁎               |snowflake-server source address when dialing HAProxy|`orport-srcaddr` in `TOR_PT_SERVER_TRANSPORT_OPTIONS` in snowflake-server.service|
-|127.0.2.<var>N</var>:⁎    |HAProxy source address when dialing extor-static-cookie instance <var>N</var>|`source` in haproxy.cfg|
+|127.0.1.\*:\*               |snowflake-server source address when dialing HAProxy|`orport-srcaddr` in `TOR_PT_SERVER_TRANSPORT_OPTIONS` in snowflake-server.service|
+|127.0.2.<var>N</var>:\*    |HAProxy source address when dialing extor-static-cookie instance <var>N</var>|`source` in haproxy.cfg|
 |127.0.3.<var>N</var>:10000|extor-static-cookie instance <var>N</var> listen port (dialed by HAProxy)|`ServerTransportListenAddr` in torrc, `server` in haproxy.cfg|
-|127.0.4.<var>N</var>:⁎    |tor instance <var>N</var> ExtORPort (dialed by extor-static-cookie)|`ExtORPort` in torrc|
-|127.0.5.⁎:⁎               |extor-static-cookie source address when dialing tor ExtORPort|`orport-srcaddr` in `ServerTransportOptions` in torrc|
+|127.0.4.<var>N</var>:\*    |tor instance <var>N</var> ExtORPort (dialed by extor-static-cookie)|`ExtORPort` in torrc|
+|127.0.5.\*:\*               |extor-static-cookie source address when dialing tor ExtORPort|`orport-srcaddr` in `ServerTransportOptions` in torrc|
 
 
 ## General system setup
