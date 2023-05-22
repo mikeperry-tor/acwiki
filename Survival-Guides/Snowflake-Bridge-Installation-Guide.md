@@ -240,8 +240,6 @@ You can verify that all instances have the same identity key with:
 
 Install HAProxy, which is a load balancer. Configure it to listen at 127.0.0.1:10000, and forward to the instances of extor-static-cookie at 127.0.3.<var>N</var>:10000, using respective source addresses 127.0.2.<var>N</var>.
 
-The explicit source port ranges of `15000-64000` are a hack to [prevent HAProxy from using the `IP_BIND_ADDRESS_NO_PORT` option](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/issues/40201#note_2839449), which eliminates "no free ports" errors that otherwise occur at high levels of use.
-
 Append the configuration to the end of what is present by default in haproxy.cfg.
 
 ```
@@ -256,10 +254,10 @@ Append the configuration to the end of what is present by default in haproxy.cfg
 	backend tor-instances
 		mode tcp
 		timeout server 600s
-		server snowflake1 127.0.3.1:10000 source 127.0.2.1:15000-64000
-		server snowflake1 127.0.3.2:10000 source 127.0.2.2:15000-64000
-		server snowflake1 127.0.3.3:10000 source 127.0.2.3:15000-64000
-		server snowflake1 127.0.3.4:10000 source 127.0.2.4:15000-64000
+		server snowflake1 127.0.3.1:10000 source 127.0.2.1
+		server snowflake1 127.0.3.2:10000 source 127.0.2.2
+		server snowflake1 127.0.3.3:10000 source 127.0.2.3
+		server snowflake1 127.0.3.4:10000 source 127.0.2.4
 # systemctl restart haproxy
 # etckeeper commit "HAProxy"
 ```
