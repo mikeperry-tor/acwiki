@@ -17,7 +17,7 @@ Updating to a new version
 3. Update the repo `cd ~/onionsproutsbot && git pull`
 4. Update the translations, copying the ones are completed (or above 90%) in [weblate](https://hosted.weblate.org/projects/tor/onionsprouts-bot/) from the translations repo: `cd ~/translation && git pull && cp <...>.po ~/onionsproutsbot/OnionSproutsBot/locales`
 5. Activate the virtualenv `. ~/venv/bin/activate`
-6. Install the latest version of the bot `cd ~/onionsproutsbot && python setup.py install`
+6. Install the latest dependencies of the bot `pip install -r ~/onionsproutsbot/requirements.txt`
 7. Restart onionsprouts bot `systemctl --user restart onionsproutsbot`
 
-If the new version is producing errors try to delete `~/database/OSB.db` and restart again
+If the new version is producing errors try to delete `~/database/OSB.db` and restart again. OnionSproutsBot runs from the git repo in `~/onionsproutsbot`, the version present there will be the one running.
