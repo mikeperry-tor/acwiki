@@ -37,3 +37,7 @@
 |2023-02-28           |$0.06|
 |2023-03-31           |$0.05|
 |2023-04-30           |$0.05|
+
+## Bridge hosting
+
+[Snowflake Daily Operations](https://opencollective.com/censorship-circumvention/projects/snowflake-daily-operations)
