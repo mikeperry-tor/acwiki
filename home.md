@@ -71,12 +71,12 @@ https://gitlab.torproject.org/tpo/network-health/onbasca/-/issues/130
 
 ## Projects that the team maintains
 
-* [Gettor](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/gettor-project/gettor/-/wikis/home)
-* [BridgeDB](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/bridgedb)
-* [rdsys](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/rdsys)
-* [Pluggable Transports](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/pluggable-transports)
-* [Snowflake](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/pluggable-transports/snowflake/-/wikis/home)
-* [Snowflake Mobile](http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/tpo/anti-censorship/pluggable-transports/snowflake-mobile/-/wikis/home)
+* [rdsys](https://gitlab.torproject.org/tpo/anti-censorship/rdsys)
+* [Lox](https://gitlab.torproject.org/tpo/anti-censorship/lox)
+* [Pluggable Transports](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports)
+* [Snowflake](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/wikis/home)
+* [Snowflake Mobile](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake-mobile/-/wikis/home)
+* [BridgeDB](https://gitlab.torproject.org/tpo/anti-censorship/bridgedb)
 * [Services](ServicesAntiCensorship)
 
 # Becoming a volunteer
