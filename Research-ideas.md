@@ -12,7 +12,7 @@ These are research project ideas relating to anti-censorship work at Tor. If you
 
 Tor Metrics [bridge user graphs](https://metrics.torproject.org/userstats-bridge-country.html) depict not unique IP addresses, but rather an [average number of concurrently connected users per day](https://metrics.torproject.org/reproducible-metrics.html#users).
 Simplifying slightly, the number of concurrent users is estimated
-by [taking the number of directory requests and dividing by 10](https://research.torproject.org/techreports/counting-daily-bridge-users-2012-10-24.pdf).
+by [taking the number of directory requests and dividing by 10](https://research.torproject.org/techreports/counting-daily-bridge-users-2012-10-24.pdf#page=5).
 The constant of 10 is somewhat arbitrary, reflecting an educated guess that an average Tor users remains connected for 2.4 hours per day.
 
 The constant 10 is effectively a scaling factor for the user graphs.
@@ -27,9 +27,8 @@ If the currently used ExtOrPort is 127.0.0.1:1234, then you can sample the numbe
 ss -n state established 'dport = 1234' 'dst 127.0.0.1' | wc -l
 ```
 (Subtract 1 to account for the header in the output.)
-@dcf did a one-off test on the snowflake-01 bridge. At a time when Tor Metrics would have reported about 60k clients,
-the number of sockets connected to the [haproxy load balancer](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Snowflake-Bridge-Survival-Guide#components) in front of
-the multiple ExtOrPorts was about 30k.
 
-* https://research.torproject.org/techreports/counting-daily-bridge-users-2012-10-24.pdf
-* https://metrics.torproject.org/reproducible-metrics.html#bridge-users
+@dcf ran a socket counting script on two snowflake bridges for a few weeks in June–July 2023 and compared the sockets counts to Tor Metrics calculations. The snowflake-01 bridge was off by about a factor of 2.0, and the snowflake-02 bridge was off by a factor of about 1.5. The difference may be attributable to the fact that, at the time, the snowflake-02 bridge had been included in Tor Browser since version 12.0.3, but Orbot 17 (the first version to contain the snowflake-02 bridge) had not been fully released yet.
+
+* https://www.bamsoftware.com/talks/pets-2023-metrics/
+* https://www.bamsoftware.com/talks/pets-2023-metrics/pets-2023-metrics.zip
