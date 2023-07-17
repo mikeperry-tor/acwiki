@@ -32,3 +32,5 @@ ss -n state established 'dport = 1234' 'dst 127.0.0.1' | wc -l
 
 * https://www.bamsoftware.com/talks/pets-2023-metrics/
 * https://www.bamsoftware.com/talks/pets-2023-metrics/pets-2023-metrics.zip
+
+Compare results with ["Understanding Tor Usage with Privacy-Preserving Measurement"](https://dl.acm.org/doi/abs/10.1145/3278532.3278549).
