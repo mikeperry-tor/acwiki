@@ -34,3 +34,19 @@ ss -n state established 'dport = 1234' 'dst 127.0.0.1' | wc -l
 * https://www.bamsoftware.com/talks/pets-2023-metrics/pets-2023-metrics.zip
 
 Compare results with ["Understanding Tor Usage with Privacy-Preserving Measurement"](https://dl.acm.org/doi/abs/10.1145/3278532.3278549).
+
+## Lox related open problems
+1. **Question**: How do we know that a bridge is blocked?
+   
+   **Some relevant discussion/links**:
+    - This is a long-standing issue that will benefit all bridge distributors, but is particularly important for Lox. There is some discussion of the issue [here](https://gitlab.torproject.org/tpo/anti-censorship/lox/lox-overview/-/wikis/Lox-Roadmap#bridge-reachability).
+     - Issue: [Brainstorm and analyze heuristics to guess that a bridge might be offline or blocked](https://gitlab.torproject.org/tpo/anti-censorship/censorship-analysis/-/issues/40035)
+     - Metrics can be helpful in determining a blockage
+     - Bridge users/operators (as a first line and quickest way to collect info)
+     - Compare reports against other metrics to make final determination
+
+2. **Question**: Find optimal parameter tuning for different censorship landscapes 
+
+   **Some relevant discussion/links**:
+   - This is a more long-term issue that won't be able to be easily addressed until Lox has been deployed and we have a better idea of how it performs as a bridge distribution system in practice.
+   -  With metrics and careful measurement of Lox's performance, some patterns may emerge that are helpful for finding optimal parameters for different types of situations. 
