@@ -317,7 +317,7 @@ Then, on the bridge, install snowflake-server and a systemd service file for it.
 	Environment=TOR_PT_SERVER_BINDADDR=snowflake-[::]:443
 	Environment=TOR_PT_EXTENDED_SERVER_PORT=127.0.0.1:10000
 	Environment=TOR_PT_AUTH_COOKIE_FILE=/etc/extor-static-cookie/static_extended_orport_auth_cookie
-	Environment=TOR_PT_SERVER_TRANSPORT_OPTIONS=snowflake:orport-srcaddr=127.0.1.0/24;snowflake:num-turbotunnel=2
+	Environment=TOR_PT_SERVER_TRANSPORT_OPTIONS=snowflake:orport-srcaddr=127.0.1.0/24;snowflake:num-turbotunnel=8
 	Environment=TOR_PT_STATE_LOCATION=%S/snowflake-server/pt_state
 	Environment=TOR_PT_EXIT_ON_STDIN_CLOSE=0
 
