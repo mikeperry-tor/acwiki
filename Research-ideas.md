@@ -35,6 +35,28 @@ ss -n state established 'dport = 1234' 'dst 127.0.0.1' | wc -l
 
 Compare results with ["Understanding Tor Usage with Privacy-Preserving Measurement"](https://dl.acm.org/doi/abs/10.1145/3278532.3278549).
 
+## Improve Snowflake's NAT discovery and matching algorithm
+
+[Snowflake](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/wikis/home) is an anti-censorship tool that uses the NAT traversal properties of WebRTC to connect clients with a large pool of temporary circumvention proxies. NAT traversal and browser support for WebRTC lowers the barrier to running circumvention proxies and enables the usage of addons in popular web browsers to run proxy code. However, [not all NAT and firewall configurations are mutually compatible](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/wikis/NAT-matching).
+
+We have several NAT discovery algorithms to determine which type of NAT each client and proxy have in order to decide on working matches. When gathering STUN candidates, Snowflake clients use STUN servers that support [RFC 5780](https://www.rfc-editor.org/rfc/rfc5780) to determine their NAT mapping and filtering behaviour. Clients categorize their NAT type as one of:
+- restrictive (symmetric)
+- unrestrictive (all others)
+Proxies determine their NAT type by making a test connection to a symmetrically NAT'd peer running on a [probe server](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/tree/main/probetest?ref_type=heads). If the connection succeeds, they self-categorize as suitable for restrictively NAT'd clients. Otherwise, they are distributed only to clients with unrestricted NATs. In addition, if a browser-based proxy fails to form a connection to a restricted client with which it was matched five times in a row, it will update its NAT type so that it is only distributed to unrestricted clients.
+
+There a few inefficiencies with our approach:
+- Proxies that work with restrictively NAT'd clients are in higher demand and more rare than other proxies
+
+- Approximately 1/3 of client polls report their NAT type as "unknown". This could be due to the fact that the NAT behaviour test takes time to complete, and in order to minimize the bootstrapping time for Snowflake we have them poll first before the test is done. Clients with "unknown" NATs are assumed to have restricted NATs and therefore deplete the pool of proxies allocated to them.
+
+- Our matching algorithm still occasionally produces non-working NAT assignments. If this happens, clients will fail to open a datachannel with the proxy and timeout after 20 seconds. At this point, they perform the rendezvous step with the broker and try again. If we could discover how often this happens and for what NAT types we could implement a fix. It's possible we need more than just two buckets (restrictive, unrestrictive) of client NAT types.
+
+- We have reason to believe that even though browser-based proxies are much more numerous than standalone proxies, [their usage is much lower](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake-webext/-/issues/82#note_2892274). This has negative implications for enumeration resistance.
+
+Related issues:
+- https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/issues/40178
+- https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/issues/40077
+
 ## Lox related open problems
 1. **Question**: How do we know that a bridge is blocked?
    
