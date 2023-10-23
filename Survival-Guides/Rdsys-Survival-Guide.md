@@ -34,8 +34,22 @@ There are two servers where rdsys services live in:
 2. Change to the rdsys user by running `sudo -u rdsys -s`.
 3. Update the rdsys-admin repo if needed `cd /srv/rdsys.torproject.org/rdsys-admin; git pull`
 4. Change to the service user by running `sudo -u gettor -s`.
-5. (Re)start the `<serive>-distributor` or `<service>-updater` process via its systemd script: `systemctl --user [start|stop|status] gettor-distributor`.
+5. (Re)start the `<service>-distributor` or `<service>-updater` process via its systemd script: `systemctl --user [start|stop|status] gettor-distributor`.
 6. Take a look at the logs with `journal --user -f`.
+
+## Deploying a new frontend service
+
+1. [Open an issue with TPA](https://gitlab.torproject.org/tpo/tpa/team/-/issues/new) to create a new user on rdsys-frontend-01 for the service (see the [lox distributor issue](https://gitlab.torproject.org/tpo/tpa/team/-/issues/41330) for an example).
+2. Create a service file for the new service and add it to the [rdsys-admin](https://gitlab.torproject.org/tpo/anti-censorship/rdsys-admin/-/tree/main/systemd?ref_type=heads) repository
+3. Log into rdsys-frontend-01.torproject.org
+4. Change to the `<service>` user by running `sudo -u <service> -s`
+5. Create a symlink for the service in the user `$HOME` directory:
+   ```
+   ln -s /srv/rdsys.torproject.org/rdsys-admin/systemd/<service>.service ~/.config/systemd/users/
+   ```
+6. Enable the service: `systemctl --user enable <service>`
+7. Start the service: `systemctl --user start <service>` (see wiki for help: https://gitlab.torproject.org/tpo/tpa/team/-/wikis/doc/services)
+8. Check to make sure the service is running: `systemctl --user status <service>`
 
 ## Deploying a new version
 
@@ -43,6 +57,6 @@ There are two servers where rdsys services live in:
 2. Copy the binary to the server: `scp backend polyanthium:`
 3. Log into polyanthium.
 4. Change to the rdsys user by running `sudo -u rdsys -s`.
-5. Make a copy of the old binary so we can roll back if there is any problem: \`mv \~/bin/rdsys-backend \~/bin/rdsys-backend.old
+5. Make a copy of the old binary so we can roll back if there is any problem: \`mv <span dir="">\~</span>/bin/rdsys-backend <span dir="">\~</span>/bin/rdsys-backend.old
 6. Copy the binary to its place: `cp /home/<user>/backend ~/bin/rdsys-backend`
 7. Restart the service process via systemd: `systemctl --user restart rdsys-backend`.
