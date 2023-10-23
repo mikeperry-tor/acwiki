@@ -1,5 +1,4 @@
-General information
--------------------
+## General information
 
 * Rdsys consists of several microservices. This document only covers rdsys's backend process whose name is rdsys-backend. For brevity, the rest of this document refers to the backend process as rdsys.
 * Scripts and config files related to rdsys's deployment are in the [rdsys-admin](https://gitlab.torproject.org/tpo/anti-censorship/rdsys-admin) repository.
@@ -8,6 +7,7 @@ General information
 * Take a look at [rdsys's metrics](https://bridges.torproject.org/rdsys-backend-metrics) for a quick check if the service is running.
 
 There are two servers where rdsys services live in:
+
 * bridges.torproject.org
   - Where the backend runs
   - moat and telegram distributors runs there until we migrate them to rdsys-frontend.
@@ -20,8 +20,7 @@ There are two servers where rdsys services live in:
   - Each service has a user and a folder in /srv/, for example `gettor` has /srv/gettor.torproject.org/conf where the config of the service lives.
   - The services run under the user with the name of the service. For example `gettor` has two systemd services `gettor-distributor` and `gettor-updater`
 
-(Re)starting rdsys backend
---------------------------
+## (Re)starting rdsys backend
 
 1. Log into bridges.torproject.org.
 2. Change to the rdsys user by running `sudo -u rdsys -s`.
@@ -29,23 +28,21 @@ There are two servers where rdsys services live in:
 4. (Re)start the rdsys-backend process via its systemd script: `systemctl --user [start|stop|status] rdsys-backend`.
 5. Take a look at rdsys's log file at /home/rdsys/logs/rdsys-backend.log to make sure that the service (re)started successfully.
 
-(Re)starting rdsys frontends
-----------------------------
+## (Re)starting rdsys frontends
 
 1. Log into rdsys-frontend-01.torproject.org.
 2. Change to the rdsys user by running `sudo -u rdsys -s`.
-3. Update the rdsys-admin repo if needed `cd ~/rdsys-admin; git pull`
+3. Update the rdsys-admin repo if needed `cd /srv/rdsys.torproject.org/rdsys-admin; git pull`
 4. Change to the service user by running `sudo -u gettor -s`.
 5. (Re)start the `<serive>-distributor` or `<service>-updater` process via its systemd script: `systemctl --user [start|stop|status] gettor-distributor`.
-5. Take a look at the logs with `journal --user -f`.
+6. Take a look at the logs with `journal --user -f`.
 
-Deploying a new version
------------------------
+## Deploying a new version
 
 1. Compile the binary disabling CGO: `CGO_ENABLED=0 go build ./cmd/backend`
 2. Copy the binary to the server: `scp backend polyanthium:`
 3. Log into polyanthium.
 4. Change to the rdsys user by running `sudo -u rdsys -s`.
-5. Make a copy of the old binary so we can roll back if there is any problem: `mv ~/bin/rdsys-backend ~/bin/rdsys-backend.old
+5. Make a copy of the old binary so we can roll back if there is any problem: \`mv \~/bin/rdsys-backend \~/bin/rdsys-backend.old
 6. Copy the binary to its place: `cp /home/<user>/backend ~/bin/rdsys-backend`
 7. Restart the service process via systemd: `systemctl --user restart rdsys-backend`.
