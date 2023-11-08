@@ -4,9 +4,9 @@ Welcome to the anti-censorship team page. The anti-censorship team is a group of
 
 Excited about joining the team? Here is more information on how to get started.
 
-# IRC meetings schedule
+# IRC/matrix meetings schedule
 
-We use ​IRC for our weekly meetings and we meet on the ​OFTC network in the #tor-meeting channel. The meeting takes place each Thursday at 16:00 UTC and typically lasts for an hour. ​This page can tell you what time this is in your part of the world. Sometimes, we have to cancel our meeting but we announce cancellations on [our ​mailing list](https://lists.torproject.org/cgi-bin/mailman/listinfo/anti-censorship-team). Besides, our [​meeting pad](https://pad.riseup.net/p/tor-anti-censorship-keep) always shows the date of the next meeting.
+We use ​IRC for our weekly meetings and we meet on the ​OFTC network in the #tor-meeting channel, this channel is also accesible over the matrix channel at [#tor-meeting:matrix.org](https://matrix.to/#/#tor-meeting:matrix.org). The meeting takes place each Thursday at 16:00 UTC and typically lasts for an hour. Sometimes, we have to cancel our meeting but we announce cancellations on [our ​mailing list](https://lists.torproject.org/cgi-bin/mailman/listinfo/anti-censorship-team). Besides, our [​meeting pad](https://pad.riseup.net/p/tor-anti-censorship-keep) always shows the date of the next meeting.
 
 If you want to get involved in Tor's anti-censorship work, try to show up to the team meeting! To get an idea of what we discuss in our meetings, take a look at our ​[meeting pad](https://pad.riseup.net/p/tor-anti-censorship-keep). In a nutshell, we use our weekly meetings to:
 
@@ -18,6 +18,10 @@ If you want to get involved in Tor's anti-censorship work, try to show up to the
 People on the anti-censorship team use the pad to keep track of what they did the past week, what they plan to do next week, and what they need help with. If you missed a meeting, fret not! We post log files of our meetings on the ​[tor-project](https://lists.torproject.org/cgi-bin/mailman/listinfo/tor-project) mailing list, typically with the string "Anti-censorship meeting notes" in the email's subject line.
 
 We use the string "anti-censorship-team" on IRC to reach all team members, e.g. "anti-censorship-team: take a look at bug #1234". Be sure to configure a highlight in your IRC client for this string.
+
+# IRC/matrix channel
+
+For direct communication we use the #tor-anticensorship IRC channel in the OFTC network, also available in the matrix network as [#tor-anticensorship:matrix.org](https://matrix.to/#/#tor-anticensorship:matrix.org). Is a good place to hang out or come with questions and comments.
 
 # Mailing list
 
@@ -60,14 +64,12 @@ https://gitlab.torproject.org/tpo/network-health/onbasca/-/issues/130
 
 ## Roadmap
 
-
 [Roadmaps for previous years](previous-roadmaps)
 
 ## Active Sponsors and Contracts
 
-* [Empowering Communities in the Global South to Bypass Censorship ](https://gitlab.torproject.org/tpo/anti-censorship/team/-/issues/12)
 * [Sponsor 96: Rapid Expansion of Access to the Uncensored Internet through Tor in China, Hong Kong, & Tibet](https://gitlab.torproject.org/groups/tpo/-/milestones/24)
-* [Sponsor 139: Rapid Response to Iran Censorship]
+* [Sponsor 150: Deprecate BridgeDB](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/issues/?label_name%5B%5D=Sponsor%20150)
 
 ## Projects that the team maintains
 
@@ -77,7 +79,7 @@ https://gitlab.torproject.org/tpo/network-health/onbasca/-/issues/130
 * [Snowflake](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/wikis/home)
 * [Snowflake Mobile](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake-mobile/-/wikis/home)
 * [BridgeDB](https://gitlab.torproject.org/tpo/anti-censorship/bridgedb)
-* [Services](ServicesAntiCensorship)
+* [Services](ServicesAntiCensorship) for which we have [survival guides](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides)
 
 # Becoming a volunteer
 
@@ -90,6 +92,12 @@ Thanks for volunteering with us! There are many things that we need your help wi
 
 The best way to get involved is to visit our weekly IRC meeting (see above). Tell us your background and interests and we will find a project for your to get started.
 
+# Other interesting communities
+
+Other communities where there are conversations around anti-censorship and we keep connection with are:
+* [OONI slack](https://slack.ooni.org/)
+* [net4people forum](https://github.com/net4people/bbs/issues/)
+* [ntc.party forum](https://ntc.party/)
 
 # Archive
 
