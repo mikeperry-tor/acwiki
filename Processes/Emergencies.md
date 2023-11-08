@@ -28,6 +28,7 @@ We have two automated systems for anti-censorship alerts:
 "Code yellow" incidents should be dealt with by team members as soon as possible but are not considered emergencies. This may be because they are not single points of failure and shouldn't on their own cause a disruption of the usage of our circumvention tools.
 
 Some examples:
+
 - Default obfs4 bridge outages
 - Out of date GetTor binaries
 - Non-critical drop in available bridges or snowflake proxies
@@ -38,11 +39,12 @@ Censorship events do not cleanly belong in code red or code yellow because each 
 
 ## Contact information
 
-All team members should monitor the [anti-censorship alerts mailing list](https://lists.torproject.org/pipermail/anti-censorship-alerts/). If there is a critical outage that **has not been broadcasted on that mailing list**, the team can be reached by sending an email to the public [anti-censorship-team](https://lists.torproject.org/pipermail/anti-censorship-team/) list at `anti-censorship-team@lists.torproject.org`.
+All team members should monitor the [anti-censorship alerts mailing list](https://lists.torproject.org/pipermail/anti-censorship-alerts/). If there is a critical outage that **has not been broadcasted on that mailing list**, the team can be reached by sending an email to the public [anti-censorship-team](https://lists.torproject.org/pipermail/anti-censorship-team/) list at `anti-censorship-team@lists.torproject.org`. For security incidents that requires privacy please contact \[security@torproject.org\](https://www.torproject.org/contact/) or open a confidential issue in the appropriate repository.
 
-They may also be reached on the OFTC IRC server in `#tor-dev` or `#tor-project`.
-To highlight the whole team, use the keyword `anti-censorship-team`. Otherwise, the following team members are usually around:
+They may also be reached on the OFTC IRC server in #tor-anticensorship or `#tor-dev` or `#tor-project`. To highlight the whole team, use the keyword `anti-censorship-team`. Otherwise, the following team members are usually around:
+
 - `meskio`
 - `shelikhoo`
+- `onyinyang`
 - `cohosh`
 - `arma`
