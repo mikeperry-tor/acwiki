@@ -6,9 +6,9 @@ Excited about joining the team? Here is more information on how to get started.
 
 # IRC/matrix meetings schedule
 
-We use ​IRC for our weekly meetings and we meet on the ​OFTC network in the #tor-meeting channel, this channel is also accesible over the matrix channel at [#tor-meeting:matrix.org](https://matrix.to/#/#tor-meeting:matrix.org). The meeting takes place each Thursday at 16:00 UTC and typically lasts for an hour. Sometimes, we have to cancel our meeting but we announce cancellations on [our ​mailing list](https://lists.torproject.org/cgi-bin/mailman/listinfo/anti-censorship-team). Besides, our [​meeting pad](https://pad.riseup.net/p/tor-anti-censorship-keep) always shows the date of the next meeting.
+We use ​IRC for our weekly meetings and we meet on the ​OFTC network in the #tor-meeting channel, this channel is also accesible over the matrix channel at [#tor-meeting:matrix.org](https://matrix.to/#/#tor-meeting:matrix.org). The meeting takes place each Thursday at 16:00 UTC and typically lasts for an hour. Sometimes, we have to cancel our meeting but we announce cancellations on [our ​mailing list](https://lists.torproject.org/cgi-bin/mailman/listinfo/anti-censorship-team). Besides, our [​meeting pad](https://pad.riseup.net/p/r.9574e996bb9c0266213d38b91b56c469) always shows the date of the next meeting.
 
-If you want to get involved in Tor's anti-censorship work, try to show up to the team meeting! To get an idea of what we discuss in our meetings, take a look at our ​[meeting pad](https://pad.riseup.net/p/tor-anti-censorship-keep). In a nutshell, we use our weekly meetings to:
+If you want to get involved in Tor's anti-censorship work, try to show up to the team meeting! To get an idea of what we discuss in our meetings, take a look at our ​[meeting pad](https://pad.riseup.net/p/r.9574e996bb9c0266213d38b91b56c469). In a nutshell, we use our weekly meetings to:
 
 * Make announcements to the team.
 * Discuss topics like our development roadmap, team processes, or code architecture.
@@ -54,9 +54,8 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 - Q2: Content for the developer portal.
 - Capturing what we did in 2022 toward our priorities, for our future, and for visibility from other teams? Info is in SOTO 2022, anti-censorship team meeting pads, GitLab issues, and sponsor reports.
-- Onbasca work to test bridges and bridge performance
-https://gitlab.torproject.org/tpo/network-health/onbasca/-/issues/130
-- The "meta signaling channel app" idea (https://gitlab.torproject.org/tpo/anti-censorship/team/-/issues/111)
+- Onbasca work to test bridges and bridge performance https://gitlab.torproject.org/tpo/network-health/onbasca/-/issues/130
+- The "meta signaling channel app" idea ( https://gitlab.torproject.org/tpo/anti-censorship/team/-/issues/111)
 - Are there external groups that are doing things we want to use, re-use, rely on, advertise, etc? Like, Geneva and its censorship assessment tools. Two-six and their apps?
 - How to structure our future work so that our progress is more evident to our community, in a way that doesn't involve extra bureaucracy/work for us? E.g. other open-source tools use milestones in their issue tracker in a way that organizes tickets by topics, and we don't do that, but we could!
 
@@ -95,6 +94,7 @@ The best way to get involved is to visit our weekly IRC meeting (see above). Tel
 # Other interesting communities
 
 Other communities where there are conversations around anti-censorship and we keep connection with are:
+
 * [OONI slack](https://slack.ooni.org/)
 * [net4people forum](https://github.com/net4people/bbs/issues/)
 * [ntc.party forum](https://ntc.party/)
