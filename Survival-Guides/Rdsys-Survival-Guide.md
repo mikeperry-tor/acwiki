@@ -5,6 +5,7 @@
 * Rdsys's systemd scripts are in rdsys-admin git repo.
 * There's a crontab entry (run `crontab -e` as user rdsys in bridges.torproject.org) that invokes logrotate once a day to [rotate rdsys's log files](https://gitlab.torproject.org/tpo/anti-censorship/rdsys-admin/-/blob/master/logrotate/logrotate.conf).
 * Take a look at [rdsys's metrics](https://bridges.torproject.org/rdsys-backend-metrics) for a quick check if the service is running.
+* There is a staging server to test rdsys, see the [Rdsys Staging Survival Guide](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Rdsys-Staging-Survival-Guide)
 
 There are two servers where rdsys services live in:
 
