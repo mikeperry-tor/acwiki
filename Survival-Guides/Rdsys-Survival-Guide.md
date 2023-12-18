@@ -63,7 +63,7 @@ There are two servers where rdsys services live in:
 7. Restart the service process via systemd: `systemctl --user restart rdsys-backend`.
 
 
-## Deploying a new version
+## Deploying a new lox-distributor
 
 1. Compile the binary in the root of the `lox-distributor` crate: `cargo build --bin --release`
 2. The binary will be in the `lox/target/release` directory. Copy the binary to the server: `scp target/release/lox-distributor rdsys-frontend-01:`
