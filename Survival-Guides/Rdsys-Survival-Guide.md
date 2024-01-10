@@ -69,7 +69,7 @@ There are two servers where rdsys services live in:
 2. The binary will be in the `lox/target/release` directory. Copy the binary to the server: `scp target/release/lox-distributor rdsys-frontend-01:`
 3. Log into `rdsys-frontend-01.
 4. Change to the lox user by running `sudo -u lox -i`.
-5. Make a copy of the old binary so we can roll back if there is any problem: \`mv <span dir="">\~</span>/bin/lox-distributor <span dir="">\~</span>/bin/lox-distributor.old
-6. Copy the binary to its place: `cp /home/<user>/lox-distributor ~/bin/lox-distributor`
+5. Make a copy of the old binary so we can roll back if there is any problem: \`mv /srv/rdsys.torproject.org/bin/lox-distributor /srv/rdsys.torproject.org/bin/lox-distributor.old
+6. Copy the binary to its place: `cp /home/<user>/lox-distributor /srv/rdsys.torproject.org/bin/lox-distributor`
 
 7. Restart the service process via systemd: `systemctl --user restart rdsys-lox`.
