@@ -68,8 +68,8 @@ There are two servers where rdsys services live in:
 1. Compile the binary in the root of the `lox-distributor` crate: `cargo build --bin --release`
 2. The binary will be in the `lox/target/release` directory. Copy the binary to the server: `scp target/release/lox-distributor rdsys-frontend-01:`
 3. Log into `rdsys-frontend-01.
-4. Change to the lox user by running `sudo -u lox -i`.
+4. Change to the `rdsys` user by running `sudo -u rdsys -i`.
 5. Make a copy of the old binary so we can roll back if there is any problem: `mv /srv/rdsys.torproject.org/bin/lox-distributor /srv/rdsys.torproject.org/bin/lox-distributor.old`
 6. Copy the binary to its place: `cp /home/<user>/lox-distributor /srv/rdsys.torproject.org/bin/lox-distributor`
-
+7. Exit the `rdsys` user space and change to the `lox` user by running `sudo -u lox -i`.
 7. Restart the service process via systemd: `systemctl --user restart rdsys-lox`.
