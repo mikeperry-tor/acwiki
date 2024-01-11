@@ -22,6 +22,59 @@ SSH fingerprints:
 3072 SHA256:cG7BnmuOUjEklGZhmSGhNeVVJcphM1iJ5dKvfgL4KHI (RSA)
 ```
 
+The snowflake-01 site requires WireGuard authentication before the SSH port. To generate a WireGuard client keypair and network interface:
+
+<pre>
+client# apt install wireguard
+client# cd /etc/wireguard
+client# (umask 077 && wg genkey &gt; wgsf01.privatekey)
+client# wg pubkey &lt; wgsf02.privatekey &gt; wgsf01.publickey
+client# (umask 077 && vi wgsf01.conf)
+	[Interface]
+	PrivateKey = &lt;contents of wgsf01.privatekey file&gt;
+	Address = 192.168.47.<mark><var>X</var></mark>/24
+
+	[Peer]
+	PublicKey = PbJEVYTxx/O7iOPvlPJVLILLUjA3Xc01VZMykRnIamc=
+	AllowedIPs = 192.168.47.1/32, fd00:47::1/128
+	Endpoint = 193.187.88.42:51820
+</pre>
+
+Replace <code><mark><var>X</var></mark></code> in the above wgsf01.conf file to make an IP address that is not already used by another client.
+
+On the bridge, add a new `[WireGuardPeer]` entry to /etc/systemd/network/25-wg.netdev:
+
+<pre>
+bridge# vi /etc/systemd/network/25-wg.netdev
+	# username
+	[WireGuardPeer]
+	PublicKey = <mark><var>contents of user's wgsf01.publickey file</var></mark>
+	AllowedIPs = 192.168.47.<mark><var>X</var></mark>/32, fd00:47::<mark><var>X</var></mark>/128
+bridge# networkctl reload
+bridge# networkctl reconfigure
+bridge# etckeeper commit "Add wireguard peer 'username'"
+</pre>
+
+On the client, enable the wgsf01 interface, and test it with `ping`:
+
+```
+client# systemctl enable --now wg-quick@wgsf01.service
+client# ping 192.168.47.1
+```
+
+Use `wg show` on the bridge and on the client to see each endpoint's view of the state of the tunnel.
+
+On the client, you can set up an SSH `Host` alias for convenience, so that you can do `ssh snowflake-01`:
+
+```
+client# ssh-keygen -f ~/.ssh/snowflake-01
+client# vi ~/.ssh/config
+	Host snowflake-02
+	HostName 192.168.47.
+	User username
+	IdentityFile ~/.ssh/snowflake-01
+```
+
 ### snowflake-02 (crusty)
 
 * Bridge fingerprint 8838024498816A039FCBBAB14E6F40A0843051FA
@@ -52,7 +105,7 @@ client# wg pubkey &lt; wgsf02.privatekey &gt; wgsf02.publickey
 client# (umask 077 && vi wgsf02.conf)
 	[Interface]
 	PrivateKey = &lt;contents of wgsf02.privatekey file&gt;
-	Address = 10.100.0.<mark><var>X</var/></mark>/24
+	Address = 10.100.0.<mark><var>X</var></mark>/24
 
 	[Peer]
 	PublicKey = QnSqezDULR28QdzKbirO+wrWSa4HMoZhyGmHJVsVJyc=
