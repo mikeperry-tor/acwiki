@@ -334,7 +334,7 @@ Check for errors in `service snowflake-server status` and /var/log/snowflake-ser
 
 ## Appendix: Outbound bind addresses
 
-The [snowflake-01](Survival-Guides/Snowflake-Bridge-Survival-Guide#snowflake-02-flakey) bridge uses multiple outgoing IP addresses, in an effort to appear less like a participant in the [DDoS attack](https://status.torproject.org/issues/2022-06-09-network-ddos/) that was current in 2022. See tpo/anti-censorship/pluggable-transports/snowflake#40223.
+The [snowflake-01](Survival-Guides/Snowflake-Bridge-Survival-Guide#snowflake-01-flakey) bridge uses multiple outgoing IP addresses, in an effort to appear less like a participant in the [DDoS attack](https://status.torproject.org/issues/2022-06-09-network-ddos/) that was current in 2022. See tpo/anti-censorship/pluggable-transports/snowflake#40223.
 
 To make this work, we set `OutboundBindAddress` to different values in different instances' torrc files:
 
