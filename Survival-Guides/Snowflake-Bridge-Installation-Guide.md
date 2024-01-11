@@ -352,51 +352,7 @@ Besides setting multiple outbound addresses, we also communicate with the author
 
 ## Appendix: WireGuard
 
-The [snowflake-02](Survival-Guides/Snowflake-Bridge-Survival-Guide#snowflake-02-crusty) bridge uses WireGuard before the SSH port.
-
-Open a UDP port for WireGuard:
-
-```
-# vi /etc/ferm/ferm.conf
-	domain (ip ip6) {
-	    table filter {
-	        chain INPUT {
-	            #...
-	            # allow WireGuard
-	            proto udp dport 51820 ACCEPT;
-	            #...
-	        }
-	        # ...
-	    }
-	}
-```
-
-Install WireGuard, generate a keypair, and set up an interface. The server will be at 10.100.0.1, and the clients will be at 10.100.0.<var>X</var> for increasing values of <var>X</var>.
-
-<pre>
-# apt install wireguard
-# cd /etc/wireguard
-# (umask 077 &amp;&amp; wg genkey &gt; privatekey)
-# wg pubkey &lt; privatekey &gt; publickey
-# (umask 077 &amp;&amp; vi wg0.conf)
-	[Interface]
-	PrivateKey = <mark><var>contents of privatekey file</var></mark>
-	ListenPort = 51820
-	Address = 10.100.0.1/24
-# systemctl enable --now wg-quick@wg0.service
-# etckeeper commit "wireguard"
-</pre>
-
-Use `wg show` to show the status of the network interface.
-
-To add a new client on the server, add a new `[Peer]` section to /etc/wireguard/wg0.conf, with the client's public key, and an `AllowedIPs` address with a distinct value of <code><var>X</var></code>:
-
-<pre>
-# vi /etc/wireguard/wg0.conf
-	# <mark><var>username</var></mark>
-	[Peer]
-	PublicKey = <mark><var>contents of user's publickey file</var></mark>
-	AllowedIPs = 10.100.0.<mark><var>X</var></mark>/32
-# systemctl restart wg-quick@wg0.service
-# etckeeper commit "Add wireguard peer 'username'"
-</pre>
+The snowflake-01 and snowflake-02 bridges
+use WireGuard before the SSH port.
+See the [survival guide](Survival-Guides/Snowflake-Bridge-Survival-Guide#bridge-sites)
+for instructions on setting up WireGuard.
