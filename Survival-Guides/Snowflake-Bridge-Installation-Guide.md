@@ -321,7 +321,7 @@ Then, on the bridge, install snowflake-server and a systemd service file for it.
 	Environment=TOR_PT_STATE_LOCATION=%S/snowflake-server/pt_state
 	Environment=TOR_PT_EXIT_ON_STDIN_CLOSE=0
 
-	ExecStart=/usr/local/bin/snowflake-server --acme-hostnames snowflake.torproject.net --acme-email dcf@torproject.org --log %L/snowflake-server/snowflake-server.log
+	ExecStart=/usr/local/bin/snowflake-server --acme-hostnames <mark><var>NN</var></mark>.snowflake.torproject.net --acme-email dcf@torproject.org --log %L/snowflake-server/snowflake-server.log
 
 	[Install]
 	WantedBy=multi-user.target
@@ -330,6 +330,20 @@ Then, on the bridge, install snowflake-server and a systemd service file for it.
 ```
 
 Check for errors in `service snowflake-server status` and /var/log/snowflake-server/snowflake-server.log.
+
+snowflake-server will automatically acquire a TLS certificate
+for the names given in `--acme-hostnames` the first time each name is accessed.
+If you use a subdomain of torproject.net,
+then you will need to get in touch with the [Tor sysadmin team](https://gitlab.torproject.org/tpo/tpa/team)
+and ask to have a CAA DNS record created
+that authorizes a certain Let's Encrypt account
+to get certificates for that domain.
+See tpo/tpa/team#41462.
+You can use the [autocert-account-id](https://gitlab.torproject.org/dcf/autocert-account-id)
+program to find the name of the account created in the
+/var/lib/snowflake-server/pt_state/snowflake-certificate-cache directory.
+(This step has not yet been done an a new bridge as of 2024-01-11.
+Update these instructions when it happens.)
 
 
 ## Appendix: Outbound bind addresses
