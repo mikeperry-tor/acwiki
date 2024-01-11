@@ -110,6 +110,18 @@ root# ln -s /etc/runit/snowflake-broker /etc/service
 root# etckeeper commit "Install snowflake-broker."
 ```
 
+The broker will automatically acquire a TLS certificate
+for the names given in `--acme-hostnames` the first time each name is accessed.
+If you use a subdomain of torproject.net,
+then you will need to get in touch with the [Tor sysadmin team](https://gitlab.torproject.org/tpo/tpa/team)
+and ask to have a CAA DNS record created
+that authorizes a certain Let's Encrypt account
+to get certificates for that domain.
+See tpo/tpa/team#41462.
+You can use the [autocert-account-id](https://gitlab.torproject.org/dcf/autocert-account-id)
+program to find the name of the account created in the
+/home/snowflake-broker/acme-cert-cache directory.
+
 Install prometheus-node-exporter for resource monitoring (#29863).
 ```
 root# apt install prometheus-node-exporter
