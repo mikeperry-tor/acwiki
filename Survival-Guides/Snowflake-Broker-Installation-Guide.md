@@ -114,7 +114,7 @@ The broker will automatically acquire a TLS certificate
 for the names given in `--acme-hostnames` the first time each name is accessed.
 If you use a subdomain of torproject.net,
 then you will need to get in touch with the [Tor sysadmin team](https://gitlab.torproject.org/tpo/tpa/team)
-and ask to have a CAA DNS record created
+and ask to have a [CAA DNS record](https://gitlab.torproject.org/tpo/tpa/team/-/wikis/howto/tls#certificate-authority-authorization-caa) created
 that authorizes a certain Let's Encrypt account
 to get certificates for that domain.
 See tpo/tpa/team#41462.
