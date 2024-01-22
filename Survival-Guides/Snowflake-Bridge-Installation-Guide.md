@@ -130,7 +130,7 @@ Set sysctl parameters:
 * Increase the nftables connection tracking limits (tpo/anti-censorship/pluggable-transports/snowflake#40239).
 
 ```
-# echo "net.ipv4.ip_local_port_range = 15000 64000" > /etc/sysctl.d/ip_local_port_range.conf
+# echo "net.ipv4.ip_local_port_range = 15000 63999" > /etc/sysctl.d/ip_local_port_range.conf
 # (echo "net.netfilter.nf_conntrack_max = 524288"; echo "net.netfilter.nf_conntrack_buckets = 524288") > /etc/sysctl.d/nf_conntrack.conf
 # sysctl --system
 # etckeeper commit "sysctl"
