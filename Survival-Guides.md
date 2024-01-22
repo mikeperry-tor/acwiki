@@ -1,11 +1,11 @@
-This is the list of survival ghuides we have:
+This is the list of survival guides we have:
 
 * [rdsys](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Rdsys-Survival-Guide)
 * [bridgestrap](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Bridgestrap-Survival-Guide)
 * [onbasca](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Onbasca-Survival-Guide)
 * [moat](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Moat-Survival-Guide)
 * [conjure bridge](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Conjure-Bridge)
-* snoflake
+* snowflake
   * [broker installation](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Snowflake-Broker-Installation-Guide)
   * [broker survival](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Snowflake-Broker-Survival-Guide)
   * [probetest installation](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Snowflake-Probetest-Installation-Guide)
