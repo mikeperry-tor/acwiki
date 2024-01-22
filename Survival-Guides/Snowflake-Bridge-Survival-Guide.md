@@ -28,7 +28,7 @@ The snowflake-01 site requires WireGuard authentication before the SSH port. To 
 client# apt install wireguard
 client# cd /etc/wireguard
 client# (umask 077 && wg genkey &gt; wgsf01.privatekey)
-client# wg pubkey &lt; wgsf02.privatekey &gt; wgsf01.publickey
+client# wg pubkey &lt; wgsf01.privatekey &gt; wgsf01.publickey
 client# (umask 077 && vi wgsf01.conf)
 	[Interface]
 	PrivateKey = &lt;contents of wgsf01.privatekey file&gt;
@@ -69,8 +69,8 @@ On the client, you can set up an SSH `Host` alias for convenience, so that you c
 ```
 client# ssh-keygen -f ~/.ssh/snowflake-01
 client# vi ~/.ssh/config
-	Host snowflake-02
-	HostName 192.168.47.
+	Host snowflake-01
+	HostName 192.168.47.1
 	User username
 	IdentityFile ~/.ssh/snowflake-01
 ```
