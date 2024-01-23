@@ -65,7 +65,7 @@ There are two servers where rdsys services live in:
 
 ## Deploying a new lox-distributor
 
-1. Compile the binary in the root of the `lox-distributor` crate: `cargo build --bin --release`
+1. Compile the binary in the root of the `lox-distributor` crate: `cargo build --release`
 2. The binary will be in the `lox/target/release` directory. Copy the binary to the server: `scp target/release/lox-distributor rdsys-frontend-01:`
 3. Log into `rdsys-frontend-01.
 4. Change to the `rdsys` user by running `sudo -u rdsys -i`.
