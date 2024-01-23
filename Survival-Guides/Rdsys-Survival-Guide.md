@@ -72,4 +72,5 @@ There are two servers where rdsys services live in:
 5. Make a copy of the old binary so we can roll back if there is any problem: `mv /srv/rdsys.torproject.org/bin/lox-distributor /srv/rdsys.torproject.org/bin/lox-distributor.old`
 6. Copy the binary to its place: `cp /home/<user>/lox-distributor /srv/rdsys.torproject.org/bin/lox-distributor`
 7. Exit the `rdsys` user space and change to the `lox` user by running `sudo -u lox -i`.
-7. Restart the service process via systemd: `systemctl --user restart rdsys-lox`.
+8. Restart the service process via systemd: `systemctl --user restart rdsys-lox`.
+9. Check to make sure the service is running: `systemctl --user status rdsys-lox`
