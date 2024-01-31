@@ -29,35 +29,20 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 # Priorities
 
-## Priorities for 2023
+## Priorities for 2024
 
-- make Tor accessible in China
-- make Tor accessible in Iran
-- detect and categorize attempts to censor Tor
-- improve the design and reliability of our software
-- release our data and software for use by the broader anti-censorship community
-- improve the performance of Snowflake so that Tor bootstraps reliably on a mobile phone in China
-- deploy TapDance and Conjure as high collateral damage PT
-- commit to a design for a reputation-based bridge distribution system
-- deploy probes in areas that are likely to censor Tor and collect pack captures and probe results for storage and analysis
-- provide OONI with suggestions for improving the accuracy of OONI's Tor tests
-- summarize the details of Tor blocking events with data from our probes and volunteers
-- sanitize, publish and archive the results of our Tor reachability probes
-- complete our documentation for each of our tools so that other organizations can run their own anti-censorship infrastructure
-- Meek deprecation.
-- Think of priorities for the team so we can write the next proposal to get a sponsor.
+- Make Tor more accessible in China.
+- Make Tor more accessible in Iran.
+- Make Tor more accessible in Turkmeinstan.
+- Detect and investigate attempts to censor Tor.
+- Improve the design and reliability of our software.
+- Improve the performance of Snowflake so that Tor bootstraps reliably on a mobile phone in China.
+- Maintain probes in areas that are likely to censor Tor and collect pack captures and probe results for storage and analysis.
+- Diversify domain fronting options.
 - Discovering and reporting surprises/regressions in Arti's bridge and PT support.
-- Time to fork obfs4proxy and maintain it ourselves.
-- bridge operator usability (obfs4proxy, snowflake, etc): deb packages in the right place, C-Tor patches to include pluggable transport version, etc.
-
-## Nice to have:
-
-- Q2: Content for the developer portal.
-- Capturing what we did in 2022 toward our priorities, for our future, and for visibility from other teams? Info is in SOTO 2022, anti-censorship team meeting pads, GitLab issues, and sponsor reports.
-- Onbasca work to test bridges and bridge performance https://gitlab.torproject.org/tpo/network-health/onbasca/-/issues/130
-- The "meta signaling channel app" idea ( https://gitlab.torproject.org/tpo/anti-censorship/team/-/issues/111)
-- Are there external groups that are doing things we want to use, re-use, rely on, advertise, etc? Like, Geneva and its censorship assessment tools. Two-six and their apps?
-- How to structure our future work so that our progress is more evident to our community, in a way that doesn't involve extra bureaucracy/work for us? E.g. other open-source tools use milestones in their issue tracker in a way that organizes tickets by topics, and we don't do that, but we could!
+- Move to Manifest v3 for Snowflake/ extension.
+- Deprecate BridgeDB.
+- Support the Tor community team with anti-censorship issues
 
 [Priorities for previous years](previous-priorities)
 
