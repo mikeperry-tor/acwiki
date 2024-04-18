@@ -50,3 +50,15 @@ In order to get metrics on our default bridges use, we need to publish the bridg
 PublishServerDescriptor 1
 BridgeDistribution none
 ```
+
+## Assigning IP addresses for bridges with placeholder addresses
+
+A torrc Bridge line requires an IP:port address as part of the syntax. The IP:port address is required, even for transports that are not based on making a single connection to a single endpoint; for that reason, Snowflake and meek use "placeholder" addresses.
+
+We currently use the following convention (agreed upon in http://meetbot.debian.net/tor-meeting/2022/tor-meeting.2022-09-08-15.58.log.html#l-66):
+
+192.0.2.(16(<var>n</var>−1)+<var>t</var>):80
+
+where where <var>t</var> indicates the transport (1=flashproxy, 2=meek, 3=snowflake) and <var>n</var> is a counter if there are multiple bridge lines for single transport.
+
+This guarantees that different instances of different transports have different addresses (necessary to work around tor's internal assumption that IP:port is a sufficient identifier for a bridge), and that the port number is always one that is permitted by FascistFirewall (necessary to work around tpo/core/tor#19487).
