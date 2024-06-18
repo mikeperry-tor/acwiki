@@ -7,6 +7,7 @@
 * Take a look at [rdsys's metrics](https://bridges.torproject.org/rdsys-backend-metrics) for a quick check if the service is running.
 * There is a staging server to test rdsys, see the [Rdsys Staging Survival Guide](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Rdsys-Staging-Survival-Guide)
 
+
 There are two servers where rdsys services live in:
 
 * bridges.torproject.org
@@ -20,6 +21,30 @@ There are two servers where rdsys services live in:
   - rdsys user has a clone of rdsys-admin repo in /srv/rdsys.torproject.org/rdsys-admin, all the other users symlink systemd services from this repo
   - Each service has a user and a folder in /srv/, for example `gettor` has /srv/gettor.torproject.org/conf where the config of the service lives.
   - The services run under the user with the name of the service. For example `gettor` has two systemd services `gettor-distributor` and `gettor-updater`
+
+
+```mermaid
+flowchart TB
+    U((👩‍💻)) -.API..-> S
+    U -."https://bridges.torproject.org".-> H
+    U -."@GetBridgesBot".-> T 
+    U -."gettor@torproject.org".-> G 
+    U -."bridges@torproject.org".-> E
+    U -.API.-> L
+    subgraph polyanthum
+    R[rdsys] --> B[bridgestrap]
+    R --> O[onbasca]
+    M([moat]) --> R
+    H([https]) --> R
+    T([telegram]) --> R
+    S[/shim\] --> M
+    end
+    subgraph rdsys-backend-01
+    G([gettor]) --> R
+    E([email]) --> R
+    L([lox]) --> R
+    end
+```
 
 ## (Re)starting rdsys backend
 
