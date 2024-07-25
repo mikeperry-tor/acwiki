@@ -7,6 +7,8 @@ These are research project ideas relating to anti-censorship work at Tor. If you
 **Some relevant discussion/links**:
 - Discussion during anti-censorship meeting: http://meetbot.debian.net/tor-meeting/2021/tor-meeting.2021-02-04-15.58.html
 - Ticket for implementing Snowflake churn metrics: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/issues/34075
+- Some research done on this topic: https://lists.torproject.org/pipermail/anti-censorship-team/2024-July/000343.html
+  - A follow up discussion with more ideas on future research: http://meetbot.debian.net/tor-meeting/2024/tor-meeting.2024-07-25-16.00.html 
 
 ## Calibrate bridge users estimation with on-bridge socket counts
 
