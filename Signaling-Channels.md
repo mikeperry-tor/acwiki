@@ -14,7 +14,8 @@ There are less and less cloud providers allowing it.
 
 # Google Pub/Sub
 
-https://www.petsymposium.org/foci/2024/foci-2024-0010.php
+https://www.petsymposium.org/foci/2024/foci-2024-0010.php  
+https://github.com/AfonsoVilalonga/PubSub-Rendezvous
 
 # Google App Script
 
