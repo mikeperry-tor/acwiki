@@ -1,10 +1,10 @@
 ## Labels and milestones
 
-* *All* issues related to sponsors should have a sponsor label, e.g., "Sponsor 30". Issues that *must* be completed for a sponsor should also have a milestone associated with them.
+* *All* issues related to projects should have a project label, e.g., "Project 30".
 
 ## Roadmap
 
-* Our team roadmap is [available here](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards). Whatever you are currently working on (sponsor and non-sponsor work) should go into the "Doing" board. Whatever you intend on tackling throughout the current roadmapping period (which covers three months) should go into the "Next" board.
+* Our team roadmap is [available here](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/boards). Whatever you are currently working on (project and non-project work) should go into the "Doing" board. Whatever you intend on tackling throughout the current roadmapping period (which covers three months) should go into the "Next" board.
 
 ## Reviews
 
