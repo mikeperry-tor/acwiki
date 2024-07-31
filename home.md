@@ -50,10 +50,9 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 [Roadmaps for previous years](previous-roadmaps)
 
-## Active Sponsors and Contracts
+## Active Projects and Contracts
 
-* [Sponsor 96: Rapid Expansion of Access to the Uncensored Internet through Tor in China, Hong Kong, & Tibet](https://gitlab.torproject.org/groups/tpo/-/milestones/24)
-* [Sponsor 150: Deprecate BridgeDB](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/issues/?label_name%5B%5D=Sponsor%20150)
+* [Project 158: RDSys deployment and deprecation of BridgeDB ](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/issues/?label_name%5B%5D=Project%20158)
 
 ## Projects that the team maintains
 
