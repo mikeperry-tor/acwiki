@@ -67,7 +67,7 @@ root# etckeeper commit "Allow HTTP and HTTPS through the firewall."
 
 Set up an IPv6 address. You can use any address in the 2a00:c6c0:0:154:4::/80 prefix.
 ```
-root# python -c 'import os; print ":".join(os.urandom(2).encode("hex") for _ in range(3))'
+root# python3 -c 'import os; print(":".join(os.urandom(2).hex() for _ in range(3)))'
 d8aa:b4e6:c89f
 root# vi /etc/network/interfaces
 	iface eth0 inet6 static
