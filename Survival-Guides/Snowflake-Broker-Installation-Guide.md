@@ -134,6 +134,6 @@ root# etckeeper commit "Install prometheus-node-exporter."
 
 Do some other nice configuration.
 <pre>
-root# apt install unattended-upgrades man screen rsync
+root# apt install unattended-upgrades man-db screen rsync
 root# update-alternatives --config editor # Choose /usr/bin/vim.tiny
 </pre>
