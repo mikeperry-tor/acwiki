@@ -29,6 +29,7 @@ root# vi /etc/ssh/sshd_config
         PasswordAuthentication no
 root# rm /root/.ssh/authorized_keys 
 root# service sshd restart
+root# etckeeper commit "Disable root ssh."
 </pre>
 
 Add other users.
