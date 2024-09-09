@@ -25,12 +25,12 @@ There are two servers where rdsys services live in:
 
 ```mermaid
 flowchart TB
-    U((👩‍💻)) -."API https://moat.torproject.org"...-> Y
+    U((👩‍💻)) -."https://moat.torproject.org"...-> Y
     U -."https://bridges.torproject.org".-> H
     U -."@GetBridgesBot".-> T 
     U -."gettor@torproject.org".-> G 
     U -."bridges@torproject.org".-> E
-    U -.API.-> L
+    U -."https://lox.torproject.org".-> L
     subgraph polyanthum
     R[rdsys] --> B[bridgestrap]
     R --> O[onbasca]
