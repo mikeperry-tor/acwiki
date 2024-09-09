@@ -25,7 +25,7 @@ There are two servers where rdsys services live in:
 
 ```mermaid
 flowchart TB
-    U((👩‍💻)) -.API...-> Y
+    U((👩‍💻)) -."API https://moat.torproject.org"...-> Y
     U -."https://bridges.torproject.org".-> H
     U -."@GetBridgesBot".-> T 
     U -."gettor@torproject.org".-> G 
@@ -38,7 +38,7 @@ flowchart TB
     H([https]) --> R
     T([telegram]) --> R
     S[/shim\] --> M
-    Y[/lyrebird meek\] --> S
+    Y[/meek-server\] --> S
     end
     subgraph rdsys-backend-01
     G([gettor]) --> R
