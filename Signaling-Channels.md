@@ -6,9 +6,17 @@ A signaling channel is a transport that can be public, because the collateral da
 
 There are less and less cloud providers allowing it.
 
+* https://www.bamsoftware.com/papers/snowflake/#p20
+
 # AMP cache
 
+* tpo/anti-censorship/pluggable-transports/snowflake!50
+* https://www.bamsoftware.com/papers/snowflake/#p21
+
 # AWS SQS queue
+
+* tpo/anti-censorship/pluggable-transports/snowflake!214
+* https://www.bamsoftware.com/papers/snowflake/#p22
 
 # dnstt
 
