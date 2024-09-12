@@ -42,6 +42,7 @@ root# adduser <var>user3</var>
 root# adduser <var>user3</var> sudo
 root# vi /etc/ssh/sshd_config
         AllowUsers <var>user</var> <var>user1</var> <var>user2</var> <var>user3</var>
+root# service sshd restart
 root# etckeeper commit "Add users."
 </pre>
 
