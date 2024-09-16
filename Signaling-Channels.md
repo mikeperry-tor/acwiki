@@ -36,3 +36,7 @@ https://github.com/fortuna/OutlineDistribution
 Using passkeys servers: https://fidoalliance.org/passkeys/
 
 An example project: https://github.com/c-skills/passport
+
+# ECH on cloud providers
+
+Cloudflare seems to support it already: https://github.com/net4people/bbs/issues/393
