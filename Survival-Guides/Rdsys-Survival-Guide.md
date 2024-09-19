@@ -40,7 +40,7 @@ flowchart TB
     S[/shim\] --> M
     Y[/meek-server\] --> S
     end
-    subgraph rdsys-backend-01
+    subgraph rdsys-frontend-01
     G([gettor]) --> R
     E([email]) --> R
     L([lox]) --> R
