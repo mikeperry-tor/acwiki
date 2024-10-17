@@ -1,4 +1,4 @@
-These are instructions for setting up a Snowflake broker on Debian 10.
+These are instructions for setting up a Snowflake broker on Debian 12.
 
 #### Debian Base System Setup
 
