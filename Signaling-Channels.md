@@ -40,3 +40,7 @@ An example project: https://github.com/c-skills/passport
 # ECH on cloud providers
 
 Cloudflare seems to support it already: https://github.com/net4people/bbs/issues/393
+
+# S3
+
+https://www.petsymposium.org/foci/2024/foci-2024-0011.pdf
