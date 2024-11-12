@@ -509,14 +509,25 @@ access_log off;
 Install prometheus-node-exporter for resource monitoring (#29863).
 <pre>
 root# apt install prometheus-node-exporter
-root# vi /etc/default/prometheus-node-exporter
-	ARGS="--no-collector.arp --no-collector.bcache --no-collector.bonding --no-collector.conntrack --no-collector.cpu --no-collector.edac --no-collector.entropy --no-collector.filefd --no-collector.hwmon --no-collector.infiniband --no-collector.ipvs --no-collector.loadavg --no-collector.mdadm --no-collector.meminfo --no-collector.netclass --no-collector.netdev --no-collector.netstat --no-collector.nfs --no-collector.nfsd --no-collector.sockstat --no-collector.stat --no-collector.textfile --no-collector.timex --no-collector.uname --no-collector.vmstat --no-collector.xfs --no-collector.zfs"
-root# service prometheus-node-exporter restart
+root# nano /etc/default/prometheus-node-exporter
+	ARGS="--no-collector.arp --no-collector.bcache --no-collector.bonding --no-collector.conntrack --no-collector.cpu --no-collector.edac --no-collector.entropy --no-collector.filefd --no-collector.hwmon --no-collector.infiniband --no-collector.ipvs --no-collector.loadavg --no-collector.mdadm --no-collector.meminfo --no-collector.netclass --no-collector.netdev --no-collector.netstat --no-collector.nfs --no-collector.nfsd --no-collector.sockstat --no-collector.stat --no-collector.textfile --no-collector.timex --no-collector.uname --no-collector.vmstat --no-collector.xfs --no-collector.zfs --web.listen-address=127.0.0.1:9100 --web.telemetry-path=\"\/gxoulrp9jxlubkb5s0ekgt1nl5tbsw45rbk3\" "
+root# systemctl status prometheus-node-exporter
 root# etckeeper commit "Install prometheus-node-exporter."
 </pre>
+
+Create `/etc/nginx/sites-available/https/prometheus-node-exporter.conf`
+```
+        location ~ ((gxoulrp9jxlubkb5s0ekgt1nl5tbsw45rbk3)) {
+            proxy_pass http://127.0.0.1:9100;
+            proxy_http_version 1.1;
+        }
+```
+and run
+```
+nginx -s reload
+```
 
 Do some other nice configuration.
 <pre>
 root# apt install unattended-upgrades man-db screen rsync
-root# update-alternatives --config editor # Choose /usr/bin/vim.tiny
 </pre>
