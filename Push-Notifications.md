@@ -1,6 +1,7 @@
 ---
-title: Signaling Channels/Push Notifications
+title: Push Notifications
 ---
+
 # Privacy Analysis of Push Notifications for Anti-censorship
 
 Push notifications are a cost-effective, performant, and censorship-resistant way for application service providers to send messages to users[0], but come with a unique set of privacy risks. This is a privacy analysis of the use of push notifications to deliver updates to suggested anti-censorship settings.
