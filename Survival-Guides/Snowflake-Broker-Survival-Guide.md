@@ -3,27 +3,23 @@ Broker survival guide
 
 IP addresses
 ```
-37.218.245.111
+37.218.242.175
 2a00:c6c0:0:154:4:d8aa:b4e6:c89f
 ```
 
 SSH fingerprints
 ```
-RSA:    2048 SHA256:dp0Xo/oN1qZfMuZnqgKEbeOsbU2qpDR60B5MLIRaAgg
-DSA:    1024 SHA256:DF5ofogjGur02gv8/ciU3wFA+YHNuAhUlel9Uv2KBlo
-ECDSA:   256 SHA256:6cskO6ch/kv2RbIMhTdwqpsd9vB8npzlZTlkWZJLoek
-ED25519: 256 SHA256:fEkLvmu5woTvU6162I8Jxd2eHzsTnBshumtWICclWA4
+RSA:    3072 SHA256:rvKw6QleY2arxnM1SDVK/sbrHtM4s3QUT8C8UdwnHUo
+ECDSA:   256 SHA256:58+L8TIvge80wI2N7IeLBEqfAiOJ+KgxLsYhpaKSbAQ
+ED25519: 256 SHA256:1Jkdhvq2lDSCgjQu5z3RV3BSvt+XdW2C3rV7JvIvpqc
+
 ```
 
-The broker is managed by runit. It's the only service running on the
-host. To upgrade the broker:
-1. `sv stop snowflake-broker`
-2. `install --owner root ~/new-broker /usr/local/bin/broker`
-3. `sv start snowflake-broker`
-Logs are under `/var/log/snowflake-broker`.
-
-Firewall configuration is in `/etc/ferm/ferm.conf`. Run
-`service ferm restart` after making changes.
+The broker is managed by systemd. To upgrade the broker:
+1. `machinectl shell --uid=webapp`
+2. `cp ~/new-broker ~/.config/broker/broker`
+3. `systemctl restart --user broker.service`
+Logs are managed by systemd, access it with `journelctl --user -u broker.service`.
 
 ## SQS Rendezvous Deployment
 
