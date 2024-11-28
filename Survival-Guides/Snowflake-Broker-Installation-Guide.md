@@ -531,3 +531,5 @@ Do some other nice configuration.
 <pre>
 root# apt install unattended-upgrades man-db screen rsync
 </pre>
+
+If the IP has changed the prometheus server will keep pooling the old broker for metrics. Restarting the nginx of the old broker should force it to move to the new IP.
