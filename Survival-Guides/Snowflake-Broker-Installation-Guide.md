@@ -418,6 +418,11 @@ by creating `/etc/nginx/sites-available/https/broker.conf`:
             limit_req zone=snowflake burst=3;
             proxy_pass http://127.0.0.1:8080;
             proxy_http_version 1.1;
+            proxy_read_timeout 300;
+            proxy_connect_timeout 300;
+            proxy_send_timeout 300;
+
+            proxy_set_header  X-Forwarded-For $proxy_protocol_addr;
         }
 ```
 
