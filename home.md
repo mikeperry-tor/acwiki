@@ -29,20 +29,17 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 # Priorities
 
-## Priorities for 2024
+## Priorities for 2025
 
-- Make Tor more accessible in China.
-- Make Tor more accessible in Iran.
-- Make Tor more accessible in Turkmeinstan.
+- Make Tor more accessible in Iran
+- Make Tor more accessible in Russia
+- Make Tor more accessible in China
 - Detect and investigate attempts to censor Tor.
-- Improve the design and reliability of our software.
-- Improve the performance of Snowflake so that Tor bootstraps reliably on a mobile phone in China.
-- Maintain probes in areas that are likely to censor Tor and collect pack captures and probe results for storage and analysis.
-- Diversify domain fronting options.
-- Discovering and reporting surprises/regressions in Arti's bridge and PT support.
-- Move to Manifest v3 for Snowflake/ extension.
-- Deprecate BridgeDB.
+- Continue working on Lox and support Applications team on integration
+- Maintain and improve pluggable transports (conjure and others)
 - Support the Tor community team with anti-censorship issues
+- Improve the reliability of Snowflake network
+- Improve the reliability of rdsys
 
 [Priorities for previous years](previous-priorities)
 
