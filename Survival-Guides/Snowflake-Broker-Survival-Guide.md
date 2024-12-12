@@ -4,7 +4,7 @@ Broker survival guide
 IP addresses
 ```
 37.218.242.175
-2a00:c6c0:0:154:4:d8aa:b4e6:c89f
+2a00:c6c0:0:151:4:ae99:c0a9:d585
 ```
 
 SSH fingerprints
