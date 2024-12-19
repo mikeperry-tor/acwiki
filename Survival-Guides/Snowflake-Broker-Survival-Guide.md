@@ -9,10 +9,9 @@ IP addresses
 
 SSH fingerprints
 ```
-RSA:    3072 SHA256:rvKw6QleY2arxnM1SDVK/sbrHtM4s3QUT8C8UdwnHUo
-ECDSA:   256 SHA256:58+L8TIvge80wI2N7IeLBEqfAiOJ+KgxLsYhpaKSbAQ
-ED25519: 256 SHA256:1Jkdhvq2lDSCgjQu5z3RV3BSvt+XdW2C3rV7JvIvpqc
-
+3072 SHA256:I6oTsaWAQDSs7+q2a1PwWmJTA49D0L2udjZLfJmy0Lc (RSA)
+256 SHA256:zITkF8SJbygbz5ytoyMj5vnK70mCL+bKYNsFuxZKPwg (ECDSA)
+256 SHA256:WTAUcaFrT8WgzPt+ynAG/HjIoph/6VJJDn0TpqRcWrw (ED25519)
 ```
 
 The broker is managed by systemd. To upgrade the broker:
