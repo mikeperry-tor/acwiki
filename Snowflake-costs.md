@@ -59,6 +59,12 @@
 |2024-12-31          |$24.43|
 
 
+## Broker VPS
+
+|billing period|cost |
+|--:|---:|
+|2025-01|€295.71|
+
 ## Bridge hosting
 
 [Snowflake Daily Operations](https://opencollective.com/censorship-circumvention/projects/snowflake-daily-operations)
