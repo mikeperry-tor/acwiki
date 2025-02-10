@@ -1,4 +1,4 @@
-This is a guide for altering or debugging issues with Moat. For more details on how Moat works and is deployed, see [the Moat documentation](https://gitlab.torproject.org/tpo/anti-censorship/bridgedb/-/wikis/Moat).
+This is a guide for altering or debugging issues with Moat. For more details on how Moat works and is deployed, see [the Moat documentation](Moat).
 
 Right now Moat is deployed on Microsoft Azure.
 
