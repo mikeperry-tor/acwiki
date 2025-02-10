@@ -2,6 +2,8 @@
 
 Moat allows users to fetch bridges from BridgeDB over a domain-fronted connection. It consists of a [meek](https://gitweb.torproject.org/pluggable-transports/meek.git/) server, some apache configs, and a BridgeDB distributor. This documentation demonstrates how it is deployed at https://bridges.torproject.org.
 
+See the [API documentation](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/main/doc/moat.md?ref_type=heads) to use it.
+
 ## Server Setup
 
 Clients connect to moat through the meek server, which then redirects traffic locally to the BridgeDB Moat distributor. These connections are facilitated through a sequence of ProxyPass rules:
@@ -47,3 +49,12 @@ The meek client will open a SOCKS proxy on a local port and proxy all requests t
 ```
 $ curl --socks5 127.0.0.1:44467 https://bridges.torproject.org/moat/
 ```
+
+## API users
+
+Applications using this API and point of contact for them:
+- Brave
+- Briar (contact@briarproject.org)
+- Guardian Project (@n8fr8)
+- OnionShare (@mig5)
+- Tor Browser (@morgan)
