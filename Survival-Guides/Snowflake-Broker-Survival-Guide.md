@@ -18,7 +18,7 @@ The broker is managed by systemd. To upgrade the broker:
 1. `machinectl shell --uid=webapp`
 2. `cp ~/new-broker ~/.config/broker/broker`
 3. `systemctl restart --user broker.service`
-Logs are managed by systemd, access it with `journalctl --user -u broker.service`.
+Logs are managed by systemd, access it with `journalctl "_SYSTEMD_USER_UNIT=broker.service"` from root.
 
 ## SQS Rendezvous Deployment
 
