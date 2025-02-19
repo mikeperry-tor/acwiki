@@ -128,3 +128,7 @@ Restarting rdsys has solved the problem in the past.
 If more than half of the bridges are either untested or dysfunctional rdsys will ignore bridgestrap results and distribute bridges independently of their functionality. This happens on each rdsys or bridgestrap restart for a "short" period of time (sometimes a couple of hours). But if it lasts longer there is an issue in bridgestrap that should be investigated.
 
 In the [rdsys dashboard of grafana](https://grafana2.torproject.org/d/4BZEEqN4z/rdsys) is easy to see if this problem is still happening. There is a "Tested (bridgestrap)" panel that shows how many bridges there are per functionality status.
+
+### rejected by ratio
+
+If there are many bridges being rejected by onbasca means that onbasca believes that most of the bridges don't have enough bandwidth to be distributed. This is a bug in onbasca and should be investigated.
