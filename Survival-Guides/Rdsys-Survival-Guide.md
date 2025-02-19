@@ -100,3 +100,31 @@ flowchart TB
 7. Exit the `rdsys` user space and change to the `lox` user by running `sudo -u lox -i`.
 8. Restart the service process via systemd: `systemctl --user restart rdsys-lox`.
 9. Check to make sure the service is running: `systemctl --user status rdsys-lox`
+
+## issues
+
+### email silence
+
+Gettor and email used to sometimes hung and stop processing emails (https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/issues/129). Hopefully this is already solved, but if not we need to investigate.
+
+We have an alert for this issue for gettor, but none for the email distributor.
+
+Restarting the gettor/email distributor usually solves the problem. The logs in the journald of rdsys-frontend-01.torproject.org users gettor or bridges-email might help to discover what is going wrong.
+
+### too few new telegram bridges
+
+The telegram new pool is composed by dynamic bridges, if there are very few bridges it means that there is a problem with the dynamic bridges system.
+
+We should check the journald logs of the rdsys-telegram service in the rdsys user of polyanthum.torproject.org. And contact @irl to see if the problem is in their side.
+
+### Number of bridges is not changing in rdsys
+
+In this case there is an issue on the communication between rdsys and bridgestrap (https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/issues/249).
+
+Restarting rdsys has solved the problem in the past.
+
+### Ignoring bridges by functionality
+
+If more than half of the bridges are either untested or dysfunctional rdsys will ignore bridgestrap results and distribute bridges independently of their functionality. This happens on each rdsys or bridgestrap restart for a "short" period of time (sometimes a couple of hours). But if it lasts longer there is an issue in bridgestrap that should be investigated.
+
+In the [rdsys dashboard of grafana](https://grafana2.torproject.org/d/4BZEEqN4z/rdsys) is easy to see if this problem is still happening. There is a "Tested (bridgestrap)" panel that shows how many bridges there are per functionality status.
