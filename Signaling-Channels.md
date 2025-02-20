@@ -54,3 +54,9 @@ https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Signaling-Channel
 https://web.archive.org/web/20230330055859/https://easrng.blogspot.com/2022/03/get-tor-bridges-with-nothing-but.html  
 https://developers.cloudflare.com/1.1.1.1/other-ways-to-use-1.1.1.1/dns-in-google-sheets/  
 https://gitlab.torproject.org/tpo/anti-censorship/bridgedb/-/issues/40047
+
+# TURN servers
+
+https://www.petsymposium.org/foci/2025/foci-2025-0003.php
+
+In general TURN services are paid per traffic.
