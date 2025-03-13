@@ -117,6 +117,8 @@ The telegram new pool is composed by dynamic bridges, if there are very few brid
 
 We should check the journald logs of the rdsys-telegram service in the rdsys user of polyanthum.torproject.org. And contact @irl to see if the problem is in their side.
 
+There is currently an issue with the dynamic bridges and this is happening more often: https://gitlab.torproject.org/tpo/anti-censorship/team/-/issues/159
+
 ### Number of bridges is not changing in rdsys
 
 In this case there is an issue on the communication between rdsys and bridgestrap (https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/issues/249).
