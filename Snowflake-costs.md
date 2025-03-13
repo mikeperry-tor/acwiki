@@ -65,6 +65,7 @@
 |billing period|cost |
 |--:|---:|
 |2025-01|€295.71|
+|2025-02|€36.51|
 
 ## Bridge hosting
 
