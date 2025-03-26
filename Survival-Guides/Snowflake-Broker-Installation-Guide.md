@@ -317,7 +317,7 @@ Description=Snowflake Broker
     
 [Service]
 
-ExecStart=%S/broker/broker --metrics-log metrics.log --bridge-list-path bridge_list.json --default-relay-pattern ^snowflake.torproject.net$ --allowed-relay-pattern snowflake.torproject.net$ --disable-tls --geoipdb /usr/share/tor/geoip --geoip6db /usr/share/tor/geoip6 --addr 127.0.0.1:8080
+ExecStart=%S/broker/broker --metrics-log metrics.log --bridge-list-path bridge_list.json --allowed-relay-pattern snowflake.torproject.net$ --disable-tls --geoipdb /usr/share/tor/geoip --geoip6db /usr/share/tor/geoip6 --addr 127.0.0.1:8080
 WorkingDirectory=%S/broker
 RestartSec=5s
 Restart=on-failure
