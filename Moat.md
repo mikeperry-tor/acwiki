@@ -41,7 +41,7 @@ The client opens a meek tunnel to the Moat server by passing in the service prov
 ```
 $ export TOR_PT_MANAGED_TRANSPORT_VER=1
 $ export TOR_PT_CLIENT_TRANSPORTS=meek
-$ ./meek-client --url https://moat.torproject.org.global.prod.fastly.net/ --front=cdn.sstatic.net
+$ ./meek-client --url https://1723079976.rsc.cdn77.org --front=www.phpmyadmin.net
 ```
 
 The meek client will open a SOCKS proxy on a local port and proxy all requests through the meek tunnel to the BridgeDB server. The client can then send requests to the Moat distributor at https://bridges.torproject.org/moat.
