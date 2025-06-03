@@ -131,3 +131,5 @@ What follows are instructions for running the Conjure bridge on Debian bookworm.
     If you get stuck, take a look at the [technical setup instructions](https://community.torproject.org/relay/setup/bridge/) for running a bridge. The setup will be slightly different from an obfs4 bridge, but some of the same system-specific tips will help.
 
 ## Wireguard setup
+
+Install [wireguard](https://www.wireguard.com/install/). A full documentation of the wireguard setup is available in the [Conjure PT wiki](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/conjure/-/wikis/wireguard-setup)
