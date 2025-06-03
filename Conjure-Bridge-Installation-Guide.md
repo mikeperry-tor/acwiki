@@ -78,7 +78,7 @@ What follows are instructions for running the Conjure bridge on Debian bookworm.
 
 6. Configure systemd and give conjure-server `CAP_NET_BIND_SERVICE` capabilities to bind the port with a non-root user:
    ```
-   sudo setcap cap_net_bind_service=+ep /usr/bin/obfs4proxy
+   sudo setcap cap_net_bind_service=+ep /usr/local/bin/conjure-server
    ```
    
 7. Work around systemd hardening
@@ -117,10 +117,10 @@ What follows are instructions for running the Conjure bridge on Debian bookworm.
    ```
    [notice] Your Tor server's identity key fingerprint is '<NICKNAME> <FINGERPRINT>'
    [notice] Your Tor bridge's hashed identity key fingerprint is '<NICKNAME> <HASHED FINGERPRINT>'
-   [notice] Registered server transport 'obfs4' at '[::]:46396'
+   [notice] Registered server transport 'conjure' at '[::]:80'
    [notice] Tor has successfully opened a circuit. Looks like client functionality is working.
    [notice] Bootstrapped 100%: Done
-   [notice] Now checking whether ORPort <redacted>:3818 is reachable... (this may take up to 20 minutes -- look for log messages indicating success)
+   [notice] Now checking whether ORPort <redacted>:9001 is reachable... (this may take up to 20 minutes -- look for log messages indicating success)
    [notice] Self-testing indicates your ORPort is reachable from the outside. Excellent. Publishing server descriptor.
    ```
 
