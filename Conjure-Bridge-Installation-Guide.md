@@ -133,3 +133,7 @@ What follows are instructions for running the Conjure bridge on Debian bookworm.
 ## Wireguard setup
 
 Install [wireguard](https://www.wireguard.com/install/). A full documentation of the wireguard setup is available in the [Conjure PT wiki](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/conjure/-/wikis/wireguard-setup)
+
+## Maintenance
+
+As Conjure stations are deployed or modified, both the wireguard settings and the `allowed-stations` in the torrc file will need to be updated. Follow the wiki instructions for [adding a new peer](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/conjure/-/wikis/wireguard-setup#adding-new-peers) and then append the IP address of the peer to the allowed stations and restart Tor.
