@@ -70,3 +70,12 @@
 ## Bridge hosting
 
 [Snowflake Daily Operations](https://opencollective.com/censorship-circumvention/projects/snowflake-daily-operations)
+
+## AWS (SQS)
+
+|billing period|cost|
+|--:|---:|
+|2025-02-28|2.04USD|
+|2025-03-31|4.05USD|
+|2025-04-30|5.34USD|
+|2025-05-31|8.02USD|
