@@ -60,3 +60,9 @@ https://gitlab.torproject.org/tpo/anti-censorship/bridgedb/-/issues/40047
 https://www.petsymposium.org/foci/2025/foci-2025-0003.php
 
 In general TURN services are paid per traffic.
+
+
+# library implementations
+
+* https://github.com/getlantern/kindling
+* https://github.com/tst-race/raceboat
