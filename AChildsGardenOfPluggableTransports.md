@@ -1,3 +1,9 @@
+---
+title: A Child's Garden of Pluggable Transports
+---
+> [!note]
+> Ther illustrations in this article were largely broken by the [transition from Trac to Gitlab in 2020](https://blog.torproject.org/from-trac-into-gitlab-for-tor/). You are better off reading an [archived version](https://web.archive.org/web/20200202181038/https://trac.torproject.org/projects/tor/wiki/doc/AChildsGardenOfPluggableTransports).
+
 Here is an exploration of [[PluggableTransports|pluggable transports]], how they look on the wire.
 
 Pluggable transports disguise Tor traffic for the evading of network censorship. Some transports try to make the traffic look like another protocol, and others try to make it look random. Some transports are aimed at evading IP-based blocks rather than content-based blocks. If you want to see what running Tor with a pluggable transport is like, download a recent version of Tor Browser (version 3.6 or later), and say **Yes** to the question _Does your Internet Service Provider (ISP) block or otherwise censor connections to the Tor Network?_
