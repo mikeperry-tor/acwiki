@@ -5,8 +5,8 @@ This is a guide for anti-censorship team members on how to add support for a new
 ## Build the PT client reproducibly
 
 The first step is to create an [rbm](https://rbm.torproject.org/) project in tor-browser-build to build the pluggable transport client reproducibly on all platforms. This project will have a `config` file and a `build` script. See examples of projects for existing PTs:
-- [obfs4](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/tree/main/projects/obfs4)
-- [snowflake](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/tree/main/projects/snowflake)
+- [lyrebird](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/tree/main/projects/lyrebird)
+- [conjure](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/tree/main/projects/conjure)
 
 This guide will give a brief overview of how to write these files, more complete documentation is available in the [rbm repository](https://gitlab.torproject.org/tpo/applications/rbm/-/tree/main/doc).
 
@@ -21,28 +21,45 @@ git_hash: [git commit hash of the version of the PT to include in the build]
 Don't change the `filename` or `container` arguments, all projects should be built in a container and the filename will place the result of the build in a spot that rbm can find it later.
 
 ```yaml
-filename: '[% project %]-[% c("version") %]-[% c("var/osname") %]-[% c("var/build_id") %].tar.gz'
+filename: '[% project %]-[% c("version") %]-[% c("var/osname") %]-[% c("var/build_id") %].tar.[% c("compress_tar") %]'
 container:
   use_container: 1
 ```
-The input files should list all dependencies for the project. This includes all go libraries (other than the standard library) that are needed to build it. This is the most time-consuming part of defining reproducible builds. All dependencies need to have their own rbm project (with their own `config` and possibly `build` files). 
+The input files should list all dependencies for building the project.
 
 ```yaml
 input_files:
   - project: container-image
   - name: go
     project: go
-  - name: goptlib
-    project: goptlib
-  - name: [go dependency 1]
-    project: [go dependency 1]
-  - name: [go dependency 2]
-    project: [go dependency 2]
   - name: '[% c("var/compiler") %]'
     project: '[% c("var/compiler") %]'
     enable: '[% c("var/android") %]'
+  - name: go_vendor
+    pkg_type: go_vendor
+    project: conjure
+    norec:
+      sha256sum: d43631d17d8b6f78152bb4341f867bb22ad4444fec5573be1d34dac968202cda
+    target_replace:
+      '^torbrowser-(?!testbuild).*': 'torbrowser-linux-x86_64'
+  - name: go-licenses
+    project: go-licenses
 ```
+PTs written in Go and Rust can use vendored dependencies. To generate the vendored tarball for Go projects and calculate the sum, run the following command from the top of the tor-browser-build repo:
+```bash
+./rbm/rbm build [PT project name] --step go_vendor --target alpha --target torbrowser-linux-x86_64
+```
+there will be a vendered tarball in `out/[PT project name]/go_vendor/`. You can then run
+```bash
+sha256sum [path to tarball]
+```
+For Rust projects, the process is similar. See the [`lox-wasm` config](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/7be3d4ea15728ba563a8590f54d75e5e03b7f150/projects/lox-wasm/config#L21) for the input files and then run
+```bash
+./rbm/rbm build [PT project name] --step cargo_vendor --target alpha --target torbrowser-linux-x86_64
+```
+to generate the tarball.
 
+If the PT is written in Go, the [`go-licences`](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/tree/main/projects/go-licenses) project is also required.
 
 #### Writing the `build` script
 
@@ -55,6 +72,9 @@ Most of the build script can be copied from an existing PT project and modified 
 distdir=/var/tmp/dist/[% project %]
 mkdir -p $distdir
 
+tar -C /var/tmp/dist -xf [% c('input_files_by_name/go-licenses') %]
+export PATH=$PATH:/var/tmp/dist/go-licenses
+
 [% IF c("var/android") -%]
   [% pc(c('var/compiler'), 'var/setup', { compiler_tarfile => c('input_files_by_name/' _ c('var/compiler')) }) %]
   # We need to explicitly set CGO_ENABLED with Go 1.13.x as the Android build
@@ -63,36 +83,32 @@ mkdir -p $distdir
 [% END -%]
 ```
 
-Each dependency listed in the `input_files` part of the `config` above needs to be extracted into the right place. Which projects these are will depend on the PT:
-```bash
-tar -C /var/tmp/dist -xf [% c('input_files_by_name/goptlib') %]
-tar -C /var/tmp/dist -xf [% c('input_files_by_name/go-dep-1') %]
-tar -C /var/tmp/dist -xf [% c('input_files_by_name/go-dep-2') %]
-```
+Then the project is extracted into a temporary build directory, along with the vendored dependencies
 
 ```bash
 mkdir -p /var/tmp/build
 tar -C /var/tmp/build -xf [% project %]-[% c('version') %].tar.gz
 cd /var/tmp/build/[% project %]-[% c('version') %]
-```
-Make a directly in the `$GOPATH` for the PT source code:
-```bash
-mkdir -p "$GOPATH/src/[domain name and path for the PT git repository]"
+
+tar -xf $rootdir/[% c('input_files_by_name/go_vendor') %]
 ```
 
+and built
 ```bash
-cd client
-go build -ldflags '-s'
+go build -mod=vendor -ldflags '-X main.newptVersion=[% c("version") %] -s[% IF c("var/android") %] -checklinkname=0[% END %]' ./cmd/newpt
 ```
 Copy the compiled client binary to the right filename, depending on the platform.
 ```bash
-cp -a client[% IF c("var/windows") %].exe[% END %] $distdir/newpt-client[% IF c("var/windows") %].exe[% END %]
+cp -a newpt[% IF c("var/windows") %].exe[% END %] $distdir
 ```
-If there is a README, copy it.
-```bash
-cd ..
-cp -a README.md $distdir/README.NEWPT.md
 
+Save the licences, if necessary
+```bash
+go-licenses save ./cmd/newpt --save_path=$distdir/licenses
+```
+
+and finally package everything up so it can be used by the `tor-expert-bundle` project.
+```bash
 cd $distdir
 [% c('tar', {
         tar_src => [ '.' ],
@@ -101,14 +117,14 @@ cd $distdir
 ```
 
 After the project has been defined, it can be tested and debugged by building just the project directly:
-```
+```bash
 ./rbm/rbm build $project --target nightly --target $platform
 ```
 This saves time and resources, rather than doing a full tor browser build.
 
 ## Add the client binary to the tor-expert-bundle
 
-The `tor-expert-bundle` project groups togeter and packages up PT binaries and built-in bridge lines so that they can be extracted to the right place for each platform's browser build.
+The `tor-expert-bundle` project groups together and packages up PT binaries and built-in bridge lines so that they can be extracted to the right place for each platform's browser build.
 
 Adding a new PT to this bundle is not too difficult. The first step is to add the PT project as a dependency in the `tor-expert-bundle` [config file](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/tor-expert-bundle/config):
 
@@ -128,34 +144,39 @@ Then, modify the `tor-expert-bundle` [build file](https://gitlab.torproject.org/
 
 ```diff
 diff --git a/projects/tor-expert-bundle/build b/projects/tor-expert-bundle/build
+index f2d0d96c..36490718 100644
 --- a/projects/tor-expert-bundle/build
 +++ b/projects/tor-expert-bundle/build
-@@ -11,6 +11,7 @@ mkdir pluggable_transports && cd pluggable_transports
- 
- tar -xkf $rootdir/[% c('input_files_by_name/obfs4') %]
- tar -xkf $rootdir/[% c('input_files_by_name/snowflake') %]
+@@ -33,6 +33,8 @@ pt_licenses $distdir/docs/lyrebird.txt
+   tar -xkf $rootdir/[% c('input_files_by_name/conjure') %]
+   pt_licenses $distdir/docs/conjure.txt
+ [% END -%]
 +tar -xkf $rootdir/[% c('input_files_by_name/newpt') %]
++pt_licenses $distdir/docs/newpt.txt
+ 
+ # add per-platform pt extension
+ awk '{gsub(/\$\{pt_extension\}/, "[% c("var/pt_extension") %]"); print}' $rootdir/pt_config.json > pt_config.json
 ```
 
 ## Set the ClientTransportPlugin line for desktop platforms
 
-Each platform has its own torrc defaults file in the `browser` project. There is one for:
-- [linux](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/browser/Bundle-Data/PTConfigs/linux/torrc-defaults-appendix)
-- [windows](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/browser/Bundle-Data/PTConfigs/windows/torrc-defaults-appendix)
-- [mac](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/browser/Bundle-Data/PTConfigs/mac/torrc-defaults-appendix)
+There is a single [pt_config.json](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/7be3d4ea15728ba563a8590f54d75e5e03b7f150/projects/tor-expert-bundle/pt_config.json) for all `ClientTransportPlugin` and builtin bridge lines for all platforms.
 
-Pay close attention to how the executables are called in each of the different platforms and emulate the existing ClientTransportPlugin lines but with your own PT name and arguments. For example:
 ```diff
-diff --git a/projects/browser/Bundle-Data/PTConfigs/linux/torrc-defaults-appendix b/projects/browser/Bun
-dle-Data/PTConfigs/linux/torrc-defaults-appendix
---- a/projects/browser/Bundle-Data/PTConfigs/linux/torrc-defaults-appendix
-+++ b/projects/browser/Bundle-Data/PTConfigs/linux/torrc-defaults-appendix
-@@ -2,4 +2,4 @@
- ClientTransportPlugin meek_lite,obfs2,obfs3,obfs4,scramblesuit exec ./TorBrowser/Tor/PluggableTransport
-s/obfs4proxy
-
-+## newpt configuration
-+ClientTransportPlugin newpt exec ./TorBrowser/Tor/PluggableTransports/newpt-client -arg1 foo -arg2 bar
+diff --git a/projects/tor-expert-bundle/pt_config.json b/projects/tor-expert-bundle/pt_config.json
+index 10f48d57..fc0afe73 100644
+--- a/projects/tor-expert-bundle/pt_config.json
++++ b/projects/tor-expert-bundle/pt_config.json
+@@ -3,7 +3,8 @@
+   "pluggableTransports" : {
+     "lyrebird" : "ClientTransportPlugin meek_lite,obfs2,obfs3,obfs4,scramblesuit,webtunnel exec ${pt_path}lyrebird${pt_extension}",
+     "snowflake": "ClientTransportPlugin snowflake exec ${pt_path}lyrebird${pt_extension}",
+-    "conjure" : "ClientTransportPlugin conjure exec ${pt_path}conjure-client${pt_extension} -registerURL https://registration.refraction.network/api"
++    "conjure" : "ClientTransportPlugin conjure exec ${pt_path}conjure-client${pt_extension} -registerURL https://registration.refraction.network/api",
++    "newpt" : "ClientTransportPlugin newpt exec ${pt_path}newpt${pt_extension} -arg1 foo -arg2 bar"
+   },
+   "bridges" : {
+     "meek-azure" : [
 ```
 
 Once these are updated, the new PT will work on all desktop platforms of Tor Browser. The next step covers how to add support in Android platforms.
