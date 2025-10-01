@@ -8,19 +8,20 @@
 * There is a staging server to test rdsys, see the [Rdsys Staging Survival Guide](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Rdsys-Staging-Survival-Guide)
 
 
-There are two servers where rdsys services live in:
+There are two servers where rdsys services live:
 
 * bridges.torproject.org
   - Where the backend runs
-  - moat and telegram distributors runs there until we migrate them to rdsys-frontend.
+  - moat and telegram distributors run there until we migrate them to rdsys-frontend.
   - The username is rdsys.
   - Its home directory is in /home/rdsys.
   - The backend listens on 127.0.0.1:7100.
-* The rest of the distributors and updaters runs on rdsys-frontend-01.torproject.org.
+* The rest of the distributors and updaters run on rdsys-frontend-01.torproject.org.
   - The user rdsys owns the binaries in /srv/rdsys.torproject.org/bin
   - rdsys user has a clone of rdsys-admin repo in /srv/rdsys.torproject.org/rdsys-admin, all the other users symlink systemd services from this repo
   - Each service has a user and a folder in /srv/, for example `gettor` has /srv/gettor.torproject.org/conf where the config of the service lives.
   - The services run under the user with the name of the service. For example `gettor` has two systemd services `gettor-distributor` and `gettor-updater`
+  - The bridges@tpo email service runs under the bridges-email user with it's config file in ~/conf/email.json
 
 
 ```mermaid
@@ -60,9 +61,9 @@ flowchart TB
 1. Log into rdsys-frontend-01.torproject.org.
 2. Change to the rdsys user by running `sudo -u rdsys -s`.
 3. Update the rdsys-admin repo if needed `cd /srv/rdsys.torproject.org/rdsys-admin; git pull`
-4. Change to the service user by running `sudo -u gettor -s`.
-5. (Re)start the `<service>-distributor` or `<service>-updater` process via its systemd script: `systemctl --user [start|stop|status] gettor-distributor`.
-6. Take a look at the logs with `journal --user -f`.
+4. Change to the service user by running `sudo -u gettor -s` or `sudo -u bridges-email -s`.
+5. (Re)start the `gettor-distributor`, `gettor-updater`, or `email` process via its systemd script: `systemctl --user [start|stop|status] [gettor-<service>|email]`.
+6. Take a look at the logs with `journalctl --user -f`.
 
 ## Deploying a new frontend service
 
@@ -78,7 +79,7 @@ flowchart TB
 7. Start the service: `systemctl --user start <service>` (see wiki for help: https://gitlab.torproject.org/tpo/tpa/team/-/wikis/doc/services)
 8. Check to make sure the service is running: `systemctl --user status <service>`
 
-## Deploying a new version
+## Deploying a new backend version
 
 1. Compile the binary disabling CGO: `CGO_ENABLED=0 go build ./cmd/backend`
 2. Copy the binary to the server: `scp backend polyanthium:`
@@ -88,6 +89,20 @@ flowchart TB
 6. Copy the binary to its place: `cp /home/<user>/backend ~/bin/rdsys-backend`
 7. Restart the service process via systemd: `systemctl --user restart rdsys-backend`.
 
+## Deploying a new distributor version
+
+1. Compile the binary disabling CGO: `CGO_ENABLED=0 go build ./cmd/distributors`
+2. Depending on which distributor(s) you are targeting, copy the binary to the server: `scp distributors polyanthium:` and/or `scp distributors rdsys-frontend-01:`
+3. Log into the server.
+4. Change to the rdsys user by running `sudo -u rdsys -s`.
+For polyanthum:
+5a. Make a copy of the old binary so we can roll back if there is any problem: \`mv <span dir="">\~</span>/bin/rdsys-distributors <span dir="">\~</span>/bin/rdsys-distributors.old
+6a. Copy the binary to its place: `cp /home/<user>/distributors ~/bin/rdsys-distributors`
+7a. Restart the service process via systemd: `systemctl --user restart [rdsys-telegram|rdsys-moat|rdsys-https]`.
+For rdsys-frontend-01:
+5b. Make a copy of the old binary so we can roll back if there is any problem: \`mv /srv/rdsys.torproject.org/bin/rdsys-distributors /srv/rdsys.torproject.org/bin/rdsys-distributors.old`
+6b. Copy the binary to its place: `cp /home/<user>/distributors /srv/rdsys.torproject.org/bin/rdsys-distributors`
+7b. Follow the instructions for [(Re)starting rdsys frontends](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Rdsys-Survival-Guide#restarting-rdsys-frontends)
 
 ## Deploying a new lox-distributor
 
@@ -105,11 +120,10 @@ flowchart TB
 
 ### email silence
 
-Gettor and email used to sometimes hung and stop processing emails (https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/issues/129). Hopefully this is already solved, but if not we need to investigate.
-
+Gettor and email sometimes hang and stop processing emails (https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/issues/129). 
 We have an alert for this issue for gettor, but none for the email distributor.
 
-Restarting the gettor/email distributor usually solves the problem. The logs in the journald of rdsys-frontend-01.torproject.org users gettor or bridges-email might help to discover what is going wrong.
+Restarting the gettor/email distributor usually solves the problem. The `gettor` or `bridges-email` users' logs in the journald of rdsys-frontend-01.torproject.org  might help to discover what is going wrong.
 
 ### too few new telegram bridges
 
