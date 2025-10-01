@@ -97,13 +97,13 @@ flowchart TB
 
 ##### For polyanthum:
 
-5. Make a copy of the old binary so we can roll back if there is any problem: \`mv <span dir="">\~</span>/bin/rdsys-distributors <span dir="">\~</span>/bin/rdsys-distributors.old
+5. Make a copy of the old binary so we can roll back if there is any problem: `mv ~/bin/rdsys-distributors ~/bin/rdsys-distributors.old`
 6. Copy the binary to its place: `cp /home/<user>/distributors ~/bin/rdsys-distributors`
 7. Restart the service process via systemd: `systemctl --user restart [rdsys-telegram|rdsys-moat|rdsys-https]`.
 
 ##### For rdsys-frontend-01:
 
-5. Make a copy of the old binary so we can roll back if there is any problem: \`mv /srv/rdsys.torproject.org/bin/rdsys-distributors /srv/rdsys.torproject.org/bin/rdsys-distributors.old\`
+5. Make a copy of the old binary so we can roll back if there is any problem: `mv /srv/rdsys.torproject.org/bin/rdsys-distributors /srv/rdsys.torproject.org/bin/rdsys-distributors.old`
 6. Copy the binary to its place: `cp /home/<user>/distributors /srv/rdsys.torproject.org/bin/rdsys-distributors`
 7. Follow the instructions for [(Re)starting rdsys frontends](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Rdsys-Survival-Guide#restarting-rdsys-frontends)
 
