@@ -95,14 +95,16 @@ flowchart TB
 2. Depending on which distributor(s) you are targeting, copy the binary to the server: `scp distributors polyanthium:` and/or `scp distributors rdsys-frontend-01:`
 3. Log into the server.
 4. Change to the rdsys user by running `sudo -u rdsys -s`.
+
 For polyanthum:
-5a. Make a copy of the old binary so we can roll back if there is any problem: \`mv <span dir="">\~</span>/bin/rdsys-distributors <span dir="">\~</span>/bin/rdsys-distributors.old
-6a. Copy the binary to its place: `cp /home/<user>/distributors ~/bin/rdsys-distributors`
-7a. Restart the service process via systemd: `systemctl --user restart [rdsys-telegram|rdsys-moat|rdsys-https]`.
+5. Make a copy of the old binary so we can roll back if there is any problem: \`mv <span dir="">\~</span>/bin/rdsys-distributors <span dir="">\~</span>/bin/rdsys-distributors.old
+6. Copy the binary to its place: `cp /home/<user>/distributors ~/bin/rdsys-distributors`
+7. Restart the service process via systemd: `systemctl --user restart [rdsys-telegram|rdsys-moat|rdsys-https]`.
+
 For rdsys-frontend-01:
-5b. Make a copy of the old binary so we can roll back if there is any problem: \`mv /srv/rdsys.torproject.org/bin/rdsys-distributors /srv/rdsys.torproject.org/bin/rdsys-distributors.old`
-6b. Copy the binary to its place: `cp /home/<user>/distributors /srv/rdsys.torproject.org/bin/rdsys-distributors`
-7b. Follow the instructions for [(Re)starting rdsys frontends](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Rdsys-Survival-Guide#restarting-rdsys-frontends)
+5. Make a copy of the old binary so we can roll back if there is any problem: \`mv /srv/rdsys.torproject.org/bin/rdsys-distributors /srv/rdsys.torproject.org/bin/rdsys-distributors.old`
+6. Copy the binary to its place: `cp /home/<user>/distributors /srv/rdsys.torproject.org/bin/rdsys-distributors`
+7. Follow the instructions for [(Re)starting rdsys frontends](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Rdsys-Survival-Guide#restarting-rdsys-frontends)
 
 ## Deploying a new lox-distributor
 
