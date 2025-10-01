@@ -7,7 +7,6 @@
 * Take a look at [rdsys's metrics](https://bridges.torproject.org/rdsys-backend-metrics) for a quick check if the service is running.
 * There is a staging server to test rdsys, see the [Rdsys Staging Survival Guide](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Rdsys-Staging-Survival-Guide)
 
-
 There are two servers where rdsys services live:
 
 * bridges.torproject.org
@@ -22,7 +21,6 @@ There are two servers where rdsys services live:
   - Each service has a user and a folder in /srv/, for example `gettor` has /srv/gettor.torproject.org/conf where the config of the service lives.
   - The services run under the user with the name of the service. For example `gettor` has two systemd services `gettor-distributor` and `gettor-updater`
   - The bridges@tpo email service runs under the `bridges-email` user with it's config file in `~/conf/email.json`
-
 
 ```mermaid
 flowchart TB
@@ -72,6 +70,7 @@ flowchart TB
 3. Log into rdsys-frontend-01.torproject.org
 4. Change to the `<service>` user by running `sudo -u <service> -s`
 5. Create a symlink for the service in the user `$HOME` directory:
+
    ```
    ln -s /srv/rdsys.torproject.org/rdsys-admin/systemd/<service>.service ~/.config/systemd/users/
    ```
@@ -96,13 +95,15 @@ flowchart TB
 3. Log into the server.
 4. Change to the rdsys user by running `sudo -u rdsys -s`.
 
-For polyanthum:
+##### For polyanthum:
+
 5. Make a copy of the old binary so we can roll back if there is any problem: \`mv <span dir="">\~</span>/bin/rdsys-distributors <span dir="">\~</span>/bin/rdsys-distributors.old
 6. Copy the binary to its place: `cp /home/<user>/distributors ~/bin/rdsys-distributors`
 7. Restart the service process via systemd: `systemctl --user restart [rdsys-telegram|rdsys-moat|rdsys-https]`.
 
-For rdsys-frontend-01:
-5. Make a copy of the old binary so we can roll back if there is any problem: \`mv /srv/rdsys.torproject.org/bin/rdsys-distributors /srv/rdsys.torproject.org/bin/rdsys-distributors.old`
+##### For rdsys-frontend-01:
+
+5. Make a copy of the old binary so we can roll back if there is any problem: \`mv /srv/rdsys.torproject.org/bin/rdsys-distributors /srv/rdsys.torproject.org/bin/rdsys-distributors.old\`
 6. Copy the binary to its place: `cp /home/<user>/distributors /srv/rdsys.torproject.org/bin/rdsys-distributors`
 7. Follow the instructions for [(Re)starting rdsys frontends](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides/Rdsys-Survival-Guide#restarting-rdsys-frontends)
 
@@ -110,7 +111,7 @@ For rdsys-frontend-01:
 
 1. Compile the binary in the root of the `lox-distributor` crate: `cargo build --release`
 2. The binary will be in the `lox/target/release` directory. Copy the binary to the server: `scp target/release/lox-distributor rdsys-frontend-01:`
-3. Log into `rdsys-frontend-01.
+3. Log into \`rdsys-frontend-01.
 4. Change to the `rdsys` user by running `sudo -u rdsys -i`.
 5. Make a copy of the old binary so we can roll back if there is any problem: `mv /srv/rdsys.torproject.org/bin/lox-distributor /srv/rdsys.torproject.org/bin/lox-distributor.old`
 6. Copy the binary to its place: `cp /home/<user>/lox-distributor /srv/rdsys.torproject.org/bin/lox-distributor`
@@ -122,10 +123,9 @@ For rdsys-frontend-01:
 
 ### email silence
 
-Gettor and email sometimes hang and stop processing emails (https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/issues/129). 
-We have an alert for this issue for gettor, but none for the email distributor.
+Gettor and email sometimes hang and stop processing emails (https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/issues/129). We have an alert for this issue for gettor, but none for the email distributor.
 
-Restarting the gettor/email distributor usually solves the problem. The `gettor` or `bridges-email` users' logs in the journald of rdsys-frontend-01.torproject.org  might help to discover what is going wrong.
+Restarting the gettor/email distributor usually solves the problem. The `gettor` or `bridges-email` users' logs in the journald of rdsys-frontend-01.torproject.org might help to discover what is going wrong.
 
 ### too few new telegram bridges
 
