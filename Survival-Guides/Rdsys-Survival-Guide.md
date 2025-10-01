@@ -21,7 +21,7 @@ There are two servers where rdsys services live:
   - rdsys user has a clone of rdsys-admin repo in /srv/rdsys.torproject.org/rdsys-admin, all the other users symlink systemd services from this repo
   - Each service has a user and a folder in /srv/, for example `gettor` has /srv/gettor.torproject.org/conf where the config of the service lives.
   - The services run under the user with the name of the service. For example `gettor` has two systemd services `gettor-distributor` and `gettor-updater`
-  - The bridges@tpo email service runs under the bridges-email user with it's config file in ~/conf/email.json
+  - The bridges@tpo email service runs under the `bridges-email` user with it's config file in `~/conf/email.json`
 
 
 ```mermaid
