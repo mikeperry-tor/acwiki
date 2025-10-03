@@ -81,7 +81,7 @@ flowchart TB
 ## Deploying a new backend version
 
 1. Compile the binary disabling CGO: `CGO_ENABLED=0 go build ./cmd/backend`
-2. Copy the binary to the server: `scp backend polyanthium:`
+2. Copy the binary to the server: `scp backend polyanthum:`
 3. Log into polyanthium.
 4. Change to the rdsys user by running `sudo -u rdsys -s`.
 5. Make a copy of the old binary so we can roll back if there is any problem: \`mv <span dir="">\~</span>/bin/rdsys-backend <span dir="">\~</span>/bin/rdsys-backend.old
