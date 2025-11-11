@@ -72,6 +72,16 @@ Thanks for volunteering with us! There are many things that we need your help wi
 
 The best way to get involved is to visit our weekly IRC meeting (see above). Tell us your background and interests and we will find a project for your to get started.
 
+# How our team & work connect to the rest of Tor
+
+We work very closely with the [Community Team](https://gitlab.torproject.org/tpo/community/team), as they are the connection with users in different areas of the world facing censorship. They know best what problems appear to connect to the Tor network and how users are facing them. Thanks to them we get up date information on what is working where and what needs improvements.
+
+Our software gets integrated in Tor Browser, Tails and many other applications using Tor. We work with the [Applications Team](https://gitlab.torproject.org/tpo/applications/wiki/-/wikis/home) to coordinate releases and integrate the latest developments.
+
+We produce many metrics like bridge requests per country and per distribution mechanism or usage of specific pluggable transports. And work with the [Network Health Team](https://gitlab.torproject.org/tpo/network-health/team/) to collect and process them.
+
+We run [many services](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Survival-Guides) on [TPA](https://gitlab.torproject.org/tpo/tpa/team/-/wikis/home) infrastructure and coordinate with their team any important changes.
+
 # Other interesting communities
 
 Other communities where there are conversations around anti-censorship and we keep connection with are:
