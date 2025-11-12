@@ -49,7 +49,7 @@ For asynchronous communication, we use our ​[anti-censorship-team](https://lis
 
 ## Active Projects and Contracts
 
-* [Project 146: Expanding access to digital media through the use of secure communications, infrastructure, tools, and techniques](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/issues/?label_name%5B%5D=Project%20158)
+* [Project 146: Expanding access to digital media through the use of secure communications, infrastructure, tools, and techniques](https://gitlab.torproject.org/groups/tpo/anti-censorship/-/issues/?label_name%5B%5D=Project%20146)
 
 ## Projects that the team maintains
 
