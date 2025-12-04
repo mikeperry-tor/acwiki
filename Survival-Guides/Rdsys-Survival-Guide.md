@@ -150,3 +150,11 @@ In the [rdsys dashboard of grafana](https://grafana2.torproject.org/d/4BZEEqN4z/
 ### rejected by ratio
 
 If there are many bridges being rejected by onbasca means that onbasca believes that most of the bridges don't have enough bandwidth to be distributed. This is a bug in onbasca and should be investigated.
+
+### HTTP unreachable
+
+The service is down and might need restart or in the case of a domain front (cdn77 or netlify address) login into the CDN to see if something broke.
+
+### builtin bridge unreachable
+
+If the TCP port of the builtin bridge is unreachable we need to contact the [bridge operator](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Default-Bridges) and help them to fix it.
