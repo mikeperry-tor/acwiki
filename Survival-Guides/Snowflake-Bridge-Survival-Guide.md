@@ -196,3 +196,23 @@ See the [installation guide](Survival Guides/Snowflake Bridge Installation Guide
 ## Firewall
 
 Firewall configuration is in `/etc/nftables.conf`. Run `systemctl reload nftables` after making changes.
+
+## Upgrading GRUB (snowflake-01 only)
+
+When any package matching `grub*` is being installed, `grub-install`
+must be run for the fallback boot partition(s) as well.
+
+1. Grep output from `mount` to find out which disks we hope to boot from. Example:
+```
+/dev/sda1 on /boot/efi.esp-ssd-1 type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro)
+/dev/sdb1 on /boot/efi.esp-ssd-2 type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro)
+/dev/sdc1 on /boot/efi.esp-sd-1 type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro)
+```
+
+2. Install grub to each disk. Example:
+For each (disk, part) in (`/dev/{sda,sdb,sdc}`, `/boot/efi.esp-{ssd-1,ssd-2,sd-1}`), run grub-install:
+```
+grub-install --efi-directory="$part" "$disk"
+```
+
+3. Sanity check `efibootmgr` output.
