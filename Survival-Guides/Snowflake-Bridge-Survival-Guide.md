@@ -195,4 +195,4 @@ See the [installation guide](Survival Guides/Snowflake Bridge Installation Guide
 
 ## Firewall
 
-Firewall configuration is in `/etc/nftables.conf`. Run `systemd restart nftables` after making changes.
+Firewall configuration is in `/etc/nftables.conf`. Run `systemctl reload nftables` after making changes.
