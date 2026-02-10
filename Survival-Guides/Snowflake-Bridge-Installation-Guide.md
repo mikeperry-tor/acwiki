@@ -143,6 +143,12 @@ You also need to cause the nf_conntrack module to be loaded early in the boot pr
 nf_conntrack
 ```
 
+Install vnstat and configure it:
+
+```
+apt install vnstat
+sed -i.BAK -e 's/;5MinuteHours .*/5MinuteHours 744/1' /etc/vnstat.conf
+```
 
 ## extor-static-cookie
 
