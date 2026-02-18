@@ -2,11 +2,51 @@ We hold an occasional anti-censorship reading group discussion at the tail end o
 
 # Upcoming Readings Schedule
 
-Our next reading group discussion will be on 2021-11-21
+Our next reading group discussion will be on
 
-Topic: [Measuring QQMail's automated email censorship in China](https://dl.acm.org/doi/10.1145/3473604.3474560)
+Topic:
 
 # Past Readings
+
+- [Measuring DoT/DoH Blocking Using OONI Probe: a Preliminary Study](https://www.ndss-symposium.org/wp-content/uploads/dnspriv21-02-paper.pdf)
+
+  Meeting notes: http://meetbot.debian.net/tor-meeting/2022/tor-meeting.2022-12-01-15.58.html
+
+- [An Empirical Analysis of Plugin-Based Tor Traffic over SSH Tunnel](https://ieeexplore.ieee.org/document/9020938)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2022/tor-meeting.2022-09-08-15.58.html
+
+- [Even Censors Have a Backup: Examining China's Double HTTPS Censorship Middleboxes](https://dl.acm.org/doi/10.1145/3473604.3474559)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2022/tor-meeting.2022-06-23-15.58.html
+
+- [Understanding the Impact of Encrypted DNS on Internet Censorship](https://shhaos.github.io/papers/www21-DoE.pdf)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2022/tor-meeting.2022-05-19-15.59.html
+
+- [Blocking of HTTP/3 (QUIC) in Russia](https://github.com/net4people/bbs/issues/108)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2022/tor-meeting.2022-04-28-15.58.html
+
+- [Balboa: Bobbing and Weaving around Network Censorship](https://www.usenix.org/system/files/sec21-rosen.pdf)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2022/tor-meeting.2022-04-07-15.59.html
+
+- [Throttling Twitter: an emerging censorship technique in Russia](https://censorbib.nymity.ch/#Xue2021a)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2022/tor-meeting.2022-03-17-15.59.html
+
+- [Weaponizing Middleboxes for TCP Reflected Amplification](https://censorbib.nymity.ch/#Bock2021b)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2022/tor-meeting.2022-02-17-15.59.html
+
+- [Meteor: Cryptographically Secure Steganography for Realistic Distributions](https://dl.acm.org/doi/10.1145/3460120.3484550)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2022/tor-meeting.2022-02-03-16.00.html
+
+- [QQMail's automated email censorship in China](https://dl.acm.org/doi/10.1145/3473604.3474560)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2021/tor-meeting.2021-11-11-15.59.html
 
 - [Characterizing Transnational Internet Performance and the Great Bottleneck of China](https://dl.acm.org/doi/pdf/10.1145/3379479)
 
@@ -87,3 +127,4 @@ Abandonment of VPNs as a Privacy-Enhancing Technology](https://petsymposium.org/
 - [Detecting Probe-Resistant Proxies](https://censorbib.nymity.ch/#Frolov2020a)
 
   Meeting notes: http://meetbot.debian.net/tor-meeting/2020/tor-meeting.2020-04-02-17.59.log.html
+
