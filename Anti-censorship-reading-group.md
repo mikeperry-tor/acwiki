@@ -8,6 +8,54 @@ Topic:
 
 # Past Readings
 
+- [Fingerprint-resistant DTLS for usage in Snowflake](https://www.petsymposium.org/foci/2025/foci-2025-0006.php)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2026/tor-meeting.2026-02-05-16.00.html
+
+- [CenPush: Blocking-Resistant Control Channel Using Push Notifications](https://petsymposium.org/popets/2025/popets-2025-0153.pdf)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2026/tor-meeting.2026-01-08-16.01.log.html
+
+- [The Internet Coup](https://interseclab.org/wp-content/uploads/2025/09/The-Internet-Coup_September2025.pdf)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2025/tor-meeting.2025-10-23-16.01.html
+
+- [IRBlock: A Large-Scale Measurement Study of the Great Firewall of Iran](https://www.petsymposium.org/foci/2025/foci-2025-0016.pdf)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2025/tor-meeting.2025-09-11-16.00.html
+
+- [Encrypted Client Hello (ECH) in Censorship Circumvention](https://www.petsymposium.org/foci/2025/foci-2025-0016.pdf)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2025/tor-meeting.2025-08-14-16.00.html
+
+- [A Wall Behind A Wall: Emerging Regional Censorship in China (Henan firewall)](https://gfw.report/publications/sp25/en/)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2025/tor-meeting.2025-06-26-16.00.html
+
+- [Differential Degradation Vulnerabilities in Censorship Circumvention Systems](https://arxiv.org/abs/2409.06247)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2025/tor-meeting.2025-04-03-16.00.html
+
+- [Identifying VPN Servers through Graph-Represented Behaviors](https://dl.acm.org/doi/pdf/10.1145/3589334.3645552)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2025/tor-meeting.2025-02-27-16.00.html
+
+- [Discovering and Measuring CDNs Prone to Domain Fronting](https://dl.acm.org/doi/10.1145/3589334.36456560
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2025/tor-meeting.2025-01-16-16.00.html
+
+- [SpotProxy: Rediscovering the Cloud for Censorship Circumvention](https://www.cs-pk.com/sec24-spotproxy-final.pdf)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2024/tor-meeting.2024-09-12-16.03.html
+
+- [Bridging Barriers: A Survey of Challenges and Priorities in the Censorship Circumvention Landscape](https://www.usenix.org/conference/usenixsecurity24/presentation/xue-bridging)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2024/tor-meeting.2024-08-22-16.00.html
+
+- [Communication Breakdown: Modularizing Application Tunneling for Signaling Around Censorship](https://petsymposium.org/popets/2024/popets-2024-0027.php)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2024/tor-meeting.2024-05-30-16.00.html
+
 - [NetShuffle: Circumventing Censorship with Shuffle Proxies at the Edge](https://www.cs-pk.com/papers/3/)
 
   Meeting notes: https://meetbot.debian.net/tor-meeting/2023/tor-meeting.2023-12-14-15.59.html
