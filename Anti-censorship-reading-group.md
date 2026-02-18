@@ -8,6 +8,22 @@ Topic:
 
 # Past Readings
 
+- [NetShuffle: Circumventing Censorship with Shuffle Proxies at the Edge](https://www.cs-pk.com/papers/3/)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2023/tor-meeting.2023-12-14-15.59.html
+
+- [On Precisely Detecting Censorship Circumvention in Real-World Networks](https://www.robgjansen.com/publications/precisedetect-ndss2024.html)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2023/tor-meeting.2023-11-09-16.00.html
+
+- [Lox: Protecting the Social Graph in Bridge Distribution](https://cypherpunks.ca/~iang/pubs/lox-popets23.pdf)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2023/tor-meeting.2023-05-18-15.58.html
+
+- [Detecting Tor Bridge from Sampled Traffic in Backbone Networks](https://www.ndss-symposium.org/wp-content/uploads/madweb2021_23011_paper.pdf)
+
+  Meeting notes: https://meetbot.debian.net/tor-meeting/2023/tor-meeting.2023-03-09-15.58.html
+
 - [Measuring DoT/DoH Blocking Using OONI Probe: a Preliminary Study](https://www.ndss-symposium.org/wp-content/uploads/dnspriv21-02-paper.pdf)
 
   Meeting notes: http://meetbot.debian.net/tor-meeting/2022/tor-meeting.2022-12-01-15.58.html
