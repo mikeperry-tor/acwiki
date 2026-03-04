@@ -76,3 +76,25 @@ Related issues:
    **Some relevant discussion/links**:
    - This is a more long-term issue that won't be able to be easily addressed until Lox has been deployed and we have a better idea of how it performs as a bridge distribution system in practice.
    -  With metrics and careful measurement of Lox's performance, some patterns may emerge that are helpful for finding optimal parameters for different types of situations. 
+
+## Rateless erasure codes for rendezvous over small fragments
+
+See https://github.com/net4people/bbs/issues/591.
+
+[Assemblage](https://www.petsymposium.org/foci/2026/foci-2026-0005.php) /
+[Collage](https://censorbib.nymity.ch/#Burnett2010a)
+use [rateless erasure codes](https://en.wikipedia.org/wiki/Fountain_code)
+to fragment a discrete message
+(as opposed to an unbounded stream)
+into small pieces that can then be collected to recover the original message.
+Such codes could be a good vehicle for doing rendezvous
+over channels that are space-limited or unreliable,
+[such as encrypted DNS](tpo/anti-censorship/pluggable-transports/snowflake#25874).
+
+Generally, such a system could be a discrete-message analog
+to the stream-oriented Turbo Tunnel.
+
+The research plan would be to first design and implement a proof of concept
+without any obfuscation transport or integration with a real circumvention system,
+perhaps using just UDP datagrams and a UDP listener.
+Then do a DNS encoding and try integrating it with the Snowflake broker.
