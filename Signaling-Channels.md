@@ -49,6 +49,7 @@ https://www.petsymposium.org/foci/2024/foci-2024-0011.pdf
 # Push notifications
 
 https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Signaling-Channels/Push-Notifications
+https://petsymposium.org/popets/2025/popets-2025-0153.pdf
 
 # Google docs
 
