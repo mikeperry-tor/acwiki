@@ -352,6 +352,30 @@ program to find the name of the account created in the
 Update these instructions when it happens.)
 
 
+## Backups
+
+These are the files you need to make backup copies of, in order to be able to restore
+a compatibly working bridge.
+(See https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/issues/40495#note_3289442.)
+
+Of these, the relay identity private keys are critical!
+Relay identity fingerprints are hard-coded in many clients and it would be hard to change them.
+
+* Relay identity private keys
+  * keys/ed25519_master_id_secret_key
+  * keys/secret_id_key
+* Relay [onion keys](https://www.bamsoftware.com/papers/pt-bridge-hiperf/#sec:onion-key)
+  * keys/secret_onion_key
+  * keys/secret_onion_key_ntor
+* Let's Encrypt ACME account private key (see tpo/tpa/team#41462, [autocert-account-id](https://gitlab.torproject.org/dcf/autocert-account-id))
+  * /var/lib/snowflake-server/pt_state/snowflake-certificate-cache/acme_account+key
+* SSH host private keys
+  * /etc/ssh/ssh_host_ecdsa_key
+  * /etc/ssh/ssh_host_ed25519_key
+  * /etc/ssh/ssh_host_rsa_key
+* [WireGuard](#appendix-wireguard) private key
+  * wg0.private.key
+
 ## Appendix: Outbound bind addresses
 
 The [snowflake-01](Survival-Guides/Snowflake-Bridge-Survival-Guide#snowflake-01-flakey) bridge uses multiple outgoing IP addresses, in an effort to appear less like a participant in the [DDoS attack](https://status.torproject.org/issues/2022-06-09-network-ddos/) that was current in 2022. See tpo/anti-censorship/pluggable-transports/snowflake#40223.
