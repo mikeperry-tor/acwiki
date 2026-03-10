@@ -216,3 +216,24 @@ grub-install --efi-directory="$part" "$disk"
 ```
 
 3. Sanity check `efibootmgr` output.
+
+4. Verify that all boot partitions have the same content for booting Debian. Example:
+```
+cat > check-grub-installations.sh <<'EOF'
+#! /bin/sh
+set -eu
+
+for fs in sd-1 ssd-1 ssd-2; do
+        [ -f "$fs".sum ] && rm "$fs".sum
+        sudo sh -c "cd /boot/efi.esp-$fs/EFI/debian && sha256sum -- *" > "$fs".sum
+        [ -s "$fs".sum ]
+done
+
+cmp sd-1.sum  ssd-1.sum
+cmp sd-1.sum  ssd-2.sum
+cmp ssd-1.sum ssd-2.sum
+EOF
+shellcheck --exclude SC2024 check-grub-installations.sh
+chmod +x check-grub-installations.sh
+sh ./check-grub-installations.sh && echo ok
+```
