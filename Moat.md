@@ -36,6 +36,35 @@ Domain fronting for meek must be set up with a CDN or cloud provider. Typically 
 
 ## Client Setup
 
+### using lyrebird
+
+From one side we run lyrebird meek:
+
+```
+$ export TOR_PT_MANAGED_TRANSPORT_VER=1
+$ export TOR_PT_CLIENT_TRANSPORTS=meek_lite
+$ export TOR_PT_STATE_LOCATION=datadir/pt_state
+$ export TOR_PT_EXIT_ON_STDIN_CLOSE=1
+$ ./lyrebird
+VERSION 1
+STATUS TYPE=version IMPLEMENTATION="lyrebird" VERSION="devel"
+CMETHOD meek_lite socks5 127.0.0.1:41373
+CMETHODS DONE
+```
+
+Then we use the port from the output of lyrebird for my curl connection, using the targets line as user:password (I urlencoded as curl requires it):
+
+```
+❯ curl -x socks5h://targets%3Dhttps%3A%2F%2F1723079976.rsc.cdn77.org%7Ccdn.zk.mk%2Bwww.cdn77.com%2C:https%3A%2F%2Fbespoke-strudel-c243cc.netlify.app%7Cvuejs.org%2Bnetlify.com@127.0.0.1:41373 https://bridges.torproject.org/moat/circumvention/builtin |jq
+{
+  "meek": [
+    "meek_lite 192.0.2.20:80 url=https://1603026938.rsc.cdn77.org front=www.phpmyadmin.net utls=HelloRandomizedALPN"
+  ],
+...
+```
+
+### using meek-client
+
 The client opens a meek tunnel to the Moat server by passing in the service provider and front URLs.
 
 ```
