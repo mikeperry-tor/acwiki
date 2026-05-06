@@ -4,11 +4,20 @@ Documentation on our use of signaling channels
 
 We expose an API for applications to fetch bridges and circumvention settings from rdsys. This API is currently bidirectional, requiring applications to send a request for bridges or settings.
 
-#### Tor Browser Implementation
+- link to API documentation
+- summary of request / response sizes
 
-#### Orbot Implementation
+#### Tor Browser implementation
 
-### Snowflake Rendezvous
+- when this API is called
+
+#### Orbot implementation
+
+- when this API is called
+
+#### Timeline of censorship events
+
+### Snowflake rendezvous
 
 ### Unidirectional updates (proposed)
 
