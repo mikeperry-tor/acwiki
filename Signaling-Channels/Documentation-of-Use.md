@@ -1,0 +1,1 @@
+Documentation on our use of signaling channels
