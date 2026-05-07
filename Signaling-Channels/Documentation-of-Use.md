@@ -1,5 +1,7 @@
 Documentation on our use of signaling channels
 
+[[_TOC_]]
+
 ## Moat / Circumvention Settings API
 
 We expose a [Moat API](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md) for applications to fetch bridges and circumvention settings from rdsys. This API is currently bidirectional, requiring applications to send a request for bridges or settings.
