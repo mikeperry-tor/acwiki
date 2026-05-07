@@ -16,9 +16,9 @@ This module currently only supports domain fronting. On initialization, it [laun
 
 Requests are made to the following endpoints:
 - `/fetch` and `/check` when users select `Request bridges...` in the Connection settings of `about:preferences`.
-- `circumvention/settings` are made when the [`AutoBoostrapAttempt`](https://gitlab.torproject.org/tpo/applications/tor-browser/-/blob/66d59b50b58c5c81f588bda50077b898726b733e/toolkit/modules/TorConnect.sys.mjs#L416) is made, on a bootstrapping error. See this [flow chart](https://gitlab.torproject.org/tpo/applications/tor-browser/-/blob/f48a5f15ccba384a05d000e5ec3fa91f26c1161f/toolkit/modules/TorConnect.sys.mjs#L83) for when this feature is called.
-- `circumvention/defaults`
-- `circumvention/builtin`
+- `circumvention/settings` are made when an [`AutoBoostrapAttempt`](https://gitlab.torproject.org/tpo/applications/tor-browser/-/blob/66d59b50b58c5c81f588bda50077b898726b733e/toolkit/modules/TorConnect.sys.mjs#L416) is made, on a bootstrapping error. See this [flow chart](https://gitlab.torproject.org/tpo/applications/tor-browser/-/blob/f48a5f15ccba384a05d000e5ec3fa91f26c1161f/toolkit/modules/TorConnect.sys.mjs#L83) for when this feature is used.
+- `circumvention/defaults` are fetched if the user failed to connect but there are [no settings recommended for their region](https://gitlab.torproject.org/tpo/applications/tor-browser/-/blob/66d59b50b58c5c81f588bda50077b898726b733e/toolkit/modules/TorConnect.sys.mjs#L534).
+- `circumvention/builtin` is implemented but not currently used.
 
 #### Orbot implementation
 
