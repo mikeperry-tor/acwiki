@@ -99,7 +99,7 @@ type Registrar interface {
 
 # Common features of signaling channels
 
-These are some ideal common features that all signaling channels should have
+These are some ideal common features for signaling channels. Not all channels will require all features.
 
 ### Reliability
 
