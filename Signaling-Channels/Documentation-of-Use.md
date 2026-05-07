@@ -78,8 +78,18 @@ type registrar interface {
 	RegisterBidirectional(*pb.C2SWrapper, pb.RegistrationSource, []byte) (*pb.RegistrationResponse, error)
 }
 ```
+on the client side, signaling channels implement the [`Registrar`](https://github.com/refraction-networking/gotapdance/blob/a8e3647052911e4ef9c69146f147c32155747669/tapdance/interfaces.go#L16-L21) interface
+```golang
+// Registrar defines the interface for a module completing the initial portion of the conjure
+// protocol which registers the clients intent to connect, along with the specifics of the session
+// they wish to establish.
+type Registrar interface {
+	Register(*ConjureSession, context.Context) (*ConjureReg, error)
 
-the client implementations are 
+	// PrepareRegKeys prepares key materials specific to the registrar
+	PrepareRegKeys(stationPubkey [32]byte, sessionSecret []byte) error
+}
+```
 
 ### Unidirectional updates (proposed)
 
