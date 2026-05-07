@@ -34,6 +34,35 @@ Orbot supports both domain fronting through meek and dnstt as signaling channels
 
 ### Snowflake rendezvous
 
+Snowflake clients use signaling channels to get matched with an available proxy and perform WebRTC signaling in what is called a [rendezvous step](https://www.bamsoftware.com/papers/snowflake/#rendezvous). This requires a single round-trip communication with the Snowflake broker. The client rendezvous protocol is documented in the [messages package](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/common/messages/client.go). The majority of the message consists of a [SDP offer](https://datatracker.ietf.org/doc/html/rfc3264) and sits between 1KB-2KB in size.
+
+Client rendezvous happens at start up and whenever a Snowflake connection does not have a functioning proxy. Clients will re-attempt the rendezvous [every 10 seconds](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/client/lib/snowflake.go#L53) until they receive a working proxy.
+
+Snowflake currently supports 3 signaling channels:
+- domain fronting
+- [AMP cache](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/doc/broker-spec.txt#L217)
+- [Amazon SQS](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/doc/rendezvous-with-sqs.md)
+
+#### Go implementation
+
+Each of these has a broker component that reads incoming requests and calls [`IPC.ClientOffers`](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/broker/ipc.go#L181)
+```golang
+func (i *IPC) ClientOffers(arg messages.Arg, response *[]byte) error
+```
+when the function returns, the component sends the encoded `response` back to the client.
+
+On the client side, each rendezvous method implements the `RendezvousMethod` interface
+```golang
+// RendezvousMethod represents a way of communicating with the broker: sending
+// an encoded client poll request (SDP offer) and receiving an encoded client
+// poll response (SDP answer) in return. RendezvousMethod is used by
+// BrokerChannel, which is in charge of encoding and decoding, and all other
+// tasks that are independent of the rendezvous method.
+type RendezvousMethod interface {
+    Exchange([]byte) ([]byte, error)
+}   
+```
+
 ### Unidirectional updates (proposed)
 
 - https://people.torproject.org/~cohosh/push-notifications.html
