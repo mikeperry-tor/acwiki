@@ -38,12 +38,12 @@ Snowflake clients use signaling channels to get matched with an available proxy 
 
 Client rendezvous happens at start up and whenever a Snowflake connection does not have a functioning proxy. Clients will re-attempt the rendezvous [every 10 seconds](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/client/lib/snowflake.go#L53) until they receive a working proxy.
 
+#### Go implementation
+
 Snowflake currently supports 3 signaling channels:
 - domain fronting
 - [AMP cache](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/doc/broker-spec.txt#L217)
 - [Amazon SQS](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/doc/rendezvous-with-sqs.md)
-
-#### Go implementation
 
 Each of these has a broker component that reads incoming requests and calls [`IPC.ClientOffers`](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/broker/ipc.go#L181)
 ```golang
