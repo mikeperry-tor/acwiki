@@ -2,7 +2,9 @@ Documentation on our use of signaling channels
 
 [[_TOC_]]
 
-## Moat / Circumvention Settings API
+# Applications of signaling channels
+
+### Moat / Circumvention Settings API
 
 We expose a [Moat API](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md) for applications to fetch bridges and circumvention settings from rdsys. This API is currently bidirectional, requiring applications to send a request for bridges or settings.
 
@@ -30,10 +32,12 @@ The orbot service opens a [Moat tunnel](https://github.com/guardianproject/orbot
 
 Orbot supports both domain fronting through meek and dnstt as signaling channels. The configurations and settings for both of these channels are [hard-coded](https://github.com/guardianproject/orbot-android/blob/84015e0a48d81783c0cd24e9d98d2791739d38e5/app/src/main/java/org/torproject/android/service/circumvention/MoatTunnel.kt) as `TOR_PROJECT` and `GUARDIAN_PROJECT` settings, respectively.
 
-## Snowflake rendezvous
+### Snowflake rendezvous
 
-## Unidirectional updates (proposed)
+### Unidirectional updates (proposed)
 
 - https://people.torproject.org/~cohosh/push-notifications.html
 
-## Timeline of censorship events affecting signaling channels
+# Signaling channel implementations
+
+# Timeline of censorship events affecting signaling channels
