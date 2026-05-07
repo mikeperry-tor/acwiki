@@ -115,3 +115,5 @@ These are some ideal common features for signaling channels. Not all channels wi
 Tor uses client IP addresses for metrics and anti-DoS features. Many signaling channels do not have an easy or trusted way of preserving client IP addresses.
 
 # Timeline of censorship events affecting signaling channels
+
+Censorship events are a useful learning experience and tell us what changes, configurations, or updates to protocols we should be able to accommodate. They show where the pain points are in existing implementations and the UX needs of applications. Here are some recent censorship events that have affected Tor's signaling channels and how we responded.
