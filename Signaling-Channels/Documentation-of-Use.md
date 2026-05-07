@@ -108,6 +108,6 @@ These are some ideal common features for signaling channels. Not all channels wi
 
 ### Padding
 
-### End-to-end encryption between client and signaling server
+### End-to-end confidentiality
 
 # Timeline of censorship events affecting signaling channels
