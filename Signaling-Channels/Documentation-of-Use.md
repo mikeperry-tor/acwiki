@@ -36,7 +36,7 @@ Orbot supports both domain fronting through meek and dnstt as signaling channels
 
 Snowflake clients use signaling channels to get matched with an available proxy and perform WebRTC signaling in what is called a [rendezvous step](https://www.bamsoftware.com/papers/snowflake/#rendezvous). This requires a single round-trip communication with the Snowflake broker. The client rendezvous protocol is documented in the [messages package](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/common/messages/client.go). The majority of the message consists of a [SDP offer](https://datatracker.ietf.org/doc/html/rfc3264) and sits between 1KB-2KB in size.
 
-Client rendezvous happens at start up and whenever a Snowflake connection does not have a functioning proxy. Clients will re-attempt the rendezvous [every 10 seconds](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/client/lib/snowflake.go#L53) until they receive a working proxy.
+Client rendezvous happens at startup and whenever a Snowflake connection does not have a functioning proxy. Clients will re-attempt the rendezvous [every 10 seconds](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/client/lib/snowflake.go#L53) until they receive a working proxy.
 
 #### Go implementation
 
@@ -65,12 +65,39 @@ type RendezvousMethod interface {
 
 ### Conjure Registration
 
-[Conjure](https://jhalderm.com/pub/papers/conjure-ccs19.pdf) uses bidirectional signaling channels for the client registration step, during which clients are assigned a phantom proxy IP address.
+[Conjure](https://jhalderm.com/pub/papers/conjure-ccs19.pdf) uses bidirectional signaling channels for the client registration step, during which clients are assigned a phantom proxy IP address. Conjure registrations happen at startup for each Conjure connection.
+
+Conjure uses [protobufs to encode registration messages](https://github.com/refraction-networking/conjure/tree/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/proto). These requests may be [optionally padded](https://github.com/refraction-networking/conjure/blob/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/proto/signalling.proto#L299) as a fingerprinting defense.
+
+##### Go implementation
+
+The server side of Conjure signaling channels are implemented in the [registration-server](https://github.com/refraction-networking/conjure/tree/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/cmd/registration-server) application. Each signaling channel implements the `registrar` interface
+```golang
+type registrar interface {
+	RegisterUnidirectional(*pb.C2SWrapper, pb.RegistrationSource, []byte) error
+	RegisterBidirectional(*pb.C2SWrapper, pb.RegistrationSource, []byte) (*pb.RegistrationResponse, error)
+}
+```
+
+the client implementations are 
 
 ### Unidirectional updates (proposed)
 
 - https://people.torproject.org/~cohosh/push-notifications.html
 
 # Signaling channel implementations
+
+# Common features of signaling channels
+
+These are some ideal common features that all signaling channels should have
+
+### Reliability
+
+- TurboTunnel
+- Fountain Codes
+
+### Padding
+
+### End-to-end encryption between client and signaling server
 
 # Timeline of censorship events affecting signaling channels
