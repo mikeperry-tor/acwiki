@@ -63,6 +63,10 @@ type RendezvousMethod interface {
 }   
 ```
 
+### Conjure Registration
+
+[Conjure](https://jhalderm.com/pub/papers/conjure-ccs19.pdf) uses bidirectional signaling channels for the client registration step, during which clients are assigned a phantom proxy IP address.
+
 ### Unidirectional updates (proposed)
 
 - https://people.torproject.org/~cohosh/push-notifications.html
