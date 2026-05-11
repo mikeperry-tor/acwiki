@@ -44,6 +44,7 @@ Cloudflare seems to support it already: https://github.com/net4people/bbs/issues
 
 # S3
 
+CloudTransport: https://petsymposium.org/2014/papers/paper_68.pdf  
 https://www.petsymposium.org/foci/2024/foci-2024-0011.pdf
 
 # Push notifications
