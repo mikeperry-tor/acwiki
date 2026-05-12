@@ -45,10 +45,17 @@ An example project: https://github.com/c-skills/passport
 
 Cloudflare seems to support it already: https://github.com/net4people/bbs/issues/393
 
-# S3
+# AWS S3 - skyhook
 
-CloudTransport: https://petsymposium.org/2014/papers/paper_68.pdf  
-https://www.petsymposium.org/foci/2024/foci-2024-0011.pdf
+The [Ten years gone](https://www.petsymposium.org/foci/2024/foci-2024-0011.pdf) paper does a review of [CoudTransport](https://petsymposium.org/2014/papers/paper_68.pdf) improving it and adapting it to the need of signaling channels, in the context of [RACEBOAT](https://github.com/tst-race/raceboat/). It proposes a channel called *Skyhook*.
+
+Skyhook uses AWS S3 storage to communicate. AWS S3 service is reachable over an account independent domain name (but this is not what the standard AWS library does), so censors see in the SNI the S3 generic domain name and can't censor connections without blocking access to the whole S3 service.
+
+Skyhook server shares a publicly writable object where clients write a pair of randomly generated UUIDs to bootstrap the connection. The server creates the objects of those UUIDs with publicly permissions one of write and another of read, and use them to talk with the client. Having a big space of UUIDs makes it that attackers can't guess those objects and access them.
+
+The [skyhook implementation is written in C++](https://github.com/tst-race/skyhook), and don't seem to be actively maintained.
+
+This technique might work with other cloud providers, but we'll need to find providers that don't place any account identifier in the domain name. Other major providers like google cloud or microsoft azure have their own APIs for object storage different to S3, but similar concepts so this might be applicable.
 
 # Push notifications
 
