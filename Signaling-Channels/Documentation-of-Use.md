@@ -112,7 +112,7 @@ These are some ideal common features for signaling channels. Not all channels wi
 
 ### Preservation of client IP
 
-Tor uses client IP addresses for metrics and anti-DoS features. Many signaling channels do not have an easy or trusted way of preserving client IP addresses.
+Tor uses client IP addresses for metrics, circumvention settings, and anti-DoS features. Many signaling channels do not have an easy or trusted way of preserving client IP addresses.
 
 # Timeline of censorship events affecting signaling channels
 
