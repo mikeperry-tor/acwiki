@@ -74,6 +74,10 @@ https://www.petsymposium.org/foci/2025/foci-2025-0003.php
 
 In general TURN services are paid per traffic.
 
+# blockchain - MoneyMorph
+
+[MoneyMorph](https://petsymposium.org/2020/files/papers/issue3/popets-2020-0058.pdf) is using blockchains as signaling channels. There is a [python implementation](https://github.com/moneymorph/Bitcoin-Ethereum-Zcash_implementation) and threat in [net4people](https://github.com/net4people/bbs/issues/71).
+
 
 
 # library implementations
