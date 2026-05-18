@@ -43,7 +43,7 @@ An example project: https://github.com/c-skills/passport
 
 # ECH on cloud providers
 
-Cloudflare seems to support it already: https://github.com/net4people/bbs/issues/393
+[Cloudflare supports it](https://github.com/net4people/bbs/issues/393), but is the only mayor CDN that does. Is been [blocked in Russia](https://github.com/net4people/bbs/issues/417).
 
 # AWS S3 - skyhook
 
