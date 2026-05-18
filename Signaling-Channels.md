@@ -64,9 +64,15 @@ https://petsymposium.org/popets/2025/popets-2025-0153.pdf
 
 # Google docs
 
-https://web.archive.org/web/20230330055859/https://easrng.blogspot.com/2022/03/get-tor-bridges-with-nothing-but.html  
-https://developers.cloudflare.com/1.1.1.1/other-ways-to-use-1.1.1.1/dns-in-google-sheets/  
-https://gitlab.torproject.org/tpo/anti-censorship/bridgedb/-/issues/40047
+Implementation:
+* https://github.com/0xinf0/gdocs-tunnel
+
+It did manage to get 1-5KB/s, which should be enough for signaling. It says there is a rate limit of "\~10 requests/minute sustainable per IP pair", the server side is _solved_ by using a big pool of IPv6 IPs. The client side "Rotates across 22 Google Anycast IPs to distribute limits", but for signaling might might not hit the limit.
+
+Some ideas on how to use it:
+* https://web.archive.org/web/20230330055859/https://easrng.blogspot.com/2022/03/get-tor-bridges-with-nothing-but.html  
+* https://developers.cloudflare.com/1.1.1.1/other-ways-to-use-1.1.1.1/dns-in-google-sheets/  
+* https://gitlab.torproject.org/tpo/anti-censorship/bridgedb/-/issues/40047
 
 # TURN servers
 
