@@ -19,10 +19,16 @@ There are less and less cloud providers allowing it.
 * paper: https://www.petsymposium.org/foci/2024/foci-2024-0009.php
 * https://www.bamsoftware.com/papers/snowflake/#p22
 
-# dnstt
+# DNS
 
-https://www.bamsoftware.com/software/dnstt/
-https://github.com/EndPositive/slipstream/
+Implementations:
+* https://www.bamsoftware.com/software/dnstt/
+* https://github.com/EndPositive/slipstream/
+* https://github.com/masterking32/MasterDnsVPN
+
+In theory will be easy to be blocked by censors if is not using encrypted DNS (DoH, DoT, ...). But in practice we see many censors not blocking by protocol even after a heavy use.
+
+DNS packets are too small for many signaling channels needs, a good solution for it is to use [fountain codes](https://repo.or.cz/erasure-code-rendezvous.git).
 
 # Pub/Sub
 
