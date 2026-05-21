@@ -16,6 +16,7 @@ There are less and less cloud providers allowing it.
 # AWS SQS queue
 
 * tpo/anti-censorship/pluggable-transports/snowflake!214
+* paper: https://www.petsymposium.org/foci/2024/foci-2024-0009.php
 * https://www.bamsoftware.com/papers/snowflake/#p22
 
 # dnstt
@@ -23,10 +24,16 @@ There are less and less cloud providers allowing it.
 https://www.bamsoftware.com/software/dnstt/
 https://github.com/EndPositive/slipstream/
 
-# Google Pub/Sub
+# Pub/Sub
 
-https://www.petsymposium.org/foci/2024/foci-2024-0010.php  
-https://github.com/AfonsoVilalonga/PubSub-Rendezvous
+* Paper: https://www.petsymposium.org/foci/2024/foci-2024-0010.php  
+* Implementation (go): https://github.com/AfonsoVilalonga/PubSub-Rendezvous
+
+Pub/Sub is a service of unidirectional channels (called *topics*) where there is a publisher and multiple subscribers that subscribe to receive all the updates on this topic. To make a transport over it is necessary in advance to create two topics: *User's Topic* (UT) and *Broker's Topic* (BT). Clients know BT so they can subscribe to it and have access to a shared account with limited permissions to publish in UT. Clients send messages to the broker over UT and receive responses over BT.
+
+Google's service is free up to 10GB/month.
+
+The paper and implementation uses *Google Pub/Sub* service, but the same mechanism should work with *AWS SNS*. It will not work with azure because it assigns a specific domain to each created resource, and censors will be able to block it by domain.
 
 # Google App Script
 
