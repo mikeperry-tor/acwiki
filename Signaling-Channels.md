@@ -43,10 +43,11 @@ The paper and implementation uses *Google Pub/Sub* service, but the same mechani
 
 # Google App Script
 
-https://github.com/fortuna/OutlineDistribution  
-https://github.com/masterking32/MasterHttpRelayVPN
+Implementations:
+* javascript with signaling channels usecase: https://github.com/fortuna/OutlineDistribution  
+* python generic transport: https://github.com/masterking32/MasterHttpRelayVPN
 
-There is a limitation of 20k requests per day.
+There is a limitation of 20k requests per day. It does work domain fronting google.com, which is allowlisted in some networks like Iran with the rest of internet is blocked.
 
 # PassKeys servers
 
