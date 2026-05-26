@@ -49,7 +49,31 @@ Each of these has a broker component that reads incoming requests and calls [`IP
 ```golang
 func (i *IPC) ClientOffers(arg messages.Arg, response *[]byte) error
 ```
-when the function returns, the component sends the encoded `response` back to the client.
+where `messages.Arg` is a struct
+```golang
+type Arg struct {
+    Body             []byte
+    RemoteAddr       string
+    RendezvousMethod RendezvousMethod
+    Context          context.Context
+}
+```
+the important fields here are a byte slice of the JSON encoded client poll request
+```golang
+type ClientPollRequest struct {
+    Offer       string `json:"offer"`
+    NAT         string `json:"nat"`
+    Fingerprint string `json:"fingerprint"`
+}
+```
+and the remote address of the client, used for metrics purposes.
+When the call to `IPC.ClientOffers` returns, the component sends the JSON encoded `response` back to the client.
+```golang
+type ClientPollResponse struct {
+    Answer string `json:"answer,omitempty"`
+    Error  string `json:"error,omitempty"`
+}
+```
 
 On the client side, each rendezvous method implements the `RendezvousMethod` interface
 ```golang
@@ -62,6 +86,7 @@ type RendezvousMethod interface {
     Exchange([]byte) ([]byte, error)
 }   
 ```
+which takes a byte slice of the JSON encoded `ClientPollRequest` and returns a byte slice of the JSON encoded `ClientPollResponse` or `error`.
 
 ### Conjure Registration
 
