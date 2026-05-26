@@ -114,6 +114,10 @@ These are some ideal common features for signaling channels. Not all channels wi
 
 Tor uses client IP addresses for metrics, circumvention settings, and anti-DoS features. Many signaling channels do not have an easy or trusted way of preserving client IP addresses.
 
+### Compression
+
+Compression is an optional step that can be used to reduce the size of messages sent via signalling channels to fit within constraints of that channel. See the [analysis of compressing Snowflake rendezvous messages](https://lists.torproject.org/mailman3/hyperkitty/list/anti-censorship-team@lists.torproject.org/thread/ZK3KJ6F3BCJRVNS55BMB6MXQNTTEFRTB/).
+
 # Timeline of censorship events affecting signaling channels
 
 Censorship events are a useful learning experience and tell us what changes, configurations, or updates to protocols we should be able to accommodate. They show where the pain points are in existing implementations and the UX needs of applications. Here are some recent censorship events that have affected Tor's signaling channels and how we responded.
