@@ -96,6 +96,8 @@ which takes a byte slice of the JSON encoded `ClientPollRequest` and returns a b
 
 Conjure uses [protobufs to encode registration messages](https://github.com/refraction-networking/conjure/tree/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/proto). These requests may be [optionally padded](https://github.com/refraction-networking/conjure/blob/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/proto/signalling.proto#L299) as a fingerprinting defense.
 
+Conjure requires the client IP address for registration purposes. Without it, the station is unable to map an incoming client connection to a phantom proxy registration, and the connection to the phantom proxy will fail. This provides some built-in active probing resistance, but also presents challenges for registration channels that do not naturally preserve the client IP. To solve this, Conjure has clients [use STUN to discover their public IP address](https://github.com/refraction-networking/conjure/blob/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/pkg/registrars/registration/dns-registrar.go#L219) and send the discovered IP in the registration message. This can be easily spoofed, but not in a way that allows clients to successfully connect to phantom proxies.
+
 ##### Go implementation
 
 The server side of Conjure signaling channels are implemented in the [registration-server](https://github.com/refraction-networking/conjure/tree/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/cmd/registration-server) application. Each signaling channel implements the `registrar` interface
