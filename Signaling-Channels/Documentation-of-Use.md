@@ -124,7 +124,7 @@ type Registrar interface {
 
 # Common features of signaling channels
 
-These are some ideal common features for signaling channels. Not all channels will require all features.
+These are some ideal common features for signaling channels. Not all combinations of uses and channels will require all features, and some channels have these features built-in. But many will require a separate layer to support these properties.
 
 ### Reliability
 
