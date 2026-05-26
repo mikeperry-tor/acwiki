@@ -169,8 +169,17 @@ These are some ideal common features for signaling channels. Not all combination
 
 ### Reliability
 
-- TurboTunnel
-- Fountain Codes
+A reliability layer may be needed for signalling channels that do not provide built-in reliability assumptions. If, for example, requests and responses need to be split across multiple transfers or if the medium is not itself reliable (e.g., UDP).
+
+##### TurboTunnel
+
+TurboTunnel is a design pattern for censorship circumvention tools that proposes the use of an end-to-end reliability layer between client and server. It has yet to be used together with signalling channels, but was a necessary feature for established Snowflake connections. It has also been used with [dnstt](https://www.bamsoftware.com/software/dnstt/), a circumvention transport over DNS, which could be adapted as a signalling channel.
+
+##### Fountain Codes
+
+A lighter-weight alternative to a full on sequencing and reliability layer that uses rateless erasure codes to chunk and retransmit signalling channel data until enough information has been received by the other side to reconstruct the original message.
+
+Link to paper and implementation: https://github.com/net4people/bbs/issues/591#issuecomment-4248280173
 
 ### Padding
 
