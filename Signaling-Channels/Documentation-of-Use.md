@@ -199,7 +199,7 @@ This has been discussed in:
 - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/22945+
 - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/merge_requests/39#note_2737344+.
 
-An easy way to do this could be to have clients asymmetrically encrypt the initial message to the signalling server with the server's public key, and include a symmetric key in the signalling data that should be used to encrypt the server's response. The response can also be signed with the server's private key and verified by the client using the same public key as before. This is partially implemented in the [Orbot push notifications proof of concept code](https://github.com/cohosh/orbot/commit/9841fcbec517c238fc3ebf7130b4d9c7094b8e32).
+An easy way to do this could be to have clients asymmetrically encrypt the initial message to the signalling server with the server's public key, and include a symmetric key in the signalling data that should be used to encrypt the server's response. The response can also be signed with the server's private key and verified by the client using the same public key as before. This is partially implemented in the [Orbot push notifications proof of concept code](https://github.com/cohosh/orbot/commit/9841fcbec517c238fc3ebf7130b4d9c7094b8e32). The server's public key would have to be distributed along with other channel details.
 
 ### Preservation of client IP
 
