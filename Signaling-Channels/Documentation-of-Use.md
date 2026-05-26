@@ -137,6 +137,10 @@ Rather than fully document how each signalling channel works, this documentation
 
 - **price:** similar to domain fronting, see this [cost analysis of SQS](https://lists.torproject.org/mailman3/hyperkitty/list/anti-censorship-team@lists.torproject.org/message/T5REPCMJJFK3TGVYNSDCU3WT7SQDARPB/).
 
+##### Constraints
+
+Does not preserve the client IP address or a way to individualize clients. The AWS access key is shared by all clients.
+
 ### AMP Cache
 
 - **price:** free
