@@ -191,13 +191,15 @@ It is likely to be especially relevant to signalling channels, which can have ve
 
 Both TurboTunnel and the Fountain Codes papers discussed above have discussions on padding implementations built in to the reliability mechanism.
 
-### End-to-end confidentiality
+### End-to-end confidentiality and integrity
 
-Many signalling channels rely on 3rd party services and do not offer full end-to-end confidentiality between the client and the signalling server. For example, in domain fronting, the client encrypts an HTTP request for the cloud provider or edge service, and the request is then re-encrypted by that provider for the signalling server.
+Many signalling channels rely on 3rd party services and do not offer full end-to-end confidentiality and integrity between the client and the signalling server. For example, in domain fronting, the client encrypts an HTTP request for the cloud provider or edge service, and the request is then re-encrypted by that provider for the signalling server.
 
 This has been discussed in:
 - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/22945+
 - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/merge_requests/39#note_2737344+.
+
+An easy way to do this could be to have clients asymmetrically encrypt the initial message to the signalling server with the server's public key, and include a symmetric key in the signalling data that should be used to encrypt the server's response. The response can also be signed with the server's private key and verified by the client using the same public key as before. This is partially implemented in the [Orbot push notifications proof of concept code](https://github.com/cohosh/orbot/commit/9841fcbec517c238fc3ebf7130b4d9c7094b8e32).
 
 ### Preservation of client IP
 
