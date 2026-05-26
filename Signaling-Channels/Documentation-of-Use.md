@@ -219,3 +219,9 @@ Compression is an optional step that can be used to reduce the size of messages 
 # Timeline of censorship events affecting signaling channels
 
 Censorship events are a useful learning experience and tell us what changes, configurations, or updates to protocols we should be able to accommodate. They show where the pain points are in existing implementations and the UX needs of applications. Here are some recent censorship events that have affected Tor's signaling channels and how we responded.
+
+# Other signalling channel library implementations
+
+- [Outline SDK](https://github.com/OutlineFoundation/outline-sdk/tree/main)
+- [Lantern's Kindling](https://github.com/getlantern/kindling)
+- [Raceboat](https://github.com/tst-race/raceboat/)
