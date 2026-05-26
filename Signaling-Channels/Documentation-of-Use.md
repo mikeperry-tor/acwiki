@@ -183,6 +183,14 @@ Link to paper and implementation: https://github.com/net4people/bbs/issues/591#i
 
 ### Padding
 
+Padding has become a more critical feature of circumvention tools recently. Reports of successful uses of padding to circumvent blocks:
+- [Potential TLS-over-DTLS blocking in China (2023)](https://github.com/net4people/bbs/issues/255)
+- [Throttling of Twitter in Russia (2021)](https://github.com/net4people/bbs/issues/65#issuecomment-816243379)
+
+It is likely to be especially relevant to signalling channels, which can have very distinctive patterns.
+
+Both TurboTunnel and the Fountain Codes papers discussed above have discussions on padding implementations built in to the reliability mechanism.
+
 ### End-to-end confidentiality
 
 Many signalling channels rely on 3rd party services and do not offer full end-to-end confidentiality between the client and the signalling server. For example, in domain fronting, the client encrypts an HTTP request for the cloud provider or edge service, and the request is then re-encrypted by that provider for the signalling server.
