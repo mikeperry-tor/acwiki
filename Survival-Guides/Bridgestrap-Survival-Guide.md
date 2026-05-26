@@ -45,3 +45,15 @@ ssh -t POLYANTHUM \
       "systemctl --user start bridgestrap' && " \
     "rm -f /tmp/${executable}"
 ```
+
+## Issues
+
+### Bridges down
+
+The percentage of functional bridges might be too low either from a restart or a an issue in bridgestrap or rdsys. Restarting rdsys and bridges usually solves the problem, but should be investigated if it happens more than once.
+
+### Empty cache
+
+If the tor process dies bridgestrap can't tests any more bridges and the cache becomes empty. Restarting bridgestrap solves the problem.
+
+There is an issue were we are investigating the source of the problem: https://gitlab.torproject.org/tpo/anti-censorship/bridgestrap/-/work_items/49
