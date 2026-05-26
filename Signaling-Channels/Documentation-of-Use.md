@@ -126,9 +126,12 @@ Rather than fully document how each signalling channel works, this documentation
 
 ### Domain fronting
 
-- **price:** varies by provider, with CDN77 we pay 
+- **price:** varies by provider, pricey as a full channel but reasonable as a signalling channel
 
-- **preservation of client IP:** sort of
+- **preservation of client IP:** sort of, the IP address of the client will be appended to the X-Forwarded-For header by whatever 3rd party is doing the fronting. But, since the server is just HTTP, clients may also make a direct request to the server and add a spoofed address to this header. Locking this down would require some kind of allow list of trusted cloud provider IPs from which to trust the X-Forwarded-For header, but this is a potentially difficult list to keep up to date. See recent discusison in
+  - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/webtunnel/-/work_items/60+
+  - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek/-/work_items/40006+
+  - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/40451+
 
 ### Amazon SQS
 
@@ -155,7 +158,7 @@ These are some ideal common features for signaling channels. Not all combination
 
 ### End-to-end confidentiality
 
-Many signalling channels rely on 3rd party services and very few offer full end-to-end confidentiality between the client and the signalling server. For example, in domain fronting, the client encrypts an HTTP request for the cloud provider or edge service, and the request is then re-encrypted by that provider for the signalling server.
+Many signalling channels rely on 3rd party services and do not offer full end-to-end confidentiality between the client and the signalling server. For example, in domain fronting, the client encrypts an HTTP request for the cloud provider or edge service, and the request is then re-encrypted by that provider for the signalling server.
 
 This has been discussed in:
 - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/22945+
