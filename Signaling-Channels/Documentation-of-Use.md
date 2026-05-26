@@ -191,6 +191,9 @@ It is likely to be especially relevant to signalling channels, which can have ve
 
 Both TurboTunnel and the Fountain Codes papers discussed above have discussions on padding implementations built in to the reliability mechanism.
 
+See:
+- [Snowflake's encapsulation.go](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/common/encapsulation/encapsulation.go#L117)
+
 ### End-to-end confidentiality and integrity
 
 Many signalling channels rely on 3rd party services and do not offer full end-to-end confidentiality and integrity between the client and the signalling server. For example, in domain fronting, the client encrypts an HTTP request for the cloud provider or edge service, and the request is then re-encrypted by that provider for the signalling server.
