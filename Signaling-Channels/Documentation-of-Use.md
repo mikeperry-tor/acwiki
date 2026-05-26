@@ -135,6 +135,12 @@ These are some ideal common features for signaling channels. Not all combination
 
 ### End-to-end confidentiality
 
+Many signalling channels rely on 3rd party services and very few offer full end-to-end confidentiality between the client and the signalling server. For example, in domain fronting, the client encrypts an HTTP request for the cloud provider or edge service, and the request is then re-encrypted by that provider for the signalling server.
+
+This has been discussed in:
+- https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/22945+
+- https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/merge_requests/39#note_2737344+.
+
 ### Preservation of client IP
 
 Tor uses client IP addresses for metrics, circumvention settings, and anti-DoS features. Many signaling channels do not have an easy or trusted way of preserving client IP addresses.
