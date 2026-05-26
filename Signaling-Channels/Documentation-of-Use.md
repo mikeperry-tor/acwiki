@@ -34,6 +34,10 @@ The orbot service opens a [Moat tunnel](https://github.com/guardianproject/orbot
 
 Orbot supports both domain fronting through meek and dnstt as signaling channels. The configurations and settings for both of these channels are [hard-coded](https://github.com/guardianproject/orbot-android/blob/84015e0a48d81783c0cd24e9d98d2791739d38e5/app/src/main/java/org/torproject/android/service/circumvention/MoatTunnel.kt) as `TOR_PROJECT` and `GUARDIAN_PROJECT` settings, respectively.
 
+#### Server side rdsys implementation
+
+On the server side, Moat connections are received by a [tor-less meek server](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Moat), with the client IP captured and passed to rdsys through an `ExtOrPort` connection to a [shim](https://gitlab.torproject.org/tpo/anti-censorship/moat-shim). These HTTP requests and responses are then handled by the web server.
+
 ### Snowflake rendezvous
 
 Snowflake clients use signaling channels to get matched with an available proxy and perform WebRTC signaling in what is called a [rendezvous step](https://www.bamsoftware.com/papers/snowflake/#rendezvous). This requires a single round-trip communication with the Snowflake broker. The client rendezvous protocol is documented in the [messages package](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/common/messages/client.go). The majority of the message consists of a [SDP offer](https://datatracker.ietf.org/doc/html/rfc3264) and sits between 1KB-2KB in size.
