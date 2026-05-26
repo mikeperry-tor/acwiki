@@ -122,6 +122,26 @@ type Registrar interface {
 
 # Signaling channel implementations
 
+Rather than fully document how each signalling channel works, this documentation will cover important features or constraints on the signalling channels we already have in use.
+
+### Domain fronting
+
+- **price:** varies by provider, with CDN77 we pay 
+
+- **preservation of client IP:** sort of
+
+### Amazon SQS
+
+- **price:** similar to domain fronting, see this [cost analysis of SQS](https://lists.torproject.org/mailman3/hyperkitty/list/anti-censorship-team@lists.torproject.org/message/T5REPCMJJFK3TGVYNSDCU3WT7SQDARPB/).
+
+### AMP Cache
+
+- **price:** free
+
+##### Constraints
+
+There is pretty severe rate limiting for AMP cache requests, seemingly based on client IP address. 
+
 # Common features of signaling channels
 
 These are some ideal common features for signaling channels. Not all combinations of uses and channels will require all features, and some channels have these features built-in. But many will require a separate layer to support these properties.
