@@ -12,6 +12,8 @@ This [API is already well documented](https://gitlab.torproject.org/tpo/anti-cen
 
 The largest requests for any of these endpoints are typically less than 500 bytes. The largest potential response is likely from fetching the entire [circumvention settings map](https://gitlab.torproject.org/tpo/anti-censorship/rdsys-admin/-/blob/0061ce86ee2dfc8c451a78d28d0ef09e4ed7f36e/conf/circumvention.json) which is currently 9KB but could easily grow if more countries require bespoke censorship settings. Responses with just bridge lines will usually fit in under 1KB.
 
+The IP address of the client is used for both geo-location purposes, to choose the appropriate settings, and for light enumeration resistance. It is extracted from the X-Forwarded-For header of domain fronted and HTTP requests, but this is subject to trust issues, discussed later in https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Signaling-Channels/Documentation-of-Use#domain-fronting. Users also have the ability to manually specify their country code if geolocation fails.
+
 #### Tor Browser implementation
 
 The Moat API is [implemented in Tor Browser](https://gitlab.torproject.org/tpo/applications/tor-browser/-/blob/66d59b50b58c5c81f588bda50077b898726b733e/toolkit/modules/Moat.sys.mjs) as a browser [javascript module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
