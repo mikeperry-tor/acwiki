@@ -68,7 +68,7 @@ type ClientPollRequest struct {
     Fingerprint string `json:"fingerprint"`
 }
 ```
-and the remote address of the client, used for metrics purposes. For rendezvous methods that do not naturally preserve the client IP address, it is extracted from the WebRTC Offer SDP. This can be easily spoofed and should not be trusted for enumeration prevention purposes.
+and the remote address of the client, used for metrics purposes. For rendezvous methods that do not naturally preserve the client IP address, [it is extracted from the WebRTC Offer SDP](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/common/util/util.go#L117). This can be easily spoofed and should not be trusted for enumeration prevention purposes.
 
 When the call to `IPC.ClientOffers` returns, the component sends the JSON encoded `response` back to the client.
 ```golang
