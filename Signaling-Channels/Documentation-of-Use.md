@@ -68,7 +68,8 @@ type ClientPollRequest struct {
     Fingerprint string `json:"fingerprint"`
 }
 ```
-and the remote address of the client, used for metrics purposes.
+and the remote address of the client, used for metrics purposes. For rendezvous methods that do not naturally preserve the client IP address, it is extracted from the WebRTC Offer SDP. This can be easily spoofed and should not be trusted for enumeration prevention purposes.
+
 When the call to `IPC.ClientOffers` returns, the component sends the JSON encoded `response` back to the client.
 ```golang
 type ClientPollResponse struct {
@@ -151,7 +152,9 @@ Does not preserve the client IP address or a way to individualize clients. The A
 
 ##### Constraints
 
-There is pretty severe rate limiting for AMP cache requests, seemingly based on client IP address. 
+There is pretty severe rate limiting for AMP cache requests, seemingly based on client IP address.
+
+Does not preserve the client IP address or provide a way to individualize clients.
 
 # Common features of signaling channels
 
