@@ -146,6 +146,13 @@ Rather than fully document how each signalling channel works, this documentation
 
 Does not preserve the client IP address or a way to individualize clients. The AWS access key is shared by all clients.
 
+There is a size limit to SQS requests. From the [SQS documentation](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html)
+> The minimum message size is 1 byte (1 character). The maximum is 1,048,576 bytes (1 MiB).
+> 
+> To send messages larger than 1 MiB, you can use the Amazon SQS Extended Client Library for Java and the Amazon SQS Extended Client Library for Python. This library allows you to send an Amazon SQS message that contains a reference to a message payload in Amazon S3. The maximum payload size is 2 GB.
+
+Another option is to send signalling data over multiple messages using one of the reliability layers discussed below.
+
 ### AMP Cache
 
 - **price:** free
