@@ -270,7 +270,7 @@ Censorship events are a useful learning experience and tell us what changes, con
 
 Kindling is a library for making HTTP requests through one of several supported tunnels. Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
 
-Kindling returns an [`http.Client`](https://pkg.go.dev/net/http#Client) that can be used to make HTTP requests through the configured tunnels to an arbitrary address.
+Kindling returns an [`http.Client`](https://pkg.go.dev/net/http#Client) that can be used to make HTTP requests through the configured tunnels to an arbitrary address. One downside to this is that even though `NewRoundTripper` can be used to attempt a connection to an arbitrary address, most tunnels will have a fairly restrictive set of addresses they can connect to. For example, domain fronting tunnels through CDN77 will only support connections to other URLs hosted on the same cloud provider.
 
 New transports must implement the [`Transport`](https://github.com/getlantern/kindling/blob/a9712f95df034fcd4b8fd2eca9e7cc8ab61339a6/kindling.go#L48) interface
 ```golang
@@ -293,7 +293,4 @@ type Transport interface {
 	Name() string
 }
 ```
-
-##### Limitations
-- reliance on HTTP: on the other hand, this is useful for applications like Moat or OONI that currently use and require HTTP for API calls
-- supports bidirectional only
+This library also has a reliance on HTTP. While this is useful for applications like Moat or OONI that currently use and require HTTP for API calls, it requires applications to use HTTP as the carrier protocol. This also limits applications to bidirectional channels only.
