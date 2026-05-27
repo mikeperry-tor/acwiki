@@ -263,12 +263,11 @@ Censorship events are a useful learning experience and tell us what changes, con
 # Other signalling channel library implementations
 
 - [Outline SDK](https://github.com/OutlineFoundation/outline-sdk/tree/main)
-- [Lantern's Kindling](https://github.com/getlantern/kindling)
 - [Raceboat](https://github.com/tst-race/raceboat/)
 
 ### Kindling
 
-Kindling is a library for making HTTP requests through one of several supported tunnels. Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
+[Kindling](https://github.com/getlantern/kindling) is a Lantern library for making HTTP requests through one of several supported tunnels. Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
 
 Kindling returns an [`http.Client`](https://pkg.go.dev/net/http#Client) that can be used to make HTTP requests through the configured tunnels to an arbitrary address. One downside to this is that even though `NewRoundTripper` can be used to attempt a connection to an arbitrary address, most tunnels will have a fairly restrictive set of addresses they can connect to. For example, domain fronting tunnels through CDN77 will only support connections to other URLs hosted on the same cloud provider.
 
