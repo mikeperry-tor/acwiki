@@ -86,7 +86,9 @@ An example project: https://github.com/c-skills/passport
 
 # ECH on cloud providers
 
-[Cloudflare supports it](https://github.com/net4people/bbs/issues/393), but is the only mayor CDN that does. Is been [blocked in Russia](https://github.com/net4people/bbs/issues/417).
+ECH hides the SNI so all the connections to the same provider looks like visiting the same domain. Is a new-ish technology, with very few adoption by major providers. Except for [Cloudflare that added support in 2024](https://github.com/net4people/bbs/issues/393).
+
+In theory is not possible to distinguish if a connection is done using ECH or not, as modern browsers send random data in the *GREASE* field when is not used. But Cloudflare is using a specific domain name for ech (cloudflare-ech.com). [Russia is blocking](https://github.com/net4people/bbs/issues/417) all the connections to that domain name containing a *GREASE* field.
 
 # AWS S3 - skyhook
 
