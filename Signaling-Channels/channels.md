@@ -41,19 +41,19 @@ Implementation:
 
 # DNS
 
+In theory will be easy to be blocked by censors if is not using encrypted DNS (DoH, DoT, ...). But in practice we see many censors not blocking by protocol even after a heavy use.
+
+DNS packets are too small for many signaling channels needs, a good solution for it is to use [fountain codes](https://repo.or.cz/erasure-code-rendezvous.git).
+
+Papers:
+* fountain codes: https://repo.or.cz/erasure-code-rendezvous.git/blob_plain/HEAD:/paper/fountain-code-rendezvous.f23d22ad.pdf (draft)
+
 Implementations:
 * https://www.bamsoftware.com/software/dnstt/
 * https://github.com/EndPositive/slipstream/
 * https://github.com/masterking32/MasterDnsVPN
 
-In theory will be easy to be blocked by censors if is not using encrypted DNS (DoH, DoT, ...). But in practice we see many censors not blocking by protocol even after a heavy use.
-
-DNS packets are too small for many signaling channels needs, a good solution for it is to use [fountain codes](https://repo.or.cz/erasure-code-rendezvous.git).
-
 # Pub/Sub
-
-* Paper: https://www.petsymposium.org/foci/2024/foci-2024-0010.php  
-* Implementation (go): https://github.com/AfonsoVilalonga/PubSub-Rendezvous
 
 Pub/Sub is a service of unidirectional channels (called *topics*) where there is a publisher and multiple subscribers that subscribe to receive all the updates on this topic. To make a transport over it is necessary in advance to create two topics: *User's Topic* (UT) and *Broker's Topic* (BT). Clients know BT so they can subscribe to it and have access to a shared account with limited permissions to publish in UT. Clients send messages to the broker over UT and receive responses over BT.
 
@@ -61,13 +61,22 @@ Google's service is free up to 10GB/month.
 
 The paper and implementation uses *Google Pub/Sub* service, but the same mechanism should work with *AWS SNS*. It will not work with azure because it assigns a specific domain to each created resource, and censors will be able to block it by domain.
 
+Papers:
+* https://www.petsymposium.org/foci/2024/foci-2024-0010.php  
+
+Implementations:
+* go: https://github.com/AfonsoVilalonga/PubSub-Rendezvous
+
 # Google App Script
+
+Google App Script is a service to automatize tasks in the google platform.
+
+There is a limitation of 20k requests per day. It does work domain fronting google.com, which is allowlisted in some networks like Iran with the rest of internet is blocked.
 
 Implementations:
 * javascript with signaling channels usecase: https://github.com/fortuna/OutlineDistribution  
 * python generic transport: https://github.com/masterking32/MasterHttpRelayVPN
-
-There is a limitation of 20k requests per day. It does work domain fronting google.com, which is allowlisted in some networks like Iran with the rest of internet is blocked.
+* rust AI rewrite: https://github.com/therealaleph/MasterHttpRelayVPN-RUST
 
 # PassKeys servers
 
@@ -91,18 +100,25 @@ The [skyhook implementation is written in C++](https://github.com/tst-race/skyho
 
 This technique might work with other cloud providers, but we'll need to find providers that don't place any account identifier in the domain name. Other major providers like google cloud or microsoft azure have their own APIs for object storage different to S3, but similar concepts so this might be applicable.
 
+Papers:
+* skyhook: https://www.petsymposium.org/foci/2024/foci-2024-0011.pdf
+* CloudTransport: https://petsymposium.org/2014/papers/paper_68.pdf
+
+Implementations:
+* https://github.com/tst-race/skyhook
+
 # Push notifications
 
 https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Signaling-Channels/Push-Notifications
 
 # Google docs
 
-Implementation:
+[gdocs-tunnel](https://github.com/0xinf0/gdocs-tunnel) managed to get 1-5KB/s, which should be enough for signaling. It says there is a rate limit of "\~10 requests/minute sustainable per IP pair", the server side is _solved_ by using a big pool of IPv6 IPs. The client side "Rotates across 22 Google Anycast IPs to distribute limits", but for signaling might might not hit the limit.
+
+Implementations:
 * https://github.com/0xinf0/gdocs-tunnel
 * https://www.v2fly.org/en_US/v5/config/stream/gdocsviewer.html
 * https://github.com/ShahabSL/Skirk
-
-[It did manage](https://github.com/0xinf0/gdocs-tunnel) to get 1-5KB/s, which should be enough for signaling. It says there is a rate limit of "\~10 requests/minute sustainable per IP pair", the server side is _solved_ by using a big pool of IPv6 IPs. The client side "Rotates across 22 Google Anycast IPs to distribute limits", but for signaling might might not hit the limit.
 
 Some ideas on how to use it:
 * https://web.archive.org/web/20230330055859/https://easrng.blogspot.com/2022/03/get-tor-bridges-with-nothing-but.html  
@@ -111,10 +127,19 @@ Some ideas on how to use it:
 
 # TURN servers
 
-https://www.petsymposium.org/foci/2025/foci-2025-0003.php
-
 In general TURN services are paid per traffic.
+
+Papers:
+* https://www.petsymposium.org/foci/2025/foci-2025-0003.php
 
 # blockchain - MoneyMorph
 
 [MoneyMorph](https://petsymposium.org/2020/files/papers/issue3/popets-2020-0058.pdf) is using blockchains as signaling channels. There is a [python implementation](https://github.com/moneymorph/Bitcoin-Ethereum-Zcash_implementation) and threat in [net4people](https://github.com/net4people/bbs/issues/71).
+
+Some countries have censored blockchains, they might not have a big collateral damage for some censors.
+
+Papers:
+* https://petsymposium.org/2020/files/papers/issue3/popets-2020-0058.pdf
+
+Implementation:
+* https://github.com/moneymorph/Bitcoin-Ethereum-Zcash_implementation
