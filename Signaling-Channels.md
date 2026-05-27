@@ -81,8 +81,9 @@ https://petsymposium.org/popets/2025/popets-2025-0153.pdf
 Implementation:
 * https://github.com/0xinf0/gdocs-tunnel
 * https://www.v2fly.org/en_US/v5/config/stream/gdocsviewer.html
+* https://github.com/ShahabSL/Skirk
 
-It did manage to get 1-5KB/s, which should be enough for signaling. It says there is a rate limit of "\~10 requests/minute sustainable per IP pair", the server side is _solved_ by using a big pool of IPv6 IPs. The client side "Rotates across 22 Google Anycast IPs to distribute limits", but for signaling might might not hit the limit.
+[It did manage](https://github.com/0xinf0/gdocs-tunnel) to get 1-5KB/s, which should be enough for signaling. It says there is a rate limit of "\~10 requests/minute sustainable per IP pair", the server side is _solved_ by using a big pool of IPv6 IPs. The client side "Rotates across 22 Google Anycast IPs to distribute limits", but for signaling might might not hit the limit.
 
 Some ideas on how to use it:
 * https://web.archive.org/web/20230330055859/https://easrng.blogspot.com/2022/03/get-tor-bridges-with-nothing-but.html  
