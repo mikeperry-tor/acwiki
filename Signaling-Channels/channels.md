@@ -15,11 +15,16 @@ Papers:
 
 # AMP cache
 
-Implementation:
-* tpo/anti-censorship/pluggable-transports/snowflake!50
+AMP cache is a website cache protocol. The channel encodes the request in the URL and the response on the website's html.
+
+Originally implemented by google, bing and cloudflare. But [cloudflare stopped running the service and bing doesn't fetch content on demand](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/25985#note_2744744) leaving google as the only option for this channel. In google it can be used with *google.com* as domain front.
 
 Papers:
+* the original proposal in net4people: https://github.com/net4people/bbs/issues/5
 * https://www.bamsoftware.com/papers/snowflake/#p21
+
+Implementation:
+* tpo/anti-censorship/pluggable-transports/snowflake!50
 
 # AWS SQS queue
 
