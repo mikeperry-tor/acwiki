@@ -38,4 +38,5 @@ The circumvention settings that we send over push notifications are all public a
 
 ## References
 
-[0] https://www.petsymposium.org/foci/2023/foci-2023-0009.pdf
+[0] https://www.petsymposium.org/foci/2023/foci-2023-0009.pdf  
+CenPush paper: https://petsymposium.org/popets/2025/popets-2025-0153.pdf
