@@ -5,13 +5,20 @@ title: Ideas of Channels
 
 # domain fronting
 
-There are less and less cloud providers allowing it.
+Domain fronting uses the fact that CDNs tend to server multiple websites from the same http reverse proxy. In the unencrypted part of the request the *SNI* contains an uncensored domain name, so the censors will allow the connection thinking that is a visitor of that domain. While in the TLS encrypted part the *Host* http header contains the real domain that we want to visit, so the CDN reverse proxy will forward the connection to our service.
 
+Original developed for [meek](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek) it is currently widely used in anti-censorship tools. But there are less and less cloud providers allowing it.
+
+Papers:
+* https://www.bamsoftware.com/papers/fronting/
 * https://www.bamsoftware.com/papers/snowflake/#p20
 
 # AMP cache
 
+Implementation:
 * tpo/anti-censorship/pluggable-transports/snowflake!50
+
+Papers:
 * https://www.bamsoftware.com/papers/snowflake/#p21
 
 # AWS SQS queue
@@ -75,7 +82,6 @@ This technique might work with other cloud providers, but we'll need to find pro
 # Push notifications
 
 https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Signaling-Channels/Push-Notifications
-https://petsymposium.org/popets/2025/popets-2025-0153.pdf
 
 # Google docs
 
