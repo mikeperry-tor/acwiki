@@ -2,11 +2,25 @@ Documentation on our use of signaling channels
 
 [[_TOC_]]
 
-# Applications of signaling channels
+# Anticensorship Signaling Channel Usage
 
-### Moat / Circumvention Settings API
+Each pluggable transport has its own way of obtaining configuration and endpoint information (such as bridge lines or snowflake proxies). This has lead to a tight coupling between the APIs used to obtain this information and the communication mechanism (**signaling channel**) used to access this API.
 
-We expose a [Moat API](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md) for applications to fetch bridges and circumvention settings from rdsys. This API is currently bidirectional, requiring applications to send a request for bridges or settings.
+When pluggable transports are censored, they can be censored by blocking endpoints or by blocking access to this API.
+
+We want to make it harder to block access to these configuration APIs, by enabling APIs to use multiple signaling channels.
+
+In order to accomplish this, we need to have a good map of how our PTs use configuration APIs, and how this API usage is currently coupled to signaling channel usage, so that we can decouple these components.
+
+Therefore, this document has two main sections. The first section covers the configuration APIs used by PT implementations, along with their current hardcoded signaling channel usage. The second section covers signaling channels in general, listing various implementation options available, their properties, and their censorship history.
+
+## Network APIs in Use
+
+This section lists the network APIs (eg HTTP POST, JSONRPC, SDP, etc) that our various PTs and applications use for transmitting configuration information, along with the signaling channels used by each implementation.
+
+### Moat Circumvention Settings API
+
+We provide a [Moat API](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md) for applications to fetch bridges and circumvention settings from rdsys. This API is currently bidirectional in censored environments, requiring applications to send a request for bridges or settings.
 
 This [API is already well documented](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md#circumventionsettings). Request and response sizes vary by endpoint, but are fairly small. A typical flow could involve 1-3 round trips when users first start the application, select an auto config option, or fail to bootstrap Tor: the first to request recommending settings for the user's country. If the user is supplied one or more working bridge lines, the flow ends there. If the user falls back on default settings, those settings can be fetched in 1 additional round trip. If the user decides to manually fetch a bridge, they will need to complete a captcha challenge in 2 round trips.
 
@@ -95,7 +109,7 @@ type RendezvousMethod interface {
 ```
 which takes a byte slice of the JSON encoded `ClientPollRequest` and returns a byte slice of the JSON encoded `ClientPollResponse` or `error`.
 
-### Conjure Registration
+### Conjure Registration API
 
 [Conjure](https://jhalderm.com/pub/papers/conjure-ccs19.pdf) uses bidirectional signaling channels for the client registration step, during which clients are assigned a phantom proxy IP address. Conjure registrations happen at startup for each Conjure connection.
 
@@ -103,7 +117,7 @@ Conjure uses [protobufs to encode registration messages](https://github.com/refr
 
 Conjure requires the client IP address for registration purposes. Without it, the station is unable to map an incoming client connection to a phantom proxy registration, and the connection to the phantom proxy will fail. This provides some built-in active probing resistance, but also presents challenges for registration channels that do not naturally preserve the client IP. To solve this, Conjure has clients [use STUN to discover their public IP address](https://github.com/refraction-networking/conjure/blob/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/pkg/registrars/registration/dns-registrar.go#L219) and send the discovered IP in the registration message. This can be easily spoofed, but not in a way that allows clients to successfully connect to phantom proxies.
 
-##### Go implementation
+#### Conjure Go implementation
 
 The server side of Conjure signaling channels are implemented in the [registration-server](https://github.com/refraction-networking/conjure/tree/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/cmd/registration-server) application. Each signaling channel implements the `registrar` interface
 ```golang
@@ -125,11 +139,11 @@ type Registrar interface {
 }
 ```
 
-### OONI
+### OONI Probe Measurement Result APIs
 
 OONI uses domain fronting to send measurements from probes to the backend.
 
-##### Go implementation
+#### OONI Client Go implementation
 
 At the probe, this is implemented simply by [manually setting the URL hostname and HTTP HOST headers](https://github.com/ooni/probe-cli/blob/c52ce3b50893e650c8e60490343e7a7892c00d64/internal/probeservices/probeservices.go#L110). This requires no server side changes, and measurement submissions are conducted via API requests over HTTP.
 
@@ -137,19 +151,20 @@ At the probe, this is implemented simply by [manually setting the URL hostname a
 
 - https://people.torproject.org/~cohosh/push-notifications.html
 
-# Signaling channel implementations
+## Signaling channel implementations
 
-Rather than fully document how each signalling channel works, this documentation will cover configuration details, important features, and constraints on the signalling channels we already have in use.
+This section enumerates active and promising signaling channels, as well as
+independent implementations.
 
-### Domain fronting
+### Domain Fronting
 
-##### Configuration
+#### Domain Fronting Components
 
 - Front: URL visible to censor, to go in the TLS SNI and DNS requests (e.g., `cdn.zk.mk`)
 - Host: reflector URL that points to the signalling server, created by making an account with the cloud provider (e.g., `https://1098762253.rsc.cdn77.org`)
 - (optional) UTLS settings
 
-##### Features
+#### Domain Fronting Features
 
 - **price:** varies by provider, pricey as a full channel but reasonable as a signalling channel
 
@@ -162,16 +177,16 @@ Rather than fully document how each signalling channel works, this documentation
 
 ### Amazon SQS
 
-##### Configuration
+#### SQS Components
 
 - server queue name: Queue name that clients have write-only access to send data to the server (e.g., `https://sqs.us-east-2.amazonaws.com/490393006362/snowflake-broker`)
 - client queue name prefix: Prefix used to randomly generate single-use client queues for server responses (e.g., `https://sqs.us-east-2.amazonaws.com/490393006362/snowflake-client-*`)
 - sqs credentials for client: AWS key and secret for a client IAM user with write-only access to the server queue and read access for client queue prefixes. Must be encoded to prevent triggering AWS's lockdown of the account. Base64 has been sufficient in the past.
 
-##### Features
+#### SQS Features
 - **price:** similar to domain fronting, see this [cost analysis of SQS](https://lists.torproject.org/mailman3/hyperkitty/list/anti-censorship-team@lists.torproject.org/message/T5REPCMJJFK3TGVYNSDCU3WT7SQDARPB/).
 
-##### Constraints
+#### SQS Constraints
 
 Does not preserve the client IP address or a way to individualize clients. The AWS access key is shared by all clients.
 
@@ -184,24 +199,62 @@ Another option is to send signalling data over multiple messages using one of th
 
 ### AMP Cache
 
-##### Configuration
+#### AMP Components
 
 - (optional front) Front: URL visible to censor, similar to domain fronting, can hide that you are using AMP cache (e.g., `www.google.com`)
 - AMP cache URL: URL to AMP server (e.g., `https://cdn.ampproject.org/`
 - Host: URL of signalling server (e.g., `https://snowflake-broker.torproject.net/`)
 - (optional) UTLS settings
 
-##### Features
+#### AMP Features
 
 - **price:** free
 
-##### Constraints
+#### AMP Constraints
 
 There is pretty severe rate limiting for AMP cache requests, seemingly based on client IP address.
 
 Does not preserve the client IP address or provide a way to individualize clients.
 
-# Common features of signaling channels
+### Kindling
+
+[Kindling](https://github.com/getlantern/kindling) is a Lantern library for making HTTP requests through one of several supported tunnels. Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
+
+Kindling returns an [`http.Client`](https://pkg.go.dev/net/http#Client) that can be used to make HTTP requests through the configured tunnels to an arbitrary address. One downside to this is that even though `NewRoundTripper` can be used to attempt a connection to an arbitrary address, most tunnels will have a fairly restrictive set of addresses they can connect to. For example, domain fronting tunnels through CDN77 will only support connections to other URLs hosted on the same cloud provider.
+
+New transports must implement the [`Transport`](https://github.com/getlantern/kindling/blob/a9712f95df034fcd4b8fd2eca9e7cc8ab61339a6/kindling.go#L48) interface
+```golang
+// Transport defines a censorship circumvention transport that can be used by Kindling.
+type Transport interface {
+	// NewRoundTripper creates a pre-connected http.RoundTripper. Implementations
+	// should complete the connection before returning so that the race transport
+	// can try requests serially without paying connection latency.
+	NewRoundTripper(ctx context.Context, addr string) (http.RoundTripper, error)
+
+	// MaxLength returns the maximum request body size this transport supports.
+	// Zero means no limit.
+	MaxLength() int
+
+	// IsStreamable reports whether this transport supports streaming responses
+	// (e.g. text/event-stream).
+	IsStreamable() bool
+
+	// Name identifies this transport for logging and debugging.
+	Name() string
+}
+```
+This library also has a reliance on HTTP. While this is useful for applications like Moat or OONI that currently use and require HTTP for API calls, it requires applications to use HTTP as the carrier protocol. We made [an intentional decision in Snowflake to remove reliance on HTTP](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/29293) because of HTTP-like channels like AMP cache that do not reliably pass status codes. This doesn't prevent us from tunneling another HTTP layer inside of HTTP channels like domain fronting and AMP cache, and this would be necessary to achieve E2E encryption and integrity, but it's annoying to need this extra layer.
+
+HTTP also limits applications to bidirectional channels only.
+
+The policy of trying all configured tunnels and selecting the first response is interesting and raises an idea of exposing a library feature that allows an application to define some sort of fallback policy. There are risks to trying everything at once, but we could expose options like "try these sequentially in this order" or "try this group serially first and then this other group".
+
+### Other signalling channel library implementations
+
+- [Outline SDK](https://github.com/OutlineFoundation/outline-sdk/tree/main)
+- [Raceboat](https://github.com/tst-race/raceboat/)
+
+## Common features of signaling channels
 
 These are some ideal common features for signaling channels. Not all combinations of uses and channels will require all features, and some channels have these features built-in. But many will require a separate layer to support these properties.
 
@@ -209,11 +262,11 @@ These are some ideal common features for signaling channels. Not all combination
 
 A reliability layer may be needed for signalling channels that do not provide built-in reliability assumptions. If, for example, requests and responses need to be split across multiple transfers or if the medium is not itself reliable (e.g., UDP).
 
-##### TurboTunnel
+#### TurboTunnel
 
 TurboTunnel is a design pattern for censorship circumvention tools that proposes the use of an end-to-end reliability layer between client and server. It has yet to be used together with signalling channels, but was a necessary feature for established Snowflake connections. It has also been used with [dnstt](https://www.bamsoftware.com/software/dnstt/), a circumvention transport over DNS, which could be adapted as a signalling channel.
 
-##### Fountain Codes
+#### Fountain Codes
 
 A lighter-weight alternative to a full on sequencing and reliability layer that uses rateless erasure codes to chunk and retransmit signalling channel data until enough information has been received by the other side to reconstruct the original message.
 
@@ -256,44 +309,8 @@ For anti-enumeration features, IP addresses as unique identifiers should probabl
 
 Compression is an optional step that can be used to reduce the size of messages sent via signalling channels to fit within constraints of that channel. See the [analysis of compressing Snowflake rendezvous messages](https://lists.torproject.org/mailman3/hyperkitty/list/anti-censorship-team@lists.torproject.org/thread/ZK3KJ6F3BCJRVNS55BMB6MXQNTTEFRTB/).
 
-# Timeline of censorship events affecting signaling channels
+## Timeline of censorship events affecting signaling channels
 
 Censorship events are a useful learning experience and tell us what changes, configurations, or updates to protocols we should be able to accommodate. They show where the pain points are in existing implementations and the UX needs of applications. Here are some recent censorship events that have affected Tor's signaling channels and how we responded.
 
-# Other signalling channel library implementations
 
-- [Outline SDK](https://github.com/OutlineFoundation/outline-sdk/tree/main)
-- [Raceboat](https://github.com/tst-race/raceboat/)
-
-### Kindling
-
-[Kindling](https://github.com/getlantern/kindling) is a Lantern library for making HTTP requests through one of several supported tunnels. Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
-
-Kindling returns an [`http.Client`](https://pkg.go.dev/net/http#Client) that can be used to make HTTP requests through the configured tunnels to an arbitrary address. One downside to this is that even though `NewRoundTripper` can be used to attempt a connection to an arbitrary address, most tunnels will have a fairly restrictive set of addresses they can connect to. For example, domain fronting tunnels through CDN77 will only support connections to other URLs hosted on the same cloud provider.
-
-New transports must implement the [`Transport`](https://github.com/getlantern/kindling/blob/a9712f95df034fcd4b8fd2eca9e7cc8ab61339a6/kindling.go#L48) interface
-```golang
-// Transport defines a censorship circumvention transport that can be used by Kindling.
-type Transport interface {
-	// NewRoundTripper creates a pre-connected http.RoundTripper. Implementations
-	// should complete the connection before returning so that the race transport
-	// can try requests serially without paying connection latency.
-	NewRoundTripper(ctx context.Context, addr string) (http.RoundTripper, error)
-
-	// MaxLength returns the maximum request body size this transport supports.
-	// Zero means no limit.
-	MaxLength() int
-
-	// IsStreamable reports whether this transport supports streaming responses
-	// (e.g. text/event-stream).
-	IsStreamable() bool
-
-	// Name identifies this transport for logging and debugging.
-	Name() string
-}
-```
-This library also has a reliance on HTTP. While this is useful for applications like Moat or OONI that currently use and require HTTP for API calls, it requires applications to use HTTP as the carrier protocol. We made [an intentional decision in Snowflake to remove reliance on HTTP](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/29293) because of HTTP-like channels like AMP cache that do not reliably pass status codes. This doesn't prevent us from tunneling another HTTP layer inside of HTTP channels like domain fronting and AMP cache, and this would be necessary to achieve E2E encryption and integrity, but it's annoying to need this extra layer.
-
-HTTP also limits applications to bidirectional channels only.
-
-The policy of trying all configured tunnels and selecting the first response is interesting and raises an idea of exposing a library feature that allows an application to define some sort of fallback policy. There are risks to trying everything at once, but we could expose options like "try these sequentially in this order" or "try this group serially first and then this other group".
