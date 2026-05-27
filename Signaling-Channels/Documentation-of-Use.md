@@ -244,7 +244,13 @@ An easy way to do this could be to have clients asymmetrically encrypt the initi
 
 ### Preservation of client IP
 
-Tor uses client IP addresses for metrics, circumvention settings, and anti-DoS features. Many signaling channels do not have an easy or trusted way of preserving client IP addresses.
+Applications of signalling channels use client IP addresses for metrics, circumvention settings, and anti-enumeration features. Many signaling channels do not have an easy or trusted way of preserving client IP addresses.
+
+Not all of these use-cases requires trust. Geo-location for circumvention settings are in a client's best interest to provide an honest and accurate IP address. Some options are to take the same route as Conjure and use an additional STUN request to get the client's public IP address. We could also prompt the user to manually provide their country code, as Tor Browser does at a late stage in the autoconnect flow, or fetch locale information from the user's device.
+
+For metrics, the impact of attacker-spoofed IP addresses is probably fairly low compared the majority of honest clients.
+
+For anti-enumeration features, IP addresses as unique identifiers should probably be replaced with some other means of preventing enumeration.
 
 ### Compression
 
