@@ -28,9 +28,16 @@ Implementation:
 
 # AWS SQS queue
 
-* tpo/anti-censorship/pluggable-transports/snowflake!214
-* paper: https://www.petsymposium.org/foci/2024/foci-2024-0009.php
+SQS is a queue service to send and receive messages between web services run by Amazon's AWS. The clients communicate with a generic domain name, so no account can be identified just by observing the connections and censors either block the whole service or allows the SQS channel.
+
+Similar services are available in other cloud providers like [azure](https://learn.microsoft.com/en-us/azure/architecture/aws-professional/messaging#simple-queue-service), but they haven't been explored to see if they could be used the same way.
+
+Papers:
+* https://www.petsymposium.org/foci/2024/foci-2024-0009.php
 * https://www.bamsoftware.com/papers/snowflake/#p22
+
+Implementation:
+* tpo/anti-censorship/pluggable-transports/snowflake!214
 
 # DNS
 
