@@ -125,6 +125,14 @@ type Registrar interface {
 }
 ```
 
+### OONI
+
+OONI uses domain fronting to send measurements from probes to the backend.
+
+##### Go implementation
+
+At the probe, this is implemented simply by [manually setting the URL hostname and HTTP HOST headers](https://github.com/ooni/probe-cli/blob/c52ce3b50893e650c8e60490343e7a7892c00d64/internal/probeservices/probeservices.go#L110). This requires no server side changes, and measurement submissions are conducted via API requests over HTTP.
+
 ### Unidirectional updates (proposed)
 
 - https://people.torproject.org/~cohosh/push-notifications.html
