@@ -4,7 +4,7 @@ Documentation on our use of signaling channels
 
 # Anticensorship Signaling Channel Usage
 
-Each pluggable transport has its own way of obtaining configuration and endpoint information (such as bridge lines or snowflake proxies). This has lead to a tight coupling between the APIs used to obtain this information and the communication mechanism (**signaling channel**) used to access this API.
+Each pluggable transport has its own way of obtaining configuration and endpoint information (such as bridge lines or snowflake proxies). This has led to a tight coupling between the APIs used to obtain this information and the communication mechanism (**signaling channel**) used to access this API.
 
 When pluggable transports are censored, they can be censored by blocking endpoints or by blocking access to this API.
 
@@ -13,6 +13,8 @@ We want to make it harder to block access to these configuration APIs, by enabli
 In order to accomplish this, we need to have a good map of how our PTs use configuration APIs, and how this API usage is currently coupled to signaling channel usage, so that we can decouple these components.
 
 Therefore, this document has two main sections. The first section covers the configuration APIs used by PT implementations, along with their current hardcoded signaling channel usage. The second section covers signaling channels in general, listing various implementation options available, their properties, and their censorship history.
+
+This document additionally has a top-level section to categorize important features of signaling channels, and another top-level section to list libraries that implement multiple signaling channels via an abstraction layer. (TODO: Can we merge the features section into the methods section?)
 
 ## Network APIs in Use
 
@@ -147,14 +149,11 @@ OONI uses domain fronting to send measurements from probes to the backend.
 
 At the probe, this is implemented simply by [manually setting the URL hostname and HTTP HOST headers](https://github.com/ooni/probe-cli/blob/c52ce3b50893e650c8e60490343e7a7892c00d64/internal/probeservices/probeservices.go#L110). This requires no server side changes, and measurement submissions are conducted via API requests over HTTP.
 
-### Unidirectional updates (proposed)
+## Signaling Channel Methods
 
-- https://people.torproject.org/~cohosh/push-notifications.html
-
-## Signaling channel implementations
-
-This section enumerates active and promising signaling channels, as well as
-independent implementations.
+This section enumerates active and promising signaling channel methods
+(sometimes called signaling channel transports), as well as independent
+implementations of these methods.
 
 ### Domain Fronting
 
@@ -216,43 +215,17 @@ There is pretty severe rate limiting for AMP cache requests, seemingly based on 
 
 Does not preserve the client IP address or provide a way to individualize clients.
 
-### Kindling
+### DNSTT
 
-[Kindling](https://github.com/getlantern/kindling) is a Lantern library for making HTTP requests through one of several supported tunnels. Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
+TODO: Document DNSTT
 
-Kindling returns an [`http.Client`](https://pkg.go.dev/net/http#Client) that can be used to make HTTP requests through the configured tunnels to an arbitrary address. One downside to this is that even though `NewRoundTripper` can be used to attempt a connection to an arbitrary address, most tunnels will have a fairly restrictive set of addresses they can connect to. For example, domain fronting tunnels through CDN77 will only support connections to other URLs hosted on the same cloud provider.
+### Unidirectional updates (proposed)
 
-New transports must implement the [`Transport`](https://github.com/getlantern/kindling/blob/a9712f95df034fcd4b8fd2eca9e7cc8ab61339a6/kindling.go#L48) interface
-```golang
-// Transport defines a censorship circumvention transport that can be used by Kindling.
-type Transport interface {
-	// NewRoundTripper creates a pre-connected http.RoundTripper. Implementations
-	// should complete the connection before returning so that the race transport
-	// can try requests serially without paying connection latency.
-	NewRoundTripper(ctx context.Context, addr string) (http.RoundTripper, error)
+- https://people.torproject.org/~cohosh/push-notifications.html
 
-	// MaxLength returns the maximum request body size this transport supports.
-	// Zero means no limit.
-	MaxLength() int
+### TODO: Enumerate more signaling channel methods here
 
-	// IsStreamable reports whether this transport supports streaming responses
-	// (e.g. text/event-stream).
-	IsStreamable() bool
-
-	// Name identifies this transport for logging and debugging.
-	Name() string
-}
-```
-This library also has a reliance on HTTP. While this is useful for applications like Moat or OONI that currently use and require HTTP for API calls, it requires applications to use HTTP as the carrier protocol. We made [an intentional decision in Snowflake to remove reliance on HTTP](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/29293) because of HTTP-like channels like AMP cache that do not reliably pass status codes. This doesn't prevent us from tunneling another HTTP layer inside of HTTP channels like domain fronting and AMP cache, and this would be necessary to achieve E2E encryption and integrity, but it's annoying to need this extra layer.
-
-HTTP also limits applications to bidirectional channels only.
-
-The policy of trying all configured tunnels and selecting the first response is interesting and raises an idea of exposing a library feature that allows an application to define some sort of fallback policy. There are risks to trying everything at once, but we could expose options like "try these sequentially in this order" or "try this group serially first and then this other group".
-
-### Other signalling channel library implementations
-
-- [Outline SDK](https://github.com/OutlineFoundation/outline-sdk/tree/main)
-- [Raceboat](https://github.com/tst-race/raceboat/)
+TODO: TODO
 
 ## Common features of signaling channels
 
@@ -308,6 +281,53 @@ For anti-enumeration features, IP addresses as unique identifiers should probabl
 ### Compression
 
 Compression is an optional step that can be used to reduce the size of messages sent via signalling channels to fit within constraints of that channel. See the [analysis of compressing Snowflake rendezvous messages](https://lists.torproject.org/mailman3/hyperkitty/list/anti-censorship-team@lists.torproject.org/thread/ZK3KJ6F3BCJRVNS55BMB6MXQNTTEFRTB/).
+
+## Other signalling channel library implementations
+
+This section documents libraries that implement multiple signaling channel
+methods. We can use these libraries for reference, since their use-case is
+very similar to what we need.
+
+### Kindling
+
+[Kindling](https://github.com/getlantern/kindling) is a Lantern library for making HTTP requests through one of several supported tunnels. Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
+
+Kindling returns an [`http.Client`](https://pkg.go.dev/net/http#Client) that can be used to make HTTP requests through the configured tunnels to an arbitrary address. One downside to this is that even though `NewRoundTripper` can be used to attempt a connection to an arbitrary address, most tunnels will have a fairly restrictive set of addresses they can connect to. For example, domain fronting tunnels through CDN77 will only support connections to other URLs hosted on the same cloud provider.
+
+New transports must implement the [`Transport`](https://github.com/getlantern/kindling/blob/a9712f95df034fcd4b8fd2eca9e7cc8ab61339a6/kindling.go#L48) interface
+```golang
+// Transport defines a censorship circumvention transport that can be used by Kindling.
+type Transport interface {
+	// NewRoundTripper creates a pre-connected http.RoundTripper. Implementations
+	// should complete the connection before returning so that the race transport
+	// can try requests serially without paying connection latency.
+	NewRoundTripper(ctx context.Context, addr string) (http.RoundTripper, error)
+
+	// MaxLength returns the maximum request body size this transport supports.
+	// Zero means no limit.
+	MaxLength() int
+
+	// IsStreamable reports whether this transport supports streaming responses
+	// (e.g. text/event-stream).
+	IsStreamable() bool
+
+	// Name identifies this transport for logging and debugging.
+	Name() string
+}
+```
+This library also has a reliance on HTTP. While this is useful for applications like Moat or OONI that currently use and require HTTP for API calls, it requires applications to use HTTP as the carrier protocol. We made [an intentional decision in Snowflake to remove reliance on HTTP](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/29293) because of HTTP-like channels like AMP cache that do not reliably pass status codes. This doesn't prevent us from tunneling another HTTP layer inside of HTTP channels like domain fronting and AMP cache, and this would be necessary to achieve E2E encryption and integrity, but it's annoying to need this extra layer.
+
+HTTP also limits applications to bidirectional channels only.
+
+The policy of trying all configured tunnels and selecting the first response is interesting and raises an idea of exposing a library feature that allows an application to define some sort of fallback policy. There are risks to trying everything at once, but we could expose options like "try these sequentially in this order" or "try this group serially first and then this other group".
+
+### Other Signaling Channel Libraries
+
+TODO: Expand/make dedicated sub-sections
+
+- [Outline SDK](https://github.com/OutlineFoundation/outline-sdk/tree/main)
+- [Raceboat](https://github.com/tst-race/raceboat/)
+
 
 ## Timeline of censorship events affecting signaling channels
 
