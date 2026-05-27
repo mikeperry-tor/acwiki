@@ -139,9 +139,17 @@ At the probe, this is implemented simply by [manually setting the URL hostname a
 
 # Signaling channel implementations
 
-Rather than fully document how each signalling channel works, this documentation will cover important features or constraints on the signalling channels we already have in use.
+Rather than fully document how each signalling channel works, this documentation will cover configuration details, important features, and constraints on the signalling channels we already have in use.
 
 ### Domain fronting
+
+##### Configuration
+
+- Front: URL visible to censor, to go in the TLS SNI and DNS requests (e.g., `cdn.zk.mk`)
+- Host: reflector URL that points to the signalling server, created by making an account with the cloud provider (e.g., `https://1098762253.rsc.cdn77.org`)
+- (optional) UTLS settings
+
+##### Features
 
 - **price:** varies by provider, pricey as a full channel but reasonable as a signalling channel
 
@@ -149,6 +157,8 @@ Rather than fully document how each signalling channel works, this documentation
   - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/webtunnel/-/work_items/60+
   - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek/-/work_items/40006+
   - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/40451+
+
+- **fingerprinting resistance via UTLS**
 
 ### Amazon SQS
 
@@ -166,6 +176,13 @@ There is a size limit to SQS requests. From the [SQS documentation](https://docs
 Another option is to send signalling data over multiple messages using one of the reliability layers discussed below.
 
 ### AMP Cache
+
+##### Configuration
+
+- (optional front) Front: URL visible to censor, similar to domain fronting, can hide that you are using AMP cache (e.g., `www.google.com`)
+- AMP cache URL: URL to AMP server (e.g., `https://cdn.ampproject.org/`
+- Host: URL of signalling server (e.g., `https://snowflake-broker.torproject.net/`)
+- (optional) UTLS settings
 
 - **price:** free
 
