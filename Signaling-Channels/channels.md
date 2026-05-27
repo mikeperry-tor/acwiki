@@ -1,8 +1,6 @@
 ---
-title: Ideas of Signaling Channels
+title: Ideas of Channels
 ---
-A list of ideas for signaling channels.
-
 [TOC]
 
 # domain fronting
