@@ -292,4 +292,6 @@ type Transport interface {
 	Name() string
 }
 ```
-This library also has a reliance on HTTP. While this is useful for applications like Moat or OONI that currently use and require HTTP for API calls, it requires applications to use HTTP as the carrier protocol. We made [an intentional decision in Snowflake to remove reliance on HTTP](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/29293) because of HTTP-like channels like AMP cache that do not reliably pass status codes. HTTP also limits applications to bidirectional channels only.
+This library also has a reliance on HTTP. While this is useful for applications like Moat or OONI that currently use and require HTTP for API calls, it requires applications to use HTTP as the carrier protocol. We made [an intentional decision in Snowflake to remove reliance on HTTP](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/29293) because of HTTP-like channels like AMP cache that do not reliably pass status codes. This doesn't prevent us from tunneling another HTTP layer inside of HTTP channels like domain fronting and AMP cache, and this would be necessary to achieve E2E encryption and integrity, but it's annoying to need this extra layer.
+
+HTTP also limits applications to bidirectional channels only.
