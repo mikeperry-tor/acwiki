@@ -162,6 +162,13 @@ Rather than fully document how each signalling channel works, this documentation
 
 ### Amazon SQS
 
+##### Configuration
+
+- server queue name: Queue name that clients have write-only access to send data to the server (e.g., `https://sqs.us-east-2.amazonaws.com/490393006362/snowflake-broker`)
+- client queue name prefix: Prefix used to randomly generate single-use client queues for server responses (e.g., `https://sqs.us-east-2.amazonaws.com/490393006362/snowflake-client-*`)
+- sqs credentials for client: AWS key and secret for a client IAM user with write-only access to the server queue and read access for client queue prefixes. Must be encoded to prevent triggering AWS's lockdown of the account. Base64 has been sufficient in the past.
+
+##### Features
 - **price:** similar to domain fronting, see this [cost analysis of SQS](https://lists.torproject.org/mailman3/hyperkitty/list/anti-censorship-team@lists.torproject.org/message/T5REPCMJJFK3TGVYNSDCU3WT7SQDARPB/).
 
 ##### Constraints
@@ -183,6 +190,8 @@ Another option is to send signalling data over multiple messages using one of th
 - AMP cache URL: URL to AMP server (e.g., `https://cdn.ampproject.org/`
 - Host: URL of signalling server (e.g., `https://snowflake-broker.torproject.net/`)
 - (optional) UTLS settings
+
+##### Features
 
 - **price:** free
 
