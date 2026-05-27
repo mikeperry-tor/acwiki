@@ -265,3 +265,35 @@ Censorship events are a useful learning experience and tell us what changes, con
 - [Outline SDK](https://github.com/OutlineFoundation/outline-sdk/tree/main)
 - [Lantern's Kindling](https://github.com/getlantern/kindling)
 - [Raceboat](https://github.com/tst-race/raceboat/)
+
+### Kindling
+
+Kindling is a library for making HTTP requests through one of several supported tunnels. Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
+
+Kindling returns an [`http.Client`](https://pkg.go.dev/net/http#Client) that can be used to make HTTP requests through the configured tunnels to an arbitrary address.
+
+New transports must implement the [`Transport`](https://github.com/getlantern/kindling/blob/a9712f95df034fcd4b8fd2eca9e7cc8ab61339a6/kindling.go#L48) interface
+```golang
+// Transport defines a censorship circumvention transport that can be used by Kindling.
+type Transport interface {
+	// NewRoundTripper creates a pre-connected http.RoundTripper. Implementations
+	// should complete the connection before returning so that the race transport
+	// can try requests serially without paying connection latency.
+	NewRoundTripper(ctx context.Context, addr string) (http.RoundTripper, error)
+
+	// MaxLength returns the maximum request body size this transport supports.
+	// Zero means no limit.
+	MaxLength() int
+
+	// IsStreamable reports whether this transport supports streaming responses
+	// (e.g. text/event-stream).
+	IsStreamable() bool
+
+	// Name identifies this transport for logging and debugging.
+	Name() string
+}
+```
+
+##### Limitations
+- reliance on HTTP: on the other hand, this is useful for applications like Moat or OONI that currently use and require HTTP for API calls
+- supports bidirectional only
