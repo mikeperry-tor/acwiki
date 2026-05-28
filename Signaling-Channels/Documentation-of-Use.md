@@ -4,41 +4,53 @@ Documentation on our use of signaling channels
 
 # Anticensorship Signaling Channel Usage
 
-When pluggable transports are censored, they are censored either by blocking endpoints, or by blocking access to configuration and endpoint distribution.
+When circumvention clients are censored, they are censored either by blocking data transport endpoints (bridges), or by blocking access to configuration and endpoint distribution channels.
 
 Additionally, configuration and endpoint distribution mechanisms can be blocked by the termination of service by a given hosting provider.
 
-We want to make it harder to block configuration and endpoint distribution, by enabling configuration to use multiple signaling channels.
+## Introduction
 
-## Terminology
+We want to make it harder to block configuration and endpoint distribution, by enabling configuration to use multiple different signaling channels easily.
 
-**Internal PT API** - This is the programmatic inferface used inside a PT client implementation to obtain configuration and endpoint information. These APIs are currently ad-hoc by PT implementation and tightly bound (no explicit API contract or reusable libraries).
+### Terminology
 
-**Network RPC API** - This is the RPC API used over the network to obtain configuration and endpoint information (ex: HTTP POST, JSONRPC, SDP, Telegram message keywords).
+**Internal API Implementations** - This is the internal programmatic inferface used inside a circumvention client implementation to obtain configuration and endpoint information. These internal implementations are currently ad-hoc by circumvention client and tightly coupled (no explicit API contract or reusable component libraries).
 
-**Signaling Channel** - This is the obfuscated communication channel used by the **Network RPC API** (ex: Domain Fronting, AMPCache, AWS SQS, DNS, Blockchain, etc).
+**Network API** - This is the API format used over the network to obtain configuration and endpoint information (ex: HTTP POST endpoints, JSONRPC, Protobuf, SDP, chat message keywords).
 
-## Status Quo
+**Configuration Message** - This is the kind of configuration and endpoint information that a circumvention client needs to obtain (bridge lines, snowflake proxies, Conjure tokens)
 
-Each pluggable transport has its own way of obtaining configuration and endpoint information (such as bridge lines or snowflake proxies). This has led to a tight coupling between the **Network RPC API** used to obtain this information and the **Signaling Channel** used to access this **Network RPC API**. Additionally, there are many implementations of both **Network RPC APIs** and **Signaling Channels**, using ad-hoc **Internal PT APIs** rather than standalone libraries.
+**Signaling Channel** - This is the obfuscated communication channel used by the **Network API**(ex: Domain Fronting, AMP Cache, AWS SQS, DNS, Blockchain, Telegram, etc).
 
-This means that when censorship events happen, multiple different implementation components need to be updated, across many different apps.
+### Status Quo
 
-## Goal
+Each circumvention mechanism has its own way of obtaining **Configuration Messages**. This has led to a tight coupling between the **Signaling Channel** used to send **Network API** requests to obtain **Configuration Messages**. Additionally, there are many **Internal API Implementations** of both **Network APIs** and **Signaling Channels**, using ad-hoc custom interfaces rather than standalone libraries.
 
-There are currently two layers of tight coupling in most pluggable transport implementations:
+This means that when censorship events of endpoint distribution happen (or when hosting providers terminate service), multiple different implementation components need to be updated, across many different apps.
 
-1. **Internal PT API Coupling** - Each implementation of a PT client reimplements the entire mechanism by which it obtains configuration and endpoint information, including both the **Signaling Channel** and the **Network RPC API** over which it obtains this information. It is currently difficult to extract either the signaling channel obfuscation or configuration retrieval mechanism from one PT and use it in another (should one signaling channel implementation be censored by DPI fingerprint, and not another).
+### Architectural Problem
 
-2. **Network RPC API Coupling** - The Network RPC API (eg HTTP POST, JSONRPC, SDP, Telegram message, etc) used to retrieve configuration and endpoint information is currently tightly coupled to a given **Signaling Channel**.
+The core problem is that **Signaling Channels** are a primary censorship target, yet it is not easy to swap the **Signaling Channel** in use by a particular circumvention client.
 
-By enumerating how our different apps use **Network RPC APIs** to obtain configuration information via specific **Signaling Channels**, we can design an appropriate library abstraction so that different **Network RPC APIs** can be used over different **Signaling Channels**.
+There are three major kinds of tight coupling in most circumvention clients that make this difficult:
 
-## Network RPC APIs in Use
+1. **Internal API Coupling** - Most circumvention clients reimplement the entire mechanism by which it obtains **Configuration Messages**, including both the **Signaling Channel** and the **Network API** over which it obtains this information, often combined together in the same component. It is currently difficult to extract the signaling channel from one client and use it in another (should one signaling channel implementation be censored by DPI fingerprint, but another is not).
 
-This section lists the Network RPC APIs (eg HTTP POST, JSONRPC, SDP, etc) that our various PTs and applications use for transmitting configuration information, along with the signaling channels used by each implementation.
+2. **Network API Coupling** - The Network API (eg HTTP POST, JSONRPC, Protobuf, SDP, chat message keyword, etc) used to obtain **Configuration Messages** is often tightly coupled to a given **Signaling Channel** implementation.
 
-### Moat Circumvention Settings API
+3. **Configuration Message Coupling** - Some circumvention clients do have relatively clean internal APIs that decouple **Network APIs** from **Signaling Channels** for their own configuration message data structures, but they do not generalize to other kinds of **Configuration Messages**
+
+### Goal
+
+Our goal is to design a general purpose **Sigaling Channel** library that can be used with multiple different **Network APIs** and **Configuration Messages**, across multiple different circumvention clients and applications.
+
+By enumerating how our different apps currently obtain **Configuration messages** via **Network APIs** using their custom **Signaling Channel** implementations, we can design an appropriate library abstraction so that different kinds of circumvention clients can swap their use of **Signaling Channels** to send their **Network API** messages.
+
+## Network APIs in Use
+
+This section lists the Network APIs (eg HTTP POST, JSONRPC, SDP, etc) that our applications use for transmitting configuration information, along with the signaling channels used by each implementation.
+
+### Moat Circumvention Settings API (JSONRPC)
 
 We provide a [Moat API](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md) for applications to fetch bridges and circumvention settings from rdsys. This API is currently bidirectional in censored environments, requiring applications to send a request for bridges or settings.
 
@@ -72,7 +84,7 @@ Orbot supports both domain fronting through meek and dnstt as signaling channels
 
 On the server side, Moat connections are received by a [tor-less meek server](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Moat), with the client IP captured and passed to rdsys through an `ExtOrPort` connection to a [shim](https://gitlab.torproject.org/tpo/anti-censorship/moat-shim). These HTTP requests and responses are then handled by the web server.
 
-### Snowflake rendezvous
+### Snowflake rendezvous (SDP)
 
 Snowflake clients use signaling channels to get matched with an available proxy and perform WebRTC signaling in what is called a [rendezvous step](https://www.bamsoftware.com/papers/snowflake/#rendezvous). This requires a single round-trip communication with the Snowflake broker. The client rendezvous protocol is documented in the [messages package](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/common/messages/client.go). The majority of the message consists of a [SDP offer](https://datatracker.ietf.org/doc/html/rfc3264) and sits between 1KB-2KB in size.
 
@@ -129,7 +141,7 @@ type RendezvousMethod interface {
 ```
 which takes a byte slice of the JSON encoded `ClientPollRequest` and returns a byte slice of the JSON encoded `ClientPollResponse` or `error`.
 
-### Conjure Registration API
+### Conjure Registration API (Protobuf)
 
 [Conjure](https://jhalderm.com/pub/papers/conjure-ccs19.pdf) uses bidirectional signaling channels for the client registration step, during which clients are assigned a phantom proxy IP address. Conjure registrations happen at startup for each Conjure connection.
 
@@ -137,7 +149,14 @@ Conjure uses [protobufs to encode registration messages](https://github.com/refr
 
 Conjure requires the client IP address for registration purposes. Without it, the station is unable to map an incoming client connection to a phantom proxy registration, and the connection to the phantom proxy will fail. This provides some built-in active probing resistance, but also presents challenges for registration channels that do not naturally preserve the client IP. To solve this, Conjure has clients [use STUN to discover their public IP address](https://github.com/refraction-networking/conjure/blob/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/pkg/registrars/registration/dns-registrar.go#L219) and send the discovered IP in the registration message. This can be easily spoofed, but not in a way that allows clients to successfully connect to phantom proxies.
 
-#### Conjure Go implementation
+The registration methods themselves can be sent over multiple diffeent kinds of signaling channels:
+  - Domain Fronting
+  - AMP Cache
+  - DNS (single record request+response)
+
+#### Conjure Signaling Channel Abstraction
+
+Conjure has a decent internal abstraction for signaling channels, but it is coupled to the kinds of registration messages that it needs to send.
 
 The server side of Conjure signaling channels are implemented in the [registration-server](https://github.com/refraction-networking/conjure/tree/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/cmd/registration-server) application. Each signaling channel implements the `registrar` interface
 ```golang
@@ -296,7 +315,7 @@ Does not preserve the client IP address or provide a way to individualize client
 
 ### DNS
 
-DNS is an excellent example of a signaling channel that needs to add reliability, fragmentation, framing (eg HTTP or JSONRPC), and possibly encryption in order to work with arbitrary **Network RPC APIs**. However, this has been done by several implementations:
+DNS is an excellent example of a signaling channel that needs to add reliability, fragmentation, framing (eg HTTP or JSONRPC), and possibly encryption in order to work with arbitrary **Network APIs**. However, this has been done by several implementations:
 
 - https://www.bamsoftware.com/software/dnstt/
 - https://github.com/EndPositive/slipstream/
@@ -306,13 +325,17 @@ DNS is an excellent example of a signaling channel that needs to add reliability
 
 Gettor bots hand out bridge lines to users in response to specific keywords over email and telegram.
 
-It is possible to expand these bots to handle more complex Network RPC traffic than just keywords and bridge lines.
+It is possible to expand these bots to handle more complex Network API traffic than just keywords and bridge lines.
 
-### Unidirectional updates (proposed)
+### Push Notifications
 
-- https://people.torproject.org/~cohosh/push-notifications.html
+Push notifications can be used to send unidirectional updates to clients, after a registration step.
+
+See: https://people.torproject.org/~cohosh/push-notifications.html
 
 ### Research Methods
+
+Additional research methods are documented in:
 
 - https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Signaling-Channels/channels
 
@@ -321,11 +344,11 @@ It is possible to expand these bots to handle more complex Network RPC traffic t
 This section documents libraries that implement multiple signaling channel
 methods. We can use these libraries for reference, since their use-case is
 very similar to what we need, but their inferfaces are still often too tightly
-coupled to specific **Network RPC APIs**.
+coupled to specific **Network APIs**.
 
 ### Kindling
 
-[Kindling](https://github.com/getlantern/kindling) is a Lantern library for making HTTP requests through one of several supported tunnels. It is an excellent example of a signaling channel library that overfit its design to HTTP-specific **Network RPC APIs**, rather than providing an arbitrary communication channel.
+[Kindling](https://github.com/getlantern/kindling) is a Lantern library for making HTTP requests through one of several supported tunnels. It is an excellent example of a signaling channel library that overfit its design to HTTP-specific **Network APIs**, rather than providing an arbitrary communication channel.
 
 Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
 
