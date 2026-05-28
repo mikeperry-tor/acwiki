@@ -2,13 +2,59 @@ Documentation on our use of signaling channels
 
 [[_TOC_]]
 
-# Applications of signaling channels
+# Anticensorship Signaling Channel Usage
 
-### Moat / Circumvention Settings API
+When circumvention clients are censored, they are censored either by blocking data transport endpoints (bridges), or by blocking access to configuration and endpoint distribution channels.
 
-We expose a [Moat API](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md) for applications to fetch bridges and circumvention settings from rdsys. This API is currently bidirectional, requiring applications to send a request for bridges or settings.
+Additionally, configuration and endpoint distribution mechanisms can be blocked by the termination of service by a given hosting provider.
 
-This [API is already well documented](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md#circumventionsettings). Request and response sizes vary by endpoint, but are fairly small. A typical flow could involve 1-3 round trips when users first start the application, select an auto config option, or fail to bootstrap Tor: the first to request recommending settings for the user's country. If the user is supplied one or more working bridge lines, the flow ends there. If the user falls back on default settings, those settings can be fetched in 1 additional round trip. If the user decides to manually fetch a bridge, they will need to complete a captcha challenge in 2 round trips.
+## Introduction
+
+We want to make it harder to block configuration and endpoint distribution, by enabling configuration to use multiple different signaling channels easily.
+
+### Terminology
+
+**Internal API Implementations** - This is the internal programmatic inferface used inside a circumvention client implementation to obtain configuration and endpoint information. These internal implementations are currently ad-hoc by circumvention client and tightly coupled (no explicit API contract or reusable component libraries).
+
+**Network API** - This is the API format used over the network to obtain configuration and endpoint information (ex: HTTP POST endpoints, JSONRPC, Protobuf, SDP, chat message keywords).
+
+**Configuration Message** - This is the kind of configuration and endpoint information that a circumvention client needs to obtain (bridge lines, snowflake proxies, Conjure tokens)
+
+**Signaling Channel** - This is the obfuscated communication channel used by the **Network API**(ex: Domain Fronting, AMP Cache, AWS SQS, DNS, Blockchain, Telegram, etc).
+
+### Status Quo
+
+Each circumvention mechanism has its own way of obtaining **Configuration Messages**. This has led to a tight coupling between the **Signaling Channel** used to send **Network API** requests to obtain **Configuration Messages**. Additionally, there are many **Internal API Implementations** of both **Network APIs** and **Signaling Channels**, using ad-hoc custom interfaces rather than standalone libraries.
+
+This means that when censorship events of endpoint distribution happen (or when hosting providers terminate service), multiple different implementation components need to be updated, across many different apps.
+
+### Architectural Problem
+
+The core problem is that **Signaling Channels** are a primary censorship target, yet it is not easy to swap the **Signaling Channel** in use by a particular circumvention client.
+
+There are three major kinds of tight coupling in most circumvention clients that make this difficult:
+
+1. **Internal API Coupling** - Most circumvention clients reimplement the entire mechanism by which it obtains **Configuration Messages**, including both the **Signaling Channel** and the **Network API** over which it obtains this information, often combined together in the same component. It is currently difficult to extract the signaling channel from one client and use it in another (should one signaling channel implementation be censored by DPI fingerprint, but another is not).
+
+2. **Network API Coupling** - The Network API (eg HTTP POST, JSONRPC, Protobuf, SDP, chat message keyword, etc) used to obtain **Configuration Messages** is often tightly coupled to a given **Signaling Channel** implementation.
+
+3. **Configuration Message Coupling** - Some circumvention clients do have relatively clean internal APIs that decouple **Network APIs** from **Signaling Channels** for their own configuration message data structures, but they do not generalize to other kinds of **Configuration Messages**
+
+### Goal
+
+Our goal is to design a general purpose **Sigaling Channel** library that can be used with multiple different **Network APIs** and **Configuration Messages**, across multiple different circumvention clients and applications.
+
+By enumerating how our different apps currently obtain **Configuration messages** via **Network APIs** using their custom **Signaling Channel** implementations, we can design an appropriate library abstraction so that different kinds of circumvention clients can swap their use of **Signaling Channels** to send their **Network API** messages.
+
+## Network APIs in Use
+
+This section lists the Network APIs (eg HTTP POST, JSONRPC, SDP, etc) that our applications use for transmitting configuration information, along with the signaling channels used by each implementation.
+
+### Moat Circumvention Settings API (JSONRPC)
+
+We provide a [Moat API](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md) for applications to fetch bridges and circumvention settings from rdsys. This API is currently bidirectional in censored environments, requiring applications to send a request for bridges or settings.
+
+This [API is well documented](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md#circumventionsettings). Request and response sizes vary by endpoint, but are fairly small. A typical flow could involve 1-3 round trips when users first start the application, select an auto config option, or fail to bootstrap Tor: the first to request recommending settings for the user's country. If the user is supplied one or more working bridge lines, the flow ends there. If the user falls back on default settings, those settings can be fetched in 1 additional round trip. If the user decides to manually fetch a bridge, they will need to complete a captcha challenge in 2 round trips.
 
 The largest requests for any of these endpoints are typically less than 500 bytes. The largest potential response is likely from fetching the entire [circumvention settings map](https://gitlab.torproject.org/tpo/anti-censorship/rdsys-admin/-/blob/0061ce86ee2dfc8c451a78d28d0ef09e4ed7f36e/conf/circumvention.json) which is currently 9KB but could easily grow if more countries require bespoke censorship settings. Responses with just bridge lines will usually fit in under 1KB.
 
@@ -38,7 +84,7 @@ Orbot supports both domain fronting through meek and dnstt as signaling channels
 
 On the server side, Moat connections are received by a [tor-less meek server](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Moat), with the client IP captured and passed to rdsys through an `ExtOrPort` connection to a [shim](https://gitlab.torproject.org/tpo/anti-censorship/moat-shim). These HTTP requests and responses are then handled by the web server.
 
-### Snowflake rendezvous
+### Snowflake rendezvous (SDP)
 
 Snowflake clients use signaling channels to get matched with an available proxy and perform WebRTC signaling in what is called a [rendezvous step](https://www.bamsoftware.com/papers/snowflake/#rendezvous). This requires a single round-trip communication with the Snowflake broker. The client rendezvous protocol is documented in the [messages package](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/common/messages/client.go). The majority of the message consists of a [SDP offer](https://datatracker.ietf.org/doc/html/rfc3264) and sits between 1KB-2KB in size.
 
@@ -95,7 +141,7 @@ type RendezvousMethod interface {
 ```
 which takes a byte slice of the JSON encoded `ClientPollRequest` and returns a byte slice of the JSON encoded `ClientPollResponse` or `error`.
 
-### Conjure Registration
+### Conjure Registration API (Protobuf)
 
 [Conjure](https://jhalderm.com/pub/papers/conjure-ccs19.pdf) uses bidirectional signaling channels for the client registration step, during which clients are assigned a phantom proxy IP address. Conjure registrations happen at startup for each Conjure connection.
 
@@ -103,7 +149,14 @@ Conjure uses [protobufs to encode registration messages](https://github.com/refr
 
 Conjure requires the client IP address for registration purposes. Without it, the station is unable to map an incoming client connection to a phantom proxy registration, and the connection to the phantom proxy will fail. This provides some built-in active probing resistance, but also presents challenges for registration channels that do not naturally preserve the client IP. To solve this, Conjure has clients [use STUN to discover their public IP address](https://github.com/refraction-networking/conjure/blob/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/pkg/registrars/registration/dns-registrar.go#L219) and send the discovered IP in the registration message. This can be easily spoofed, but not in a way that allows clients to successfully connect to phantom proxies.
 
-##### Go implementation
+The registration methods themselves can be sent over multiple diffeent kinds of signaling channels:
+  - Domain Fronting
+  - AMP Cache
+  - DNS (single record request+response)
+
+#### Conjure Signaling Channel Abstraction
+
+Conjure has a decent internal abstraction for signaling channels, but it is coupled to the kinds of registration messages that it needs to send.
 
 The server side of Conjure signaling channels are implemented in the [registration-server](https://github.com/refraction-networking/conjure/tree/3d8b86cfcc24e0245ccf60dda4f23d3cf5303dca/cmd/registration-server) application. Each signaling channel implements the `registrar` interface
 ```golang
@@ -125,95 +178,31 @@ type Registrar interface {
 }
 ```
 
-### OONI
+### OONI Probe Measurement Result APIs
 
 OONI uses domain fronting to send measurements from probes to the backend.
 
-##### Go implementation
+#### OONI Client Go implementation
 
 At the probe, this is implemented simply by [manually setting the URL hostname and HTTP HOST headers](https://github.com/ooni/probe-cli/blob/c52ce3b50893e650c8e60490343e7a7892c00d64/internal/probeservices/probeservices.go#L110). This requires no server side changes, and measurement submissions are conducted via API requests over HTTP.
 
-### Unidirectional updates (proposed)
+## Properties of signaling channels
 
-- https://people.torproject.org/~cohosh/push-notifications.html
+These are some key properties of signaling channels. Not all combinations of uses and channels will require all features, and some channels have these features built-in. Others will require a separate layer to support these properties.
 
-# Signaling channel implementations
+### Directionality
 
-Rather than fully document how each signalling channel works, this documentation will cover configuration details, important features, and constraints on the signalling channels we already have in use.
-
-### Domain fronting
-
-##### Configuration
-
-- Front: URL visible to censor, to go in the TLS SNI and DNS requests (e.g., `cdn.zk.mk`)
-- Host: reflector URL that points to the signalling server, created by making an account with the cloud provider (e.g., `https://1098762253.rsc.cdn77.org`)
-- (optional) UTLS settings
-
-##### Features
-
-- **price:** varies by provider, pricey as a full channel but reasonable as a signalling channel
-
-- **preservation of client IP:** sort of, the IP address of the client will be appended to the X-Forwarded-For header by whatever 3rd party is doing the fronting. But, since the server is just HTTP, clients may also make a direct request to the server and add a spoofed address to this header. Locking this down would require some kind of allow list of trusted cloud provider IPs from which to trust the X-Forwarded-For header, but this is a potentially difficult list to keep up to date. See recent discusison in
-  - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/webtunnel/-/work_items/60+
-  - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek/-/work_items/40006+
-  - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/40451+
-
-- **fingerprinting resistance via UTLS**
-
-### Amazon SQS
-
-##### Configuration
-
-- server queue name: Queue name that clients have write-only access to send data to the server (e.g., `https://sqs.us-east-2.amazonaws.com/490393006362/snowflake-broker`)
-- client queue name prefix: Prefix used to randomly generate single-use client queues for server responses (e.g., `https://sqs.us-east-2.amazonaws.com/490393006362/snowflake-client-*`)
-- sqs credentials for client: AWS key and secret for a client IAM user with write-only access to the server queue and read access for client queue prefixes. Must be encoded to prevent triggering AWS's lockdown of the account. Base64 has been sufficient in the past.
-
-##### Features
-- **price:** similar to domain fronting, see this [cost analysis of SQS](https://lists.torproject.org/mailman3/hyperkitty/list/anti-censorship-team@lists.torproject.org/message/T5REPCMJJFK3TGVYNSDCU3WT7SQDARPB/).
-
-##### Constraints
-
-Does not preserve the client IP address or a way to individualize clients. The AWS access key is shared by all clients.
-
-There is a size limit to SQS requests. From the [SQS documentation](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html)
-> The minimum message size is 1 byte (1 character). The maximum is 1,048,576 bytes (1 MiB).
-> 
-> To send messages larger than 1 MiB, you can use the Amazon SQS Extended Client Library for Java and the Amazon SQS Extended Client Library for Python. This library allows you to send an Amazon SQS message that contains a reference to a message payload in Amazon S3. The maximum payload size is 2 GB.
-
-Another option is to send signalling data over multiple messages using one of the reliability layers discussed below.
-
-### AMP Cache
-
-##### Configuration
-
-- (optional front) Front: URL visible to censor, similar to domain fronting, can hide that you are using AMP cache (e.g., `www.google.com`)
-- AMP cache URL: URL to AMP server (e.g., `https://cdn.ampproject.org/`
-- Host: URL of signalling server (e.g., `https://snowflake-broker.torproject.net/`)
-- (optional) UTLS settings
-
-##### Features
-
-- **price:** free
-
-##### Constraints
-
-There is pretty severe rate limiting for AMP cache requests, seemingly based on client IP address.
-
-Does not preserve the client IP address or provide a way to individualize clients.
-
-# Common features of signaling channels
-
-These are some ideal common features for signaling channels. Not all combinations of uses and channels will require all features, and some channels have these features built-in. But many will require a separate layer to support these properties.
+Not all signaling channels are bidirectional. In some cases, the ability to deliver configuration updates to users periodically is suficient. Push notifications and Google Pub/Sub are examples of unidirectional signaling channels that can be used to notify users in a particular region about working PTs to use in that region. They can also be used to deliver bridge updates.
 
 ### Reliability
 
-A reliability layer may be needed for signalling channels that do not provide built-in reliability assumptions. If, for example, requests and responses need to be split across multiple transfers or if the medium is not itself reliable (e.g., UDP).
+A reliability layer may be needed for signalling channels that do not provide built-in reliability assumptions. If, for example, requests and responses need to be split across multiple transfers or if the medium is not itself reliable (e.g., DNS and UDP).
 
-##### TurboTunnel
+#### TurboTunnel
 
 TurboTunnel is a design pattern for censorship circumvention tools that proposes the use of an end-to-end reliability layer between client and server. It has yet to be used together with signalling channels, but was a necessary feature for established Snowflake connections. It has also been used with [dnstt](https://www.bamsoftware.com/software/dnstt/), a circumvention transport over DNS, which could be adapted as a signalling channel.
 
-##### Fountain Codes
+#### Fountain Codes
 
 A lighter-weight alternative to a full on sequencing and reliability layer that uses rateless erasure codes to chunk and retransmit signalling channel data until enough information has been received by the other side to reconstruct the original message.
 
@@ -256,18 +245,112 @@ For anti-enumeration features, IP addresses as unique identifiers should probabl
 
 Compression is an optional step that can be used to reduce the size of messages sent via signalling channels to fit within constraints of that channel. See the [analysis of compressing Snowflake rendezvous messages](https://lists.torproject.org/mailman3/hyperkitty/list/anti-censorship-team@lists.torproject.org/thread/ZK3KJ6F3BCJRVNS55BMB6MXQNTTEFRTB/).
 
-# Timeline of censorship events affecting signaling channels
+## Signaling Channel Methods
 
-Censorship events are a useful learning experience and tell us what changes, configurations, or updates to protocols we should be able to accommodate. They show where the pain points are in existing implementations and the UX needs of applications. Here are some recent censorship events that have affected Tor's signaling channels and how we responded.
+This section enumerates active and promising signaling channel methods
+(sometimes called signaling channel transports), as well as independent
+implementations of these methods.
 
-# Other signalling channel library implementations
+This list is meant to provide a sufficent set of examples with implementation links so that it is possible to design a coherent signaling channel library interface. It is not a complete enumeration of possible signaling channels. For that, see the [Ideas of Channels](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Signaling-Channels/channels) page.
 
-- [Outline SDK](https://github.com/OutlineFoundation/outline-sdk/tree/main)
-- [Raceboat](https://github.com/tst-race/raceboat/)
+### Domain Fronting
+
+#### Domain Fronting Components
+
+- Front: URL visible to censor, to go in the TLS SNI and DNS requests (e.g., `cdn.zk.mk`)
+- Host: reflector URL that points to the signalling server, created by making an account with the cloud provider (e.g., `https://1098762253.rsc.cdn77.org`)
+- (optional) UTLS settings
+
+#### Domain Fronting Features
+
+- **price:** varies by provider, pricey as a full channel but reasonable as a signalling channel
+
+- **preservation of client IP:** sort of, the IP address of the client will be appended to the X-Forwarded-For header by whatever 3rd party is doing the fronting. But, since the server is just HTTP, clients may also make a direct request to the server and add a spoofed address to this header. Locking this down would require some kind of allow list of trusted cloud provider IPs from which to trust the X-Forwarded-For header, but this is a potentially difficult list to keep up to date. See recent discusison in
+  - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/webtunnel/-/work_items/60+
+  - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek/-/work_items/40006+
+  - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/40451+
+
+- **fingerprinting resistance via UTLS**
+
+### Amazon SQS
+
+#### SQS Components
+
+- server queue name: Queue name that clients have write-only access to send data to the server (e.g., `https://sqs.us-east-2.amazonaws.com/490393006362/snowflake-broker`)
+- client queue name prefix: Prefix used to randomly generate single-use client queues for server responses (e.g., `https://sqs.us-east-2.amazonaws.com/490393006362/snowflake-client-*`)
+- sqs credentials for client: AWS key and secret for a client IAM user with write-only access to the server queue and read access for client queue prefixes. Must be encoded to prevent triggering AWS's lockdown of the account. Base64 has been sufficient in the past.
+
+#### SQS Features
+- **price:** similar to domain fronting, see this [cost analysis of SQS](https://lists.torproject.org/mailman3/hyperkitty/list/anti-censorship-team@lists.torproject.org/message/T5REPCMJJFK3TGVYNSDCU3WT7SQDARPB/).
+
+#### SQS Constraints
+
+Does not preserve the client IP address or a way to individualize clients. The AWS access key is shared by all clients.
+
+There is a size limit to SQS requests. From the [SQS documentation](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html)
+> The minimum message size is 1 byte (1 character). The maximum is 1,048,576 bytes (1 MiB).
+> 
+> To send messages larger than 1 MiB, you can use the Amazon SQS Extended Client Library for Java and the Amazon SQS Extended Client Library for Python. This library allows you to send an Amazon SQS message that contains a reference to a message payload in Amazon S3. The maximum payload size is 2 GB.
+
+Another option is to send signalling data over multiple messages using one of the reliability layers discussed below.
+
+### AMP Cache
+
+#### AMP Components
+
+- (optional front) Front: URL visible to censor, similar to domain fronting, can hide that you are using AMP cache (e.g., `www.google.com`)
+- AMP cache URL: URL to AMP server (e.g., `https://cdn.ampproject.org/`
+- Host: URL of signalling server (e.g., `https://snowflake-broker.torproject.net/`)
+- (optional) UTLS settings
+
+#### AMP Features
+
+- **price:** free
+
+#### AMP Constraints
+
+There is pretty severe rate limiting for AMP cache requests, seemingly based on client IP address.
+
+Does not preserve the client IP address or provide a way to individualize clients.
+
+### DNS
+
+DNS is an excellent example of a signaling channel that needs to add reliability, fragmentation, framing (eg HTTP or JSONRPC), and possibly encryption in order to work with arbitrary **Network APIs**. However, this has been done by several implementations:
+
+- https://www.bamsoftware.com/software/dnstt/
+- https://github.com/EndPositive/slipstream/
+- https://github.com/masterking32/MasterDnsVPN
+
+### Gettor Bots (Email+Telegram)
+
+Gettor bots hand out bridge lines to users in response to specific keywords over email and telegram.
+
+It is possible to expand these bots to handle more complex Network API traffic than just keywords and bridge lines.
+
+### Push Notifications
+
+Push notifications can be used to send unidirectional updates to clients, after a registration step.
+
+See: https://people.torproject.org/~cohosh/push-notifications.html
+
+### Research Methods
+
+Additional research methods are documented in:
+
+- https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Signaling-Channels/channels
+
+## Other signaling channel library implementations
+
+This section documents libraries that implement multiple signaling channel
+methods. We can use these libraries for reference, since their use-case is
+very similar to what we need, but their inferfaces are still often too tightly
+coupled to specific **Network APIs**.
 
 ### Kindling
 
-[Kindling](https://github.com/getlantern/kindling) is a Lantern library for making HTTP requests through one of several supported tunnels. Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
+[Kindling](https://github.com/getlantern/kindling) is a Lantern library for making HTTP requests through one of several supported tunnels. It is an excellent example of a signaling channel library that overfit its design to HTTP-specific **Network APIs**, rather than providing an arbitrary communication channel.
+
+Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
 
 Kindling returns an [`http.Client`](https://pkg.go.dev/net/http#Client) that can be used to make HTTP requests through the configured tunnels to an arbitrary address. One downside to this is that even though `NewRoundTripper` can be used to attempt a connection to an arbitrary address, most tunnels will have a fairly restrictive set of addresses they can connect to. For example, domain fronting tunnels through CDN77 will only support connections to other URLs hosted on the same cloud provider.
 
@@ -297,3 +380,17 @@ This library also has a reliance on HTTP. While this is useful for applications 
 HTTP also limits applications to bidirectional channels only.
 
 The policy of trying all configured tunnels and selecting the first response is interesting and raises an idea of exposing a library feature that allows an application to define some sort of fallback policy. There are risks to trying everything at once, but we could expose options like "try these sequentially in this order" or "try this group serially first and then this other group".
+
+### Other Signaling Channel Libraries
+
+TODO: Expand/make dedicated sub-sections
+
+- [Outline SDK](https://github.com/OutlineFoundation/outline-sdk/tree/main)
+- [Raceboat](https://github.com/tst-race/raceboat/)
+
+
+## Timeline of censorship events affecting signaling channels
+
+Censorship events are a useful learning experience and tell us what changes, configurations, or updates to protocols we should be able to accommodate. They show where the pain points are in existing implementations and the UX needs of applications. Here are some recent censorship events that have affected Tor's signaling channels and how we responded.
+
+
