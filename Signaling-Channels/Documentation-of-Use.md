@@ -4,27 +4,45 @@ Documentation on our use of signaling channels
 
 # Anticensorship Signaling Channel Usage
 
-Each pluggable transport has its own way of obtaining configuration and endpoint information (such as bridge lines or snowflake proxies). This has led to a tight coupling between the APIs used to obtain this information and the communication mechanism (**signaling channel**) used to access this API.
+When pluggable transports are censored, they are censored either by blocking endpoints, or by blocking access to configuration and endpoint distribution.
 
-When pluggable transports are censored, they can be censored by blocking endpoints or by blocking access to this API.
+Additionally, configuration and endpoint distribution mechanisms can be blocked by the termination of service by a given hosting provider.
 
-We want to make it harder to block access to these configuration APIs, by enabling APIs to use multiple signaling channels.
+We want to make it harder to block configuration and endpoint distribution, by enabling configuration to use multiple signaling channels.
 
-In order to accomplish this, we need to have a good map of how our PTs use configuration APIs, and how this API usage is currently coupled to signaling channel usage, so that we can decouple these components.
+## Terminology
 
-Therefore, this document has two main sections. The first section covers the configuration APIs used by PT implementations, along with their current hardcoded signaling channel usage. The second section covers signaling channels in general, listing various implementation options available, their properties, and their censorship history.
+**Internal PT API** - This is the programmatic inferface used inside a PT client implementation to obtain configuration and endpoint information. These APIs are currently ad-hoc by PT implementation and tightly bound (no explicit API contract or reusable libraries).
 
-This document additionally has a top-level section to categorize important features of signaling channels, and another top-level section to list libraries that implement multiple signaling channels via an abstraction layer. (TODO: Can we merge the features section into the methods section?)
+**Network RPC API** - This is the RPC API used over the network to obtain configuration and endpoint information (ex: HTTP POST, JSONRPC, SDP, Telegram message keywords).
 
-## Network APIs in Use
+**Signaling Channel** - This is the obfuscated communication channel used by the **Network RPC API** (ex: Domain Fronting, AMPCache, AWS SQS, DNS, Blockchain, etc).
 
-This section lists the network APIs (eg HTTP POST, JSONRPC, SDP, etc) that our various PTs and applications use for transmitting configuration information, along with the signaling channels used by each implementation.
+## Status Quo
+
+Each pluggable transport has its own way of obtaining configuration and endpoint information (such as bridge lines or snowflake proxies). This has led to a tight coupling between the **Network RPC API** used to obtain this information and the **Signaling Channel** used to access this **Network RPC API**. Additionally, there are many implementations of both **Network RPC APIs** and **Signaling Channels**, using ad-hoc **Internal PT APIs** rather than standalone libraries.
+
+This means that when censorship events happen, multiple different implementation components need to be updated, across many different apps.
+
+## Goal
+
+There are currently two layers of tight coupling in most pluggable transport implementations:
+
+1. **Internal PT API Coupling** - Each implementation of a PT client reimplements the entire mechanism by which it obtains configuration and endpoint information, including both the **Signaling Channel** and the **Network RPC API** over which it obtains this information. It is currently difficult to extract either the signaling channel obfuscation or configuration retrieval mechanism from one PT and use it in another (should one signaling channel implementation be censored by DPI fingerprint, and not another).
+
+2. **Network RPC API Coupling** - The Network RPC API (eg HTTP POST, JSONRPC, SDP, Telegram message, etc) used to retrieve configuration and endpoint information is currently tightly coupled to a given **Signaling Channel**.
+
+By enumerating how our different apps use **Network RPC APIs** to obtain configuration information via specific **Signaling Channels**, we can design an appropriate library abstraction so that different **Network RPC APIs** can be used over different **Signaling Channels**.
+
+## Network RPC APIs in Use
+
+This section lists the Network RPC APIs (eg HTTP POST, JSONRPC, SDP, etc) that our various PTs and applications use for transmitting configuration information, along with the signaling channels used by each implementation.
 
 ### Moat Circumvention Settings API
 
 We provide a [Moat API](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md) for applications to fetch bridges and circumvention settings from rdsys. This API is currently bidirectional in censored environments, requiring applications to send a request for bridges or settings.
 
-This [API is already well documented](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md#circumventionsettings). Request and response sizes vary by endpoint, but are fairly small. A typical flow could involve 1-3 round trips when users first start the application, select an auto config option, or fail to bootstrap Tor: the first to request recommending settings for the user's country. If the user is supplied one or more working bridge lines, the flow ends there. If the user falls back on default settings, those settings can be fetched in 1 additional round trip. If the user decides to manually fetch a bridge, they will need to complete a captcha challenge in 2 round trips.
+This [API is well documented](https://gitlab.torproject.org/tpo/anti-censorship/rdsys/-/blob/d14af39503763690e3ee4ad4eb2fe926afc5377a/doc/moat.md#circumventionsettings). Request and response sizes vary by endpoint, but are fairly small. A typical flow could involve 1-3 round trips when users first start the application, select an auto config option, or fail to bootstrap Tor: the first to request recommending settings for the user's country. If the user is supplied one or more working bridge lines, the flow ends there. If the user falls back on default settings, those settings can be fetched in 1 additional round trip. If the user decides to manually fetch a bridge, they will need to complete a captcha challenge in 2 round trips.
 
 The largest requests for any of these endpoints are typically less than 500 bytes. The largest potential response is likely from fetching the entire [circumvention settings map](https://gitlab.torproject.org/tpo/anti-censorship/rdsys-admin/-/blob/0061ce86ee2dfc8c451a78d28d0ef09e4ed7f36e/conf/circumvention.json) which is currently 9KB but could easily grow if more countries require bespoke censorship settings. Responses with just bridge lines will usually fit in under 1KB.
 
@@ -149,11 +167,72 @@ OONI uses domain fronting to send measurements from probes to the backend.
 
 At the probe, this is implemented simply by [manually setting the URL hostname and HTTP HOST headers](https://github.com/ooni/probe-cli/blob/c52ce3b50893e650c8e60490343e7a7892c00d64/internal/probeservices/probeservices.go#L110). This requires no server side changes, and measurement submissions are conducted via API requests over HTTP.
 
+## Properties of signaling channels
+
+These are some key properties of signaling channels. Not all combinations of uses and channels will require all features, and some channels have these features built-in. Others will require a separate layer to support these properties.
+
+### Directionality
+
+Not all signaling channels are bidirectional. In some cases, the ability to deliver configuration updates to users periodically is suficient. Push notifications and Google Pub/Sub are examples of unidirectional signaling channels that can be used to notify users in a particular region about working PTs to use in that region. They can also be used to deliver bridge updates.
+
+### Reliability
+
+A reliability layer may be needed for signalling channels that do not provide built-in reliability assumptions. If, for example, requests and responses need to be split across multiple transfers or if the medium is not itself reliable (e.g., DNS and UDP).
+
+#### TurboTunnel
+
+TurboTunnel is a design pattern for censorship circumvention tools that proposes the use of an end-to-end reliability layer between client and server. It has yet to be used together with signalling channels, but was a necessary feature for established Snowflake connections. It has also been used with [dnstt](https://www.bamsoftware.com/software/dnstt/), a circumvention transport over DNS, which could be adapted as a signalling channel.
+
+#### Fountain Codes
+
+A lighter-weight alternative to a full on sequencing and reliability layer that uses rateless erasure codes to chunk and retransmit signalling channel data until enough information has been received by the other side to reconstruct the original message.
+
+Link to paper and implementation: https://github.com/net4people/bbs/issues/591#issuecomment-4248280173
+
+### Padding
+
+Padding has become a more critical feature of circumvention tools recently. Reports of successful uses of padding to circumvent blocks:
+- [Potential TLS-over-DTLS blocking in China (2023)](https://github.com/net4people/bbs/issues/255)
+- [Throttling of Twitter in Russia (2021)](https://github.com/net4people/bbs/issues/65#issuecomment-816243379)
+
+It is likely to be especially relevant to signalling channels, which can have very distinctive patterns.
+
+Both TurboTunnel and the Fountain Codes papers discussed above have discussions on padding implementations built in to the reliability mechanism.
+
+See:
+- [Snowflake's encapsulation.go](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/common/encapsulation/encapsulation.go#L117)
+
+### End-to-end confidentiality and integrity
+
+Many signalling channels rely on 3rd party services and do not offer full end-to-end confidentiality and integrity between the client and the signalling server. For example, in domain fronting, the client encrypts an HTTP request for the cloud provider or edge service, and the request is then re-encrypted by that provider for the signalling server.
+
+This has been discussed in:
+- https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/22945+
+- https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/merge_requests/39#note_2737344+.
+
+An easy way to do this could be to have clients asymmetrically encrypt the initial message to the signalling server with the server's public key, and include a symmetric key in the signalling data that should be used to encrypt the server's response. The response can also be signed with the server's private key and verified by the client using the same public key as before. This is partially implemented in the [Orbot push notifications proof of concept code](https://github.com/cohosh/orbot/commit/9841fcbec517c238fc3ebf7130b4d9c7094b8e32). The server's public key would have to be distributed along with other channel details.
+
+### Preservation of client IP
+
+Applications of signalling channels use client IP addresses for metrics, circumvention settings, and anti-enumeration features. Many signaling channels do not have an easy or trusted way of preserving client IP addresses.
+
+Not all of these use-cases requires trust. Geo-location for circumvention settings are in a client's best interest to provide an honest and accurate IP address. Some options are to take the same route as Conjure and use an additional STUN request to get the client's public IP address. We could also prompt the user to manually provide their country code, as Tor Browser does at a late stage in the autoconnect flow, or fetch locale information from the user's device.
+
+For metrics, the impact of attacker-spoofed IP addresses is probably fairly low compared the majority of honest clients.
+
+For anti-enumeration features, IP addresses as unique identifiers should probably be replaced with some other means of preventing enumeration.
+
+### Compression
+
+Compression is an optional step that can be used to reduce the size of messages sent via signalling channels to fit within constraints of that channel. See the [analysis of compressing Snowflake rendezvous messages](https://lists.torproject.org/mailman3/hyperkitty/list/anti-censorship-team@lists.torproject.org/thread/ZK3KJ6F3BCJRVNS55BMB6MXQNTTEFRTB/).
+
 ## Signaling Channel Methods
 
 This section enumerates active and promising signaling channel methods
 (sometimes called signaling channel transports), as well as independent
 implementations of these methods.
+
+This list is meant to provide a sufficent set of examples with implementation links so that it is possible to design a coherent signaling channel library interface. It is not a complete enumeration of possible signaling channels. For that, see the [Ideas of Channels](https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Signaling-Channels/channels) page.
 
 ### Domain Fronting
 
@@ -215,82 +294,40 @@ There is pretty severe rate limiting for AMP cache requests, seemingly based on 
 
 Does not preserve the client IP address or provide a way to individualize clients.
 
-### DNSTT
+### DNS
 
-TODO: Document DNSTT
+DNS is an excellent example of a signaling channel that needs to add reliability, fragmentation, framing (eg HTTP or JSONRPC), and possibly encryption in order to work with arbitrary **Network RPC APIs**. However, this has been done by several implementations:
+
+- https://www.bamsoftware.com/software/dnstt/
+- https://github.com/EndPositive/slipstream/
+- https://github.com/masterking32/MasterDnsVPN
+
+### Gettor Bots (Email+Telegram)
+
+Gettor bots hand out bridge lines to users in response to specific keywords over email and telegram.
+
+It is possible to expand these bots to handle more complex Network RPC traffic than just keywords and bridge lines.
 
 ### Unidirectional updates (proposed)
 
 - https://people.torproject.org/~cohosh/push-notifications.html
 
-### TODO: Enumerate more signaling channel methods here
+### Research Methods
 
-TODO: TODO
+- https://gitlab.torproject.org/tpo/anti-censorship/team/-/wikis/Signaling-Channels/channels
 
-## Common features of signaling channels
-
-These are some ideal common features for signaling channels. Not all combinations of uses and channels will require all features, and some channels have these features built-in. But many will require a separate layer to support these properties.
-
-### Reliability
-
-A reliability layer may be needed for signalling channels that do not provide built-in reliability assumptions. If, for example, requests and responses need to be split across multiple transfers or if the medium is not itself reliable (e.g., UDP).
-
-#### TurboTunnel
-
-TurboTunnel is a design pattern for censorship circumvention tools that proposes the use of an end-to-end reliability layer between client and server. It has yet to be used together with signalling channels, but was a necessary feature for established Snowflake connections. It has also been used with [dnstt](https://www.bamsoftware.com/software/dnstt/), a circumvention transport over DNS, which could be adapted as a signalling channel.
-
-#### Fountain Codes
-
-A lighter-weight alternative to a full on sequencing and reliability layer that uses rateless erasure codes to chunk and retransmit signalling channel data until enough information has been received by the other side to reconstruct the original message.
-
-Link to paper and implementation: https://github.com/net4people/bbs/issues/591#issuecomment-4248280173
-
-### Padding
-
-Padding has become a more critical feature of circumvention tools recently. Reports of successful uses of padding to circumvent blocks:
-- [Potential TLS-over-DTLS blocking in China (2023)](https://github.com/net4people/bbs/issues/255)
-- [Throttling of Twitter in Russia (2021)](https://github.com/net4people/bbs/issues/65#issuecomment-816243379)
-
-It is likely to be especially relevant to signalling channels, which can have very distinctive patterns.
-
-Both TurboTunnel and the Fountain Codes papers discussed above have discussions on padding implementations built in to the reliability mechanism.
-
-See:
-- [Snowflake's encapsulation.go](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/blob/cee56c134d85715ad9a443f7894b1728c5f37417/common/encapsulation/encapsulation.go#L117)
-
-### End-to-end confidentiality and integrity
-
-Many signalling channels rely on 3rd party services and do not offer full end-to-end confidentiality and integrity between the client and the signalling server. For example, in domain fronting, the client encrypts an HTTP request for the cloud provider or edge service, and the request is then re-encrypted by that provider for the signalling server.
-
-This has been discussed in:
-- https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/work_items/22945+
-- https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/merge_requests/39#note_2737344+.
-
-An easy way to do this could be to have clients asymmetrically encrypt the initial message to the signalling server with the server's public key, and include a symmetric key in the signalling data that should be used to encrypt the server's response. The response can also be signed with the server's private key and verified by the client using the same public key as before. This is partially implemented in the [Orbot push notifications proof of concept code](https://github.com/cohosh/orbot/commit/9841fcbec517c238fc3ebf7130b4d9c7094b8e32). The server's public key would have to be distributed along with other channel details.
-
-### Preservation of client IP
-
-Applications of signalling channels use client IP addresses for metrics, circumvention settings, and anti-enumeration features. Many signaling channels do not have an easy or trusted way of preserving client IP addresses.
-
-Not all of these use-cases requires trust. Geo-location for circumvention settings are in a client's best interest to provide an honest and accurate IP address. Some options are to take the same route as Conjure and use an additional STUN request to get the client's public IP address. We could also prompt the user to manually provide their country code, as Tor Browser does at a late stage in the autoconnect flow, or fetch locale information from the user's device.
-
-For metrics, the impact of attacker-spoofed IP addresses is probably fairly low compared the majority of honest clients.
-
-For anti-enumeration features, IP addresses as unique identifiers should probably be replaced with some other means of preventing enumeration.
-
-### Compression
-
-Compression is an optional step that can be used to reduce the size of messages sent via signalling channels to fit within constraints of that channel. See the [analysis of compressing Snowflake rendezvous messages](https://lists.torproject.org/mailman3/hyperkitty/list/anti-censorship-team@lists.torproject.org/thread/ZK3KJ6F3BCJRVNS55BMB6MXQNTTEFRTB/).
-
-## Other signalling channel library implementations
+## Other signaling channel library implementations
 
 This section documents libraries that implement multiple signaling channel
 methods. We can use these libraries for reference, since their use-case is
-very similar to what we need.
+very similar to what we need, but their inferfaces are still often too tightly
+coupled to specific **Network RPC APIs**.
 
 ### Kindling
 
-[Kindling](https://github.com/getlantern/kindling) is a Lantern library for making HTTP requests through one of several supported tunnels. Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
+[Kindling](https://github.com/getlantern/kindling) is a Lantern library for making HTTP requests through one of several supported tunnels. It is an excellent example of a signaling channel library that overfit its design to HTTP-specific **Network RPC APIs**, rather than providing an arbitrary communication channel.
+
+Applications configure which tunnels they are willing to use and the library attempts connections through all at once, using whichever tunnel responds fastest.
 
 Kindling returns an [`http.Client`](https://pkg.go.dev/net/http#Client) that can be used to make HTTP requests through the configured tunnels to an arbitrary address. One downside to this is that even though `NewRoundTripper` can be used to attempt a connection to an arbitrary address, most tunnels will have a fairly restrictive set of addresses they can connect to. For example, domain fronting tunnels through CDN77 will only support connections to other URLs hosted on the same cloud provider.
 
